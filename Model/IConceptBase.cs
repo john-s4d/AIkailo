@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AIkailo.Internal
+﻿namespace AIkailo.Model
 {
-    public interface IConceptBase
-    {
-    }
+    public interface IConceptBase { }
 }

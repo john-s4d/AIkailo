@@ -1,7 +1,4 @@
-﻿namespace AIkailo.Internal
+﻿namespace AIkailo.Model
 {
-    public class ProcessModel : Concept
-    {
-        
-    }
+    public class ProcessModel : Concept { }
 }

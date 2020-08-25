@@ -1,59 +1,61 @@
-﻿using System;
+﻿using AIkailo.External;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AIkailo.External;
+using IConvertible = AIkailo.Model.IConvertible<System.IConvertible>;
 
 namespace AIkailo.Modules.Interaction
 {
     internal class Program
-    {
-        private const string HOST = "rabbitmq://localhost";        
-        private const string MODULE_NAME = "AIkailo.Modules.Interaction"; // TODO: This should be a unique Id
+    {   
+        private const string HOST = @"rabbitmq://localhost";
 
-        internal static InteractionModule _aikailo;
+        private static Adapter _aikailoAdapter = new Adapter(HOST);
+        private static Input _input = new Input("Interaction.Input");
+        private static Output _output = new Output("Interaction.Output");
 
         internal static void Main(string[] args)
         {
-            /*
-            _aikailo = new AIkailoModuleInterface(HOST);            
-            _aikailo.RegisterAction<InteractionActionMessage, InteractionActionMessageConsumer>(MODULE_NAME);            
-            _aikailo.Start();
-            */
+            _aikailoAdapter.AddOutput(_output);
+            _output.OutputEvent += OnOutputEvent;
 
-            _aikailo = new InteractionModule(HOST);
-            _aikailo.Start();
-            
+            _aikailoAdapter.AddInput(_input);
+
             Run().Wait();
-        }      
+        }
+
+        private static void OnOutputEvent(List<Tuple<IConvertible, IConvertible>> data)
+        {
+            Console.WriteLine("output:> " + data[0].Item1 + " : " + data[0].Item2);
+            //Console.Write("input:> ");
+        }
+
         private async static Task Run()
         {
-            Console.WriteLine("Enter message (or quit to exit)");
-            Console.Write("> ");
+            _aikailoAdapter.Start();            
+
+            //Console.WriteLine("output:> Enter message (or quit to exit)");
+            Console.WriteLine("input:>");
             do
             {
                 string value = await Task.Run(() =>
-                {   
+                {
                     return Console.ReadLine();
                 });
 
-                if ("quit".Equals(value, StringComparison.OrdinalIgnoreCase))
-                    return;
-                /*
-                InteractionSensorMessage message = new InteractionSensorMessage()
-                {
-                    Data = value
-                };
+                if (value.Equals("quit", StringComparison.OrdinalIgnoreCase)) { break; }
 
-                //Console.WriteLine(string.Format(">> Sending message type {0} with data {1}", message.GetType().FullName,  message.Data));    
-                */
+                Tuple<IConvertible, IConvertible> data = new Tuple<IConvertible, IConvertible>((IConvertible)"input", (IConvertible)value);
 
-                Tuple<IConvertible, IConvertible> message = new Tuple<IConvertible, IConvertible>("interaction", value);
+                _input.CreateInputEvent(new List<Tuple<IConvertible, IConvertible>> { data });
 
-                await _aikailo.Publish(new List<Tuple<IConvertible, IConvertible>>() { message }); // don't wait?
+                //await _input.SensorEvent(new List<Tuple<IConvertible, IConvertible>> { data });
 
-                Console.WriteLine(">> Message Sent");
+                Console.WriteLine("sent:> " + data.Item1 + " : " + data.Item2);
             }
             while (true);
+
+            _aikailoAdapter.Stop();            
         }
     }
 }

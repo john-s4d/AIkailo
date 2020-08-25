@@ -1,108 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
-using AIkailo.Internal;
+using AIkailo.Model;
 
 namespace AIkailo.Data
 {
     internal class DataManager
     {
-        public const int DISK_SECTOR_SIZE = 512;
-
-        private const string ASSOCIATION_DATA_FILENAME = "associations";
-        private const string SENSOR_NAME = "Sensor Name";
-        private const string ACTION_NAME = "Action Name";
-
-        //ConceptsDataProvider _associationData;
+        private AssociationDataProvider _associationData;
 
         internal DataManager(string dataDirectory)
         {
-            //_associationData = new ConceptsDataProvider(dataDirectory, ASSOCIATION_DATA_FILENAME);
-
+            _associationData = new AssociationDataProvider(dataDirectory);
             // _classifyModelData = ?
             // _processModelData = ?
             // _sentimentData = ?
-
+        }
+        
+        internal Concept FindOrCreate(IConvertible definition)
+        {
+            return FindOrCreate(Constants.DEFAULT_THRESHOLD, definition);
         }
 
-        // Convert SensorMessage data to Scene
-        internal Scene Assemble(string sensorName, List<Tuple<string, string>> data)
+        internal Concept FindOrCreate(int threshold, IConvertible definition)
         {
-            Scene result = new Scene();
-
-            Concept cSensorNameLabel = FindOrCreate<Concept>(SENSOR_NAME);
-            Concept cSensorNameValue = FindOrCreate<Concept>(sensorName);
-            result.AddChild(FindOrCreate<Scene>(cSensorNameLabel, cSensorNameValue));
-
-            foreach (Tuple<string, string> parameter in data)
+            Concept result = _associationData.Find(threshold, definition);
+            if (result == null)
             {
-                Concept cParamName = FindOrCreate<Concept>(parameter.Item1);
-                Concept cParamValue = FindOrCreate<Concept>(parameter.Item2);
-                result.AddChild(FindOrCreate<Scene>(cParamName, cParamValue));
+                result = _associationData.Create(definition);
             }
-
             return result;
         }
 
-        // Convert Scene to ActionMessage data        
-        internal List<Tuple<IConvertible, IConvertible>> Disassemble(out string actionName, Scene scene)
+        internal Scene FindOrCreate(params Concept[] concepts)
         {
-            List<Tuple<IConvertible, IConvertible>> result = new List<Tuple<IConvertible, IConvertible>>();
-
-            actionName = string.Empty;
-
-            foreach (Scene s in scene.Concepts.Keys)
-            {
-                Concept cParamName = s.Concepts.Keys[0];
-                Concept cParamValue = s.Concepts.Keys[1];
-
-                if (cParamName.Definition is string && (string)cParamName.Definition == ACTION_NAME)
-                {
-                    actionName = (string)cParamValue.Definition;
-                }
-                else
-                {
-                    result.Add(new Tuple<IConvertible, IConvertible>(cParamName.Definition, cParamValue.Definition));
-                }
-            }
-            
-            return result;
+            return FindOrCreate(Constants.DEFAULT_THRESHOLD, concepts);
         }
 
-        internal Concept FindOrCreate<T>(IConvertible definition) where T : Concept
+        internal Scene FindOrCreate(int threshold, params Concept[] concepts)
         {
-            return new Concept()
-            {
-                Definition = definition,
-                Id = null
-            };
-            //return _associationData.FindOrCreate(item);
-            
+            throw new NotImplementedException();
         }
 
-        private Scene FindOrCreate<T>(params Concept[] concepts) where T : Scene
-        {
-            Scene scene = new Scene();
-            foreach (Concept concept in concepts)
-            {
-                scene.Concepts.Add(concept, Constants.NEUTRAL);
-            }
-            return scene;
-            //return _associationData.FindOrCreate(concepts);
-        }
-
-        // Convert Scene to known Concept patterns with smallest footprint
-        internal Scene Reduce(Scene scene)
-        {
-            return scene;
-            //throw new NotImplementedException();
-        }
-
-        // Convert Scene to concrete Concept definitions
-        internal Scene Expand(Scene scene)
-        {
-            return scene;
-            //throw new NotImplementedException();
-        }
+        /*
 
         // Find and rank similar Scenes
         internal List<Scene> Similar(Scene scene, int threshold)
@@ -122,16 +61,22 @@ namespace AIkailo.Data
             throw new NotImplementedException();
         }
 
-        // Gets a Scene containing the all the Concepts from the provided scenes, duplicates removed
+        // Generate a Scene containing the all the Concepts from the provided Scenes, duplicates removed
         internal Scene Union(List<Scene> scenes)
         {
             throw new NotImplementedException();
         }
 
-        // Get a Scene containing the Concepts that appear exactly once in the provided scenes
+        // Generate a Scene containing the Concepts that appear exactly once in the provided Scenes
+        internal Scene Unique(List<Scene> scenes)
+        {
+            throw new NotImplementedException();
+        }
+
         internal Scene Except(List<Scene> scenes)
         {
             throw new NotImplementedException();
         }
+        */
     }
 }

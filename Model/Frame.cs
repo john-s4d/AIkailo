@@ -1,4 +1,4 @@
-﻿namespace AIkailo.Internal
+﻿namespace AIkailo.Model
 {
     /// <summary>
     /// A Progression of Scenes

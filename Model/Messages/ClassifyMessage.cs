@@ -1,6 +1,6 @@
-﻿namespace AIkailo.Internal
+﻿namespace AIkailo.Model
 {
-    public class ClassifyMessage : ISceneMessage
+    public class ClassifyMessage : IMessage
     {
         public Scene Scene { get; set; }
     }

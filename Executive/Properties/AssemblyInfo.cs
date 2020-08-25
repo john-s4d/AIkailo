@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Executive")]
+[assembly: AssemblyTitle("AIkailo.Executive")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Executive")]
+[assembly: AssemblyProduct("AIkailo.Executive")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7b8d3623-b84b-4a95-93c9-69b9dd94a243")]
+[assembly: Guid("3d57e56d-8d7e-487d-964d-911f902c0279")]
 
 // Version information for an assembly consists of the following four values:
 //
