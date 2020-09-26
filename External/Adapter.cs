@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using AIkailo.Messaging;
-using AIkailo.Model;
-using IConvertible = AIkailo.Model.IConvertible<System.IConvertible>;
+using AIkailo.Model.Internal;
+using AIkailo.Model.Common;
 
 namespace AIkailo.External
 {
@@ -10,8 +9,10 @@ namespace AIkailo.External
     {
         private MessageService _messageService;
 
+        private Adapter() { }
+
         public Adapter(string host)
-        {   
+        {
             _messageService = new MessageService(host);
         }
 
@@ -25,20 +26,23 @@ namespace AIkailo.External
             _messageService.Stop();
         }
 
-        public void AddInput(Input input)
+        public Input CreateInputSource(string name)
         {
-            input.InputEvent += OnInputEvent;
+            Input result = new Input(name);
+            result.InputEvent += OnInputEvent;
+            return result;
         }
 
-        private void OnInputEvent(string sender, List<Tuple<IConvertible, IConvertible>> data)
+        public void CreateOutputTarget(string name, Action<DataPackage> callback)
         {
-            _messageService.Publish(new InputMessage(sender, data));
+            Output result = new Output(name);
+            _messageService.RegisterConsumer(result.Name, result.Consumer);
+            result.OutputEvent += callback;
         }
 
-        public Output AddOutput(Output output)
+        private void OnInputEvent(string source, DataPackage data)
         {
-            _messageService.RegisterConsumer(output.Name, output.Consumer);
-            return output;
+            _messageService.Publish(new InputMessage(source, data));
         }
     }
 }

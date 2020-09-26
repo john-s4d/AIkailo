@@ -1,4 +1,4 @@
-﻿using AIkailo.Model;
+﻿using AIkailo.Model.Internal;
 
 namespace AIkailo.Messaging
 {

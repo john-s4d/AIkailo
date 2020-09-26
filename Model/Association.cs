@@ -1,24 +1,24 @@
-﻿namespace AIkailo.Model
+﻿namespace AIkailo.Model.Internal
 {
     /// <summary>
     ///  A weighted pair of Concepts
     /// </summary>
     public class Association
     {
-        public Concept Parent { get; set; }
-        public Concept Child { get; set; }
+        public ulong ParentId { get; set; }
+        public ulong ChildId { get; set; }
         public int Weight { get; set; }
 
         private Association() { }
 
-        public Association(Concept parent, Concept child, int weight)
+        public Association(ulong parentId, ulong childId, int weight)
         {
-            Parent = parent;
-            Child = child;
+            ParentId = parentId;
+            ChildId = childId;
             Weight = weight;
         }
 
-        public Association(Concept parent, Concept child)
-            : this(parent, child, Constants.NEUTRAL) { }
+        public Association(ulong parentId, ulong childId)
+            : this(parentId, childId, Constants.NEUTRAL) { }
     }
 }

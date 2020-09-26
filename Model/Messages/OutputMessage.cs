@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AIkailo.Model
+namespace AIkailo.Model.Internal
 {
     public class OutputMessage : IMessage
     {

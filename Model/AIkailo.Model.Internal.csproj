@@ -6,8 +6,8 @@
     <ProjectGuid>{085FC83F-08D4-4FFE-B178-0F3B84DFFDA5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AIkailo.Model</RootNamespace>
-    <AssemblyName>AIkailo.Model</AssemblyName>
+    <RootNamespace>AIkailo.Model.Internal</RootNamespace>
+    <AssemblyName>AIkailo.Model.Internal</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -50,12 +50,10 @@
     <Compile Include="Association.cs" />
     <Compile Include="Concept.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="DataPair.cs" />
     <Compile Include="IAIkailoService.cs" />
     <Compile Include="IConcept.cs" />
     <Compile Include="Frame.cs" />
     <Compile Include="IConceptBase.cs" />
-    <Compile Include="IConvertible.cs" />
     <Compile Include="IMessage.cs" />
     <Compile Include="IOrderedDictionary.cs" />
     <Compile Include="Messages\OutputMessage.cs" />
@@ -77,6 +75,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\External.Model\AIkailo.Model.Common.csproj">
+      <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
+      <Name>AIkailo.Model.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

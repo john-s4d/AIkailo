@@ -125,13 +125,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\External.Model\AIkailo.Model.Common.csproj">
+      <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
+      <Name>AIkailo.Model.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Messaging\AIkailo.Messaging.csproj">
       <Project>{270a6b16-4b0f-4816-838d-87001ee50feb}</Project>
       <Name>AIkailo.Messaging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Model\AIkailo.Model.csproj">
+    <ProjectReference Include="..\Model\AIkailo.Model.Internal.csproj">
       <Project>{085fc83f-08d4-4ffe-b178-0f3b84dffda5}</Project>
-      <Name>AIkailo.Model</Name>
+      <Name>AIkailo.Model.Internal</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

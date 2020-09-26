@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AIkailo.Messaging;
-using AIkailo.Model;
+using AIkailo.Model.Common;
+using AIkailo.Model.Internal;
 using MassTransit;
 
 namespace AIkailo.Core
@@ -9,18 +10,33 @@ namespace AIkailo.Core
     // Assemble a Scene from the given data    
     internal class InputMessageConsumer : IMessageConsumer<InputMessage>
     {
-        public Task Consume(ConsumeContext<InputMessage> context)            
+        public Task Consume(ConsumeContext<InputMessage> context)
         {
-            throw new NotImplementedException();
-            /*
+
             Console.WriteLine("InputMessageConsumer.Consume(InputMessage)");
-            
-            Scene result = new Scene
-            {   
-                AIkailo.DataService.FindOrCreate(Constants.SENDER_GUID, context.Message.Sender)
+
+            /*
+            Scene scene1 = new Scene
+            {
+                new Concept() { Definition = Constants.TARGET_GUID, Id = 0 },
+                new Concept() { Definition = "Interaction.Output", Id = 1}
+                //AIkailo.DataService.FindOrCreate(Constants.SENDER_GUID, context.Message.Source)
+            };            
+            scene1.Id = 2;
+
+            Scene scene2 = new Scene
+            {
+                new Concept() {Definition = "output", Id = 3},
+                new Concept() {Definition = context.Message.Data[0].Item2, Id = 4}
             };
+            scene2.Id = 5;
+
+            Scene result = new Scene();
+            result.Add(scene1);
+            result.Add(scene2);
+
             
-            foreach (Tuple<IConvertible, IConvertible> parameter in context.Message.Data)
+            foreach (PrimitivePair parameter in context.Message.Data)
             {
                 result.Add(
                     AIkailo.DataService.FindOrCreate(parameter.Item1, parameter.Item2)                    
@@ -29,10 +45,17 @@ namespace AIkailo.Core
 
             // Send to the Reducer
             //AIkailo.MessageService.Publish(new ReduceMessage(result));
+            */
 
-            // SHORTCUT - Send directly to output
-            AIkailo.MessageService.Publish(new OutputMessage(result));*/
-            return null;
+            InputMessage input = context.Message;            
+
+            // TESTING - Just send a dummy OutputMessage
+
+            Scene result = new Scene();
+            result.Add(AIkailo.DataService.FindOrCreate("target"), AIkailo.DataService.FindOrCreate("Interaction.Output"));
+            result.Add(AIkailo.DataService.FindOrCreate("output"), AIkailo.DataService.FindOrCreate("bar"));
+
+            return context.Publish(new OutputMessage(result));            
         }
 
     }

@@ -1,10 +1,10 @@
 ﻿using AIkailo.Messaging;
-using AIkailo.Model;
+using AIkailo.Model.Internal;
+using AIkailo.Model.Common;
 using MassTransit;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using IConvertible = AIkailo.Model.IConvertible<System.IConvertible>;
 
 namespace AIkailo.External
 {    

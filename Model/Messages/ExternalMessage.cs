@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using IConvertible = AIkailo.Model.IConvertible<System.IConvertible>;
+﻿using AIkailo.Model.Common;
 
-namespace AIkailo.Model
+namespace AIkailo.Model.Internal
 {
     public class ExternalMessage : IMessage
     {
-        public List<Tuple<IConvertible, IConvertible>> Data { get; }
+        public DataPackage Data { get; }
 
-        public ExternalMessage(List<Tuple<IConvertible, IConvertible>> data) 
+        public ExternalMessage(DataPackage data) 
         {
             Data = data;
         }

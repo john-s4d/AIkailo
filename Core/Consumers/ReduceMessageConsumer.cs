@@ -1,5 +1,5 @@
 ﻿using System;
-using AIkailo.Model;
+using AIkailo.Model.Internal;
 using AIkailo.Messaging;
 using System.Threading.Tasks;
 using MassTransit;

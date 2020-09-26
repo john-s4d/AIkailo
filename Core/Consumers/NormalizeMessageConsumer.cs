@@ -1,4 +1,4 @@
-﻿using AIkailo.Model;
+﻿using AIkailo.Model.Internal;
 using AIkailo.Messaging;
 using System;
 using System.Threading.Tasks;

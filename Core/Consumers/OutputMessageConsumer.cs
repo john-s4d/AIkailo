@@ -1,27 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AIkailo.Messaging;
-using AIkailo.Model;
+using AIkailo.Model.Common;
+using AIkailo.Model.Internal;
 using MassTransit;
-using IConvertible = AIkailo.Model.IConvertible<System.IConvertible>;
 
 namespace AIkailo.Core
 {
     internal class OutputMessageConsumer : IMessageConsumer<OutputMessage>
     {
-
-        public Task Consume(ConsumeContext<OutputMessage> context)
+        public async Task Consume(ConsumeContext<OutputMessage> context)
         {
             Console.WriteLine("OutputMessageConsumer.Consume(OutputMessage)");
 
+            /*
             // Disassemble a Scene into its structured data and extract the target if possible
             string target = string.Empty;
-            List<Tuple<IConvertible, IConvertible>> data = new List<Tuple<IConvertible, IConvertible>>();
+            DataPackage data = new DataPackage();
 
             foreach (Association a in context.Message.Scene)
             {
-                Scene s = (Scene)a.Child;
+                AIkailo.DataService.
+                Scene s = (Scene)a.ChildId;
                 Concept cParamName = s[0].Child;
                 Concept cParamValue = s[1].Child;
 
@@ -31,13 +31,20 @@ namespace AIkailo.Core
                 }
                 else
                 {
-                    data.Add(new Tuple<IConvertible, IConvertible>(cParamName.Definition, cParamValue.Definition));
+                    data.Add(new PrimPair(cParamName.Definition, cParamValue.Definition));
                 }
             }
-
+            */
+            
             // Send the message to an external target
-            AIkailo.MessageService.Send(target, new ExternalMessage(data));
-            return null;
+            string target = "Interaction.Output";
+            DataPackage data = new DataPackage();
+            data.Add("output", "bar");
+                        
+            ISendEndpoint endpoint = await context.GetSendEndpoint(new Uri($"rabbitmq://localhost/{target}"));
+            await endpoint.Send(new ExternalMessage(data));
+
+            //context.Send<ExternalMessage>()            
         }
     }
 }

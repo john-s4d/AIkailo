@@ -3,7 +3,7 @@ using System.ServiceProcess;
 using System.Collections.Generic;
 using AIkailo.External;
 using AIkailo.Data;
-using AIkailo.Model;
+using AIkailo.Model.Internal;
 using AIkailo.Messaging;
 using AIkailo.Executive;
 using System.Threading.Tasks;

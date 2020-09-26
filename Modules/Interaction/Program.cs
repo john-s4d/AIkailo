@@ -1,30 +1,27 @@
 ﻿using AIkailo.External;
+using AIkailo.Model.Common;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using IConvertible = AIkailo.Model.IConvertible<System.IConvertible>;
 
 namespace AIkailo.Modules.Interaction
 {
     internal class Program
-    {   
+    {
         private const string HOST = @"rabbitmq://localhost";
 
-        private static Adapter _aikailoAdapter = new Adapter(HOST);
-        private static Input _input = new Input("Interaction.Input");
-        private static Output _output = new Output("Interaction.Output");
+        private static Adapter _aikailo = new Adapter(HOST);
+        private static Input _input;
 
         internal static void Main(string[] args)
         {
-            _aikailoAdapter.AddOutput(_output);
-            _output.OutputEvent += OnOutputEvent;
 
-            _aikailoAdapter.AddInput(_input);
+            _input = _aikailo.CreateInputSource("Interaction.Input");
+            _aikailo.CreateOutputTarget("Interaction.Output", OnOutputEvent);
 
             Run().Wait();
         }
 
-        private static void OnOutputEvent(List<Tuple<IConvertible, IConvertible>> data)
+        private static void OnOutputEvent(DataPackage data)
         {
             Console.WriteLine("output:> " + data[0].Item1 + " : " + data[0].Item2);
             //Console.Write("input:> ");
@@ -32,7 +29,7 @@ namespace AIkailo.Modules.Interaction
 
         private async static Task Run()
         {
-            _aikailoAdapter.Start();            
+            _aikailo.Start();
 
             //Console.WriteLine("output:> Enter message (or quit to exit)");
             Console.WriteLine("input:>");
@@ -45,17 +42,21 @@ namespace AIkailo.Modules.Interaction
 
                 if (value.Equals("quit", StringComparison.OrdinalIgnoreCase)) { break; }
 
-                Tuple<IConvertible, IConvertible> data = new Tuple<IConvertible, IConvertible>((IConvertible)"input", (IConvertible)value);
+                DataPackage data = new DataPackage
+                {
+                    { "input", value }
+                    //,{ 0, 1 }
+                };
 
-                _input.CreateInputEvent(new List<Tuple<IConvertible, IConvertible>> { data });
+                _input.OnInputEvent(data);
 
-                //await _input.SensorEvent(new List<Tuple<IConvertible, IConvertible>> { data });
+                //await _input.CreateInputEvent(data);
 
-                Console.WriteLine("sent:> " + data.Item1 + " : " + data.Item2);
+                Console.WriteLine("sent:> " + data[0].Item1 + " : " + data[0].Item2);
             }
             while (true);
 
-            _aikailoAdapter.Stop();            
+            _aikailo.Stop();
         }
     }
 }

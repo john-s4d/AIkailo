@@ -56,17 +56,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\External.Model\AIkailo.Model.Common.csproj">
+      <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
+      <Name>AIkailo.Model.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\External\AIkailo.External.csproj">
       <Project>{42ee0b5a-1d05-47ec-9a30-6c86ba507ba3}</Project>
       <Name>AIkailo.External</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Messaging\AIkailo.Messaging.csproj">
-      <Project>{270a6b16-4b0f-4816-838d-87001ee50feb}</Project>
-      <Name>AIkailo.Messaging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Model\AIkailo.Model.csproj">
-      <Project>{085FC83F-08D4-4FFE-B178-0F3B84DFFDA5}</Project>
-      <Name>AIkailo.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

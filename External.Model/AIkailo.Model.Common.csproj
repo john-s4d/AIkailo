@@ -4,15 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3D57E56D-8D7E-487D-964D-911F902C0279}</ProjectGuid>
+    <ProjectGuid>{67961BE6-A4DB-4A4C-94B7-8F80946D9F93}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AIkailo.Executive</RootNamespace>
-    <AssemblyName>AIkailo.Executive</AssemblyName>
+    <RootNamespace>AIkailo.Model.Common</RootNamespace>
+    <AssemblyName>AIkailo.Model.Common</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,7 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,21 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ObservationService.cs" />
+    <Compile Include="DataPackage.cs" />
+    <Compile Include="Primitive.cs" />
+    <Compile Include="PrimitivePair.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\External.Model\AIkailo.Model.Common.csproj">
-      <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
-      <Name>AIkailo.Model.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Model\AIkailo.Model.Internal.csproj">
-      <Project>{085fc83f-08d4-4ffe-b178-0f3b84dffda5}</Project>
-      <Name>AIkailo.Model.Internal</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

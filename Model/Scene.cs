@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace AIkailo.Model
+namespace AIkailo.Model.Internal
 {
     /// <summary>
     ///  An ordered and weighted list of Associations, where this Scene is the parent Concept. 
@@ -11,16 +11,28 @@ namespace AIkailo.Model
     {
         // TODO: Performance of sorted array vs sort array on demand
         //private SortedDictionary<Concept, Association> _associations; // SortedDictionary is O(log n) read/write
-        private SortedList<Concept, Association> _associations; // SortedList has indexing so we can implement the readonlylist
+        private readonly SortedList<Concept, Association> _associations;
+
+        public Scene()
+        {
+            _associations = new SortedList<Concept, Association>(); // SortedList has indexing so we can implement the readonlylist
+        }
+        public void Add(params Concept[] concepts)
+        {
+            foreach (Concept c in concepts)
+            {
+                Add(c, Constants.NEUTRAL);
+            }
+        }
 
         public void Add(Scene scene, int weight = Constants.NEUTRAL)
         {
-            _associations.Add(scene, new Association(this, scene, weight));
+            _associations.Add(scene, new Association(this.Id, scene.Id, weight));
         }
 
         public void Add(Concept concept, int weight = Constants.NEUTRAL)
         {
-            _associations.Add(concept, new Association(this, concept, weight));
+            _associations.Add(concept, new Association(this.Id, concept.Id, weight));
         }
 
         public IEnumerator<Association> GetEnumerator()
@@ -33,14 +45,16 @@ namespace AIkailo.Model
             return _associations.GetEnumerator();
         }
 
-        public Association this[int index] 
+        public Association this[int index]
         {
             get { return _associations.Values[index]; }
-        } 
+        }
 
         public int Count
         {
             get { return _associations.Count; }
         }
+
+
     }
 }

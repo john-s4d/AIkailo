@@ -1,16 +1,26 @@
-﻿using System;
-using IConvertible = AIkailo.Model.IConvertible<System.IConvertible>;
+﻿using AIkailo.Model.Common;
+using System;
 
-
-namespace AIkailo.Model
+namespace AIkailo.Model.Internal
 {
     /// <summary>
     ///  The basic block
     /// </summary>
     public class Concept : IConcept
-    {
-        public ulong? Id { get; set; }
-        public IConvertible Definition { get; set; }
+    {   
+        public Concept()
+        {
+
+        }
+
+        public Concept(Primitive definition, ulong id)
+        {
+            Definition = definition;
+            Id = id;
+        }
+
+        public ulong Id { get; set; }
+        public Primitive Definition { get; set; }
 
         public int CompareTo(object obj)
         {

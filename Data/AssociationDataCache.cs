@@ -1,4 +1,4 @@
-﻿using AIkailo.Model;
+﻿using AIkailo.Model.Internal;
 using System;
 using System.Collections.Concurrent;
 

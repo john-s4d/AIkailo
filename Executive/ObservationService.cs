@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AIkailo.Model;
+using AIkailo.Model.Internal;
 
 namespace AIkailo.Executive
 {

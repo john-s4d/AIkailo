@@ -1,6 +1,6 @@
 ﻿using System;
-using AIkailo.Model;
-using IConvertible = AIkailo.Model.IConvertible<System.IConvertible>;
+using AIkailo.Model.Internal;
+using AIkailo.Model.Common;
 
 namespace AIkailo.Data
 {
@@ -12,15 +12,15 @@ namespace AIkailo.Data
 
         private AssociationDataProvider _associationData;
 
-        public DataService(string dataDirectory) 
+        public DataService(string dataDirectory)
         {
-            //_associationData = new AssociationDataProvider(dataDirectory);
+            _associationData = new AssociationDataProvider(dataDirectory);
             // _classifyModelData = ?
             // _processModelData = ?
             // _sentimentData = ?
         }
 
-        
+
 
         public void Start()
         {
@@ -32,13 +32,36 @@ namespace AIkailo.Data
             throw new NotImplementedException();
         }
 
-        public Concept FindOrCreate(IConvertible definition)
+        public Concept FindOrCreate(Primitive definition)
         {
-            return new Concept() { Definition = definition, Id = 0 };
+            ulong id = 0;
+
+            switch (definition.ToString())
+            {
+                case "foo":
+                    id = 1;
+                    break;
+                case "bar":
+                    id = 2;
+                    break;
+                case "Interaction.Input":
+                    id = 3;
+                    break;
+                case "Interaction.Output":
+                    id = 4;
+                    break;
+                case "target":
+                    id = 5;
+                    break;
+                case "source":
+                    id = 6;
+                    break;
+            }
+            return new Concept() { Definition = definition, Id = id };
             //return FindOrCreate(Constants.DEFAULT_THRESHOLD, definition);
         }
 
-        public Concept FindOrCreate(int threshold, IConvertible definition)
+        public Concept FindOrCreate(int threshold, Primitive definition)
         {
             Concept result = _associationData.Find(threshold, definition);
             if (result == null)
@@ -48,14 +71,26 @@ namespace AIkailo.Data
             return result;
         }
 
-        public Scene FindOrCreate(params IConvertible[] definitions)
+        public Scene FindOrCreate(params Primitive[] definitions)
         {
             return FindOrCreate(Constants.DEFAULT_THRESHOLD, definitions);
         }
 
-        public Scene FindOrCreate(int threshold, params IConvertible[] definitions)
+        private ulong id = 0;
+
+        public Scene FindOrCreate(int threshold, params Primitive[] definitions)
         {
-            throw new NotImplementedException();
+            Scene result = new Scene();
+            result.Add(new Concept() { Definition = definitions[0], Id = id++ });
+            result.Add(new Concept() { Definition = definitions[1], Id = id++ });
+            return result;
+            /*
+            Scene result = _associationData.Find(threshold, definitions);
+            if (result == null)
+            {
+                result = _associationData.Create(definitions);
+            }
+            return result;*/
         }
 
         public Scene FindOrCreate(params Concept[] concepts)
@@ -68,7 +103,7 @@ namespace AIkailo.Data
             throw new NotImplementedException();
         }
 
-        
+
 
         /*
 

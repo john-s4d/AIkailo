@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using AIkailo.Model;
-using IConvertible = AIkailo.Model.IConvertible<System.IConvertible>;
+using AIkailo.Model.Common;
+using AIkailo.Model.Internal;
 
 namespace AIkailo.External
 {
     public class Output
     {
         public string Name { get; }
-        public Action<List<Tuple<IConvertible, IConvertible>>> OutputEvent { get; set; }
+        public Action<DataPackage> OutputEvent { get; set; }
         internal ExternalMessageConsumer Consumer { get; }
 
         public Output(string name)
@@ -20,7 +19,8 @@ namespace AIkailo.External
 
         internal void Consume(ExternalMessage message)
         {
-            OutputEvent?.Invoke(message.Data);
+            throw new NotImplementedException();
+            //OutputEvent?.Invoke(message.Data);
         }
     }
 }

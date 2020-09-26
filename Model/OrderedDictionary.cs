@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Collections.ObjectModel;
 
-namespace AIkailo.Model.Collections
+namespace AIkailo.Model.Internal.Collections
 {
 
     // https://stackoverflow.com/questions/2629027/no-generic-implementation-of-ordereddictionary

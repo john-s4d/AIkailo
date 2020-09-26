@@ -1,11 +1,11 @@
-﻿using System;
-using IConvertible = AIkailo.Model.IConvertible<System.IConvertible>;
+﻿using AIkailo.Model.Common;
+using System;
 
-namespace AIkailo.Model
+namespace AIkailo.Model.Internal
 {
     public interface IConcept : IConceptBase, IComparable
     {
-        ulong? Id { get; set; }
-        IConvertible Definition { get; set; }      
+        ulong Id { get; set; }
+        Primitive Definition { get; set; }      
     }
 }

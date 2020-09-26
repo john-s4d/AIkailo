@@ -1,4 +1,4 @@
-﻿namespace AIkailo.Model
+﻿namespace AIkailo.Model.Internal
 {
     public interface ITrainingMessage : IMessage
     {

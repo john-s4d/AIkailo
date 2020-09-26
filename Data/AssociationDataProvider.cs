@@ -1,5 +1,5 @@
 ﻿using AIkailo.Data.DBCore;
-using AIkailo.Model;
+using AIkailo.Model.Internal;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using IConvertible = AIkailo.Model.IConvertible<System.IConvertible>;
+//using IConvertible = AIkailo.Model.IConvertible<System.IConvertible>;
 
 namespace AIkailo.Data
 {
@@ -133,7 +133,7 @@ namespace AIkailo.Data
 
         internal Scene Find(int threshold, params IConvertible[] items)
         {
-            return null;
+            throw new NotImplementedException();
         }
 
         internal Concept Create(IConvertible item)
@@ -142,19 +142,9 @@ namespace AIkailo.Data
         }
 
         internal Scene Create(IConvertible[] items)
-        {   
-            return null;
-            
-        }
-
-        internal Scene FindOrCreate(int threshold, params IConvertible[] items)
         {
-            Scene result = Find(threshold, items);
-            if (result == null)
-            {
-                result = Create(items);
-            }
-            return result;
+            throw new NotImplementedException();
+
         }
 
         #region IDisposable Support
