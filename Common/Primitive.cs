@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace AIkailo.Model.Common
+namespace AIkailo.Common
 {
     [JsonObject]
     public class Primitive : IConvertible
@@ -212,5 +212,6 @@ namespace AIkailo.Model.Common
         {
             return this.TypeCode;
         }
+
     }
 }

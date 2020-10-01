@@ -124,10 +124,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\External.Model\AIkailo.Model.Common.csproj">
-      <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
-      <Name>AIkailo.Model.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Model\AIkailo.Model.Internal.csproj">
       <Project>{085fc83f-08d4-4ffe-b178-0f3b84dffda5}</Project>
       <Name>AIkailo.Model.Internal</Name>

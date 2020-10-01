@@ -2,9 +2,9 @@
 {
     public class ReduceMessage : IMessage
     {
-        public Scene Scene { get; set; }
+        public IScene Scene { get; set; }
 
-        public ReduceMessage(Scene scene)
+        public ReduceMessage(IScene scene)
         {
             Scene = scene;
         }

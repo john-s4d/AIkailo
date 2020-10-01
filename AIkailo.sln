@@ -47,7 +47,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Model.Internal", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Executive", "Executive\AIkailo.Executive.csproj", "{3D57E56D-8D7E-487D-964D-911F902C0279}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Model.Common", "External.Model\AIkailo.Model.Common.csproj", "{67961BE6-A4DB-4A4C-94B7-8F80946D9F93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Common", "Common\AIkailo.Common.csproj", "{67961BE6-A4DB-4A4C-94B7-8F80946D9F93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

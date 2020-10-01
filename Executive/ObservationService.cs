@@ -14,7 +14,7 @@ namespace AIkailo.Executive
 
         public IAkailoServiceState State => throw new NotImplementedException();
 
-        public void Merge(Scene scene)
+        public void Merge(IScene scene)
         {
             // Merge this scene into the current context
             throw new NotImplementedException();

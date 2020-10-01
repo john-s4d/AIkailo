@@ -47,15 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Association.cs" />
-    <Compile Include="Concept.cs" />
+    <Compile Include="IAssociation.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="IAIkailoService.cs" />
     <Compile Include="IConcept.cs" />
-    <Compile Include="Frame.cs" />
+    <Compile Include="IFrame.cs" />
     <Compile Include="IConceptBase.cs" />
     <Compile Include="IMessage.cs" />
     <Compile Include="IOrderedDictionary.cs" />
+    <Compile Include="IScene.cs" />
     <Compile Include="Messages\OutputMessage.cs" />
     <Compile Include="Messages\ExternalMessage.cs" />
     <Compile Include="Messages\NormalizeMessage.cs" />
@@ -63,10 +63,9 @@
     <Compile Include="Messages\TrainingMessage.cs" />
     <Compile Include="Messages\InputMessage.cs" />
     <Compile Include="OrderedDictionary.cs" />
-    <Compile Include="ProcessModel.cs" />
+    <Compile Include="IProcessModel.cs" />
     <Compile Include="Messages\ClassifyMessage.cs" />
     <Compile Include="Messages\ReduceMessage.cs" />
-    <Compile Include="Scene.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -77,9 +76,9 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\External.Model\AIkailo.Model.Common.csproj">
+    <ProjectReference Include="..\Common\AIkailo.Common.csproj">
       <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
-      <Name>AIkailo.Model.Common</Name>
+      <Name>AIkailo.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

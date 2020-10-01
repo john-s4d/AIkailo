@@ -7,8 +7,8 @@
     <ProjectGuid>{67961BE6-A4DB-4A4C-94B7-8F80946D9F93}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AIkailo.Model.Common</RootNamespace>
-    <AssemblyName>AIkailo.Model.Common</AssemblyName>
+    <RootNamespace>AIkailo.Common</RootNamespace>
+    <AssemblyName>AIkailo.Common</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

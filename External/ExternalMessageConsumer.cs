@@ -1,6 +1,6 @@
 ﻿using AIkailo.Messaging;
 using AIkailo.Model.Internal;
-using AIkailo.Model.Common;
+using AIkailo.Common;
 using MassTransit;
 using System;
 using System.Collections.Generic;

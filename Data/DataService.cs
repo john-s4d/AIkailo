@@ -1,6 +1,7 @@
 ﻿using System;
 using AIkailo.Model.Internal;
-using AIkailo.Model.Common;
+using AIkailo.Common;
+using System.Linq;
 
 namespace AIkailo.Data
 {
@@ -20,8 +21,6 @@ namespace AIkailo.Data
             // _sentimentData = ?
         }
 
-
-
         public void Start()
         {
             throw new NotImplementedException();
@@ -32,78 +31,27 @@ namespace AIkailo.Data
             throw new NotImplementedException();
         }
 
-        public Concept FindOrCreate(Primitive definition)
-        {
-            ulong id = 0;
+        // Exact Matching
 
-            switch (definition.ToString())
-            {
-                case "foo":
-                    id = 1;
-                    break;
-                case "bar":
-                    id = 2;
-                    break;
-                case "Interaction.Input":
-                    id = 3;
-                    break;
-                case "Interaction.Output":
-                    id = 4;
-                    break;
-                case "target":
-                    id = 5;
-                    break;
-                case "source":
-                    id = 6;
-                    break;
-            }
-            return new Concept() { Definition = definition, Id = id };
-            //return FindOrCreate(Constants.DEFAULT_THRESHOLD, definition);
+        public IConcept FindOrCreate(Primitive definition)
+        {
+            return _associationData.Find(definition) ?? _associationData.Create(definition);
         }
 
-        public Concept FindOrCreate(int threshold, Primitive definition)
-        {
-            Concept result = _associationData.Find(threshold, definition);
-            if (result == null)
-            {
-                result = _associationData.Create(definition);
-            }
-            return result;
+        public IScene FindOrCreate(params Primitive[] definitions)
+        {   
+            return FindOrCreate(definitions.Select(x => FindOrCreate(x)).ToArray());
         }
 
-        public Scene FindOrCreate(params Primitive[] definitions)
+        public IScene FindOrCreate(params PrimitivePair[] pairs)
         {
-            return FindOrCreate(Constants.DEFAULT_THRESHOLD, definitions);
+            return FindOrCreate(pairs.Select(x => FindOrCreate(x.Item1, x.Item2)).ToArray());
         }
-
-        private ulong id = 0;
-
-        public Scene FindOrCreate(int threshold, params Primitive[] definitions)
+        
+        public IScene FindOrCreate(params IConcept[] concepts)
         {
-            Scene result = new Scene();
-            result.Add(new Concept() { Definition = definitions[0], Id = id++ });
-            result.Add(new Concept() { Definition = definitions[1], Id = id++ });
-            return result;
-            /*
-            Scene result = _associationData.Find(threshold, definitions);
-            if (result == null)
-            {
-                result = _associationData.Create(definitions);
-            }
-            return result;*/
+            return _associationData.Find(concepts) ?? _associationData.Create(concepts);
         }
-
-        public Scene FindOrCreate(params Concept[] concepts)
-        {
-            return FindOrCreate(Constants.DEFAULT_THRESHOLD, concepts);
-        }
-
-        public Scene FindOrCreate(int threshold, params Concept[] concepts)
-        {
-            throw new NotImplementedException();
-        }
-
-
 
         /*
 

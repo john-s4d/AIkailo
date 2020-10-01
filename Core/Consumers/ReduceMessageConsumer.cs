@@ -14,7 +14,7 @@ namespace AIkailo.Core
         {
             Console.WriteLine("ReduceMessageConsumer.Consume(ReduceMessage)");
 
-            Scene scene = context.Message.Scene;
+            IScene scene = context.Message.Scene;
 
             /*
             foreach (Association a in scene)

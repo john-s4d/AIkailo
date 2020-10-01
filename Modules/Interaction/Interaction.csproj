@@ -56,9 +56,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\External.Model\AIkailo.Model.Common.csproj">
+    <ProjectReference Include="..\..\Common\AIkailo.Common.csproj">
       <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
-      <Name>AIkailo.Model.Common</Name>
+      <Name>AIkailo.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\External\AIkailo.External.csproj">
       <Project>{42ee0b5a-1d05-47ec-9a30-6c86ba507ba3}</Project>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AIkailo.Messaging;
-using AIkailo.Model.Common;
+using AIkailo.Common;
 using AIkailo.Model.Internal;
 using MassTransit;
 
@@ -38,9 +38,12 @@ namespace AIkailo.Core
             
             // Send the message to an external target
             string target = "Interaction.Output";
-            DataPackage data = new DataPackage();
-            data.Add("output", "bar");
-                        
+
+            DataPackage data = new DataPackage
+            {
+                { "output", "bar" }
+            };
+
             ISendEndpoint endpoint = await context.GetSendEndpoint(new Uri($"rabbitmq://localhost/{target}"));
             await endpoint.Send(new ExternalMessage(data));
 

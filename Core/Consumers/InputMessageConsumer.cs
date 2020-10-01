@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AIkailo.Messaging;
-using AIkailo.Model.Common;
+using AIkailo.Common;
 using AIkailo.Model.Internal;
 using MassTransit;
 
@@ -47,13 +47,14 @@ namespace AIkailo.Core
             //AIkailo.MessageService.Publish(new ReduceMessage(result));
             */
 
-            InputMessage input = context.Message;            
+            InputMessage input = context.Message;
 
             // TESTING - Just send a dummy OutputMessage
 
-            Scene result = new Scene();
-            result.Add(AIkailo.DataService.FindOrCreate("target"), AIkailo.DataService.FindOrCreate("Interaction.Output"));
-            result.Add(AIkailo.DataService.FindOrCreate("output"), AIkailo.DataService.FindOrCreate("bar"));
+            IScene result = AIkailo.DataService.FindOrCreate(
+                AIkailo.DataService.FindOrCreate("target","Interaction.Output"),
+                AIkailo.DataService.FindOrCreate("output","bar")
+                );            
 
             return context.Publish(new OutputMessage(result));            
         }

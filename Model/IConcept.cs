@@ -1,11 +1,11 @@
-﻿using AIkailo.Model.Common;
+﻿using AIkailo.Common;
 using System;
 
 namespace AIkailo.Model.Internal
 {
     public interface IConcept : IConceptBase, IComparable
     {
-        ulong Id { get; set; }
-        Primitive Definition { get; set; }      
+        ulong Id { get; }
+        Primitive Definition { get; }      
     }
 }

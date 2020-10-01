@@ -1,7 +1,7 @@
 ﻿using System;
 using AIkailo.Messaging;
 using AIkailo.Model.Internal;
-using AIkailo.Model.Common;
+using AIkailo.Common;
 
 namespace AIkailo.External
 {
@@ -26,14 +26,14 @@ namespace AIkailo.External
             _messageService.Stop();
         }
 
-        public Input CreateInputSource(string name)
+        public Input RegisterInput(string name)
         {
             Input result = new Input(name);
             result.InputEvent += OnInputEvent;
             return result;
         }
 
-        public void CreateOutputTarget(string name, Action<DataPackage> callback)
+        public void RegisterOutput(string name, Action<DataPackage> callback)
         {
             Output result = new Output(name);
             _messageService.RegisterConsumer(result.Name, result.Consumer);

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AIkailo.Model.Common
+namespace AIkailo.Common
 {
     public class DataPackage : List<PrimitivePair>
     {            
@@ -9,7 +9,5 @@ namespace AIkailo.Model.Common
         {   
             Add(new PrimitivePair(item1, item2));
         }
-
-        //public static implicit operator Model.DataPackage(External.DataPackage data) => new DataPackage() { data.ToArray() };
     }
 }

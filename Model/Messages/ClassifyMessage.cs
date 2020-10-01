@@ -2,6 +2,6 @@
 {
     public class ClassifyMessage : IMessage
     {
-        public Scene Scene { get; set; }
+        public IScene Scene { get; set; }
     }
 }

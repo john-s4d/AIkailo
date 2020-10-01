@@ -2,9 +2,9 @@
 {
     public class ObservationMessage : IMessage
     {
-        public Scene Scene { get; set; }
+        public IScene Scene { get; set; }
 
-        public ObservationMessage(Scene scene)
+        public ObservationMessage(IScene scene)
         {
             Scene = scene;
         }

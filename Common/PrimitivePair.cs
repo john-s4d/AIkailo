@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AIkailo.Model.Common
+namespace AIkailo.Common
 {
     public class PrimitivePair : Tuple<Primitive, Primitive>
     {

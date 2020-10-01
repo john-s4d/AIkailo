@@ -13,11 +13,11 @@ namespace AIkailo.Model.Internal
         //private SortedDictionary<Concept, Association> _associations; // SortedDictionary is O(log n) read/write
         private readonly SortedList<Concept, Association> _associations;
 
-        public Scene()
+        internal Scene()
         {
             _associations = new SortedList<Concept, Association>(); // SortedList has indexing so we can implement the readonlylist
         }
-        public void Add(params Concept[] concepts)
+        internal void Add(params Concept[] concepts)
         {
             foreach (Concept c in concepts)
             {
@@ -25,12 +25,12 @@ namespace AIkailo.Model.Internal
             }
         }
 
-        public void Add(Scene scene, int weight = Constants.NEUTRAL)
+        internal void Add(Scene scene, int weight = Constants.NEUTRAL)
         {
             _associations.Add(scene, new Association(this.Id, scene.Id, weight));
         }
 
-        public void Add(Concept concept, int weight = Constants.NEUTRAL)
+        internal void Add(Concept concept, int weight = Constants.NEUTRAL)
         {
             _associations.Add(concept, new Association(this.Id, concept.Id, weight));
         }

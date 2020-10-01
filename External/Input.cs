@@ -1,5 +1,5 @@
 ﻿using System;
-using AIkailo.Model.Common;
+using AIkailo.Common;
 
 namespace AIkailo.External
 {

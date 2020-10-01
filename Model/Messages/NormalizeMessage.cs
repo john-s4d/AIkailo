@@ -2,9 +2,9 @@
 {
     public class NormalizeMessage : IMessage
     {
-        public Scene Scene { get; }
+        public IScene Scene { get; }
 
-        public NormalizeMessage(Scene scene)
+        public NormalizeMessage(IScene scene)
         {
             Scene = scene;
         }

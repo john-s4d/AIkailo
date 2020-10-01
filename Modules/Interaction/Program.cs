@@ -1,5 +1,5 @@
 ﻿using AIkailo.External;
-using AIkailo.Model.Common;
+using AIkailo.Common;
 using System;
 using System.Threading.Tasks;
 
@@ -15,8 +15,8 @@ namespace AIkailo.Modules.Interaction
         internal static void Main(string[] args)
         {
 
-            _input = _aikailo.CreateInputSource("Interaction.Input");
-            _aikailo.CreateOutputTarget("Interaction.Output", OnOutputEvent);
+            _input = _aikailo.RegisterInput("Interaction.Input");
+            _aikailo.RegisterOutput("Interaction.Output", OnOutputEvent);
 
             Run().Wait();
         }
@@ -44,8 +44,7 @@ namespace AIkailo.Modules.Interaction
 
                 DataPackage data = new DataPackage
                 {
-                    { "input", value }
-                    //,{ 0, 1 }
+                    { "input", value }                    
                 };
 
                 _input.OnInputEvent(data);
