@@ -1,5 +1,5 @@
 ﻿using System;
-using AIkailo.Common;
+using AIkailo.External.Model;
 
 namespace AIkailo.External
 {
@@ -7,14 +7,14 @@ namespace AIkailo.External
     {
         public string Name { get; }
 
-        internal Action<string, DataPackage> InputEvent { get; set; }
+        internal Action<string, FeatureVector> InputEvent { get; set; }
 
         public Input(string name)
         {
             Name = name;
         }
 
-        public void OnInputEvent(DataPackage data)
+        public void OnInputEvent(FeatureVector data)
         {
             InputEvent?.Invoke(Name, data);
         }

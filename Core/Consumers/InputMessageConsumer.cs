@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AIkailo.Messaging;
-using AIkailo.Common;
-using AIkailo.Model.Internal;
 using MassTransit;
+using AIkailo.Messaging.Messages;
+using AIkailo.Core.Model;
+using AIkailo.External.Model;
+using AIkailo.Data;
 
 namespace AIkailo.Core
 {
@@ -30,10 +32,10 @@ namespace AIkailo.Core
                 new Concept() {Definition = context.Message.Data[0].Item2, Id = 4}
             };
             scene2.Id = 5;
-
+            
             Scene result = new Scene();
-            result.Add(scene1);
-            result.Add(scene2);
+            //result.Add(scene1);
+            //result.Add(scene2);
 
             
             foreach (PrimitivePair parameter in context.Message.Data)
@@ -46,18 +48,36 @@ namespace AIkailo.Core
             // Send to the Reducer
             //AIkailo.MessageService.Publish(new ReduceMessage(result));
             */
+            /*
+            
 
             InputMessage input = context.Message;
 
+            List<IConcept> parameters = new List<IConcept>();
+
+            foreach (PrimitivePair parameter in context.Message.Data)
+            {
+                parameters.Add(new Scene(ds.GetOrCreate(parameter.Item1).Result, ds.GetOrCreate(parameter.Item2).Result));
+            }
+            
+            context.Publish(new OutputMessage(Result));
+
             // TESTING - Just send a dummy OutputMessage
+            
+            Data.DataService ds = AIkailo.DataService;
 
-            IScene result = AIkailo.DataService.FindOrCreate(
-                AIkailo.DataService.FindOrCreate("target","Interaction.Output"),
-                AIkailo.DataService.FindOrCreate("output","bar")
-                );            
+            Task<IScene> task = ds.GetOrCreate(
+                new Primitive[] { "target", "Interaction.Output" },
+                new Primitive[] { "output", "Interaction.Output" }
+                );
+            */
 
-            return context.Publish(new OutputMessage(result));            
+
+            Scene s1 = SceneFactory.New(
+                SceneFactory.New("target", "Interaction.Output"),
+                SceneFactory.New("output", "bar")
+            );
+            return context.Publish(s1);
         }
-
     }
 }

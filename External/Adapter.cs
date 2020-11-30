@@ -1,7 +1,7 @@
 ﻿using System;
 using AIkailo.Messaging;
-using AIkailo.Model.Internal;
-using AIkailo.Common;
+using AIkailo.External.Model;
+using AIkailo.Messaging.Messages;
 
 namespace AIkailo.External
 {
@@ -33,14 +33,14 @@ namespace AIkailo.External
             return result;
         }
 
-        public void RegisterOutput(string name, Action<DataPackage> callback)
+        public void RegisterOutput(string name, Action<FeatureVector> callback)
         {
             Output result = new Output(name);
             _messageService.RegisterConsumer(result.Name, result.Consumer);
             result.OutputEvent += callback;
         }
 
-        private void OnInputEvent(string source, DataPackage data)
+        private void OnInputEvent(string source, FeatureVector data)
         {
             _messageService.Publish(new InputMessage(source, data));
         }

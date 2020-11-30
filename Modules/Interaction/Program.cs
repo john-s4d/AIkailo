@@ -1,5 +1,5 @@
 ﻿using AIkailo.External;
-using AIkailo.Common;
+using AIkailo.External.Model;
 using System;
 using System.Threading.Tasks;
 
@@ -21,9 +21,9 @@ namespace AIkailo.Modules.Interaction
             Run().Wait();
         }
 
-        private static void OnOutputEvent(DataPackage data)
+        private static void OnOutputEvent(FeatureVector data)
         {
-            Console.WriteLine("output:> " + data[0].Item1 + " : " + data[0].Item2);
+            Console.WriteLine("output:> " + data[0][0] + " : " + data[0][1]);
             //Console.Write("input:> ");
         }
 
@@ -42,16 +42,16 @@ namespace AIkailo.Modules.Interaction
 
                 if (value.Equals("quit", StringComparison.OrdinalIgnoreCase)) { break; }
 
-                DataPackage data = new DataPackage
+                FeatureVector data = new FeatureVector
                 {
-                    { "input", value }                    
+                    { "input", value }
                 };
 
                 _input.OnInputEvent(data);
 
                 //await _input.CreateInputEvent(data);
 
-                Console.WriteLine("sent:> " + data[0].Item1 + " : " + data[0].Item2);
+                Console.WriteLine("sent:> " + data[0][0] + " : " + data[0][1]);
             }
             while (true);
 

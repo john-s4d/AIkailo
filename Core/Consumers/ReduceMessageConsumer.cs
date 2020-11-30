@@ -1,8 +1,9 @@
 ﻿using System;
-using AIkailo.Model.Internal;
+using AIkailo.Core.Model;
 using AIkailo.Messaging;
 using System.Threading.Tasks;
 using MassTransit;
+using AIkailo.Messaging.Messages;
 
 namespace AIkailo.Core
 {
@@ -14,7 +15,7 @@ namespace AIkailo.Core
         {
             Console.WriteLine("ReduceMessageConsumer.Consume(ReduceMessage)");
 
-            IScene scene = context.Message.Scene;
+            //IScene scene = context.Message.Scene;
 
             /*
             foreach (Association a in scene)
@@ -26,7 +27,7 @@ namespace AIkailo.Core
             */
 
             // Send to the Observation Service
-            AIkailo.MessageService.Publish(new ObservationMessage(scene));
+            //AIkailo.MessageService.Publish(new ObservationMessage(scene));
             return null;
         }
     }

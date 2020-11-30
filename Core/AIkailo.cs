@@ -3,10 +3,11 @@ using System.ServiceProcess;
 using System.Collections.Generic;
 using AIkailo.External;
 using AIkailo.Data;
-using AIkailo.Model.Internal;
+using AIkailo.Core.Model;
 using AIkailo.Messaging;
 using AIkailo.Executive;
 using System.Threading.Tasks;
+using AIkailo.Messaging.Messages;
 
 namespace AIkailo.Core
 {
@@ -23,7 +24,7 @@ namespace AIkailo.Core
         public static MessageService MessageService { get; } = new MessageService(MQ_HOST);
         public static DataService DataService { get; } = new DataService(DATA_DIRECTORY);
         public static ObservationService ObservationService { get; } = new ObservationService();
-        public static ExternalService ExternalService { get; } = new ExternalService();        
+        //public static ExternalService ExternalService { get; } = new ExternalService();        
 
         internal AIkailo() : base()
         {

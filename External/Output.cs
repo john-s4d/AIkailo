@@ -1,13 +1,13 @@
 ﻿using System;
-using AIkailo.Common;
-using AIkailo.Model.Internal;
+using AIkailo.External.Model;
+using AIkailo.Messaging.Messages;
 
 namespace AIkailo.External
 {
     public class Output
     {
         public string Name { get; }
-        public Action<DataPackage> OutputEvent { get; set; }
+        public Action<FeatureVector> OutputEvent { get; set; }
         internal ExternalMessageConsumer Consumer { get; }
 
         public Output(string name)
@@ -19,8 +19,8 @@ namespace AIkailo.External
 
         internal void Consume(ExternalMessage message)
         {
-            throw new NotImplementedException();
-            //OutputEvent?.Invoke(message.Data);
+            //throw new NotImplementedException();
+            OutputEvent?.Invoke(message.Data);
         }
     }
 }

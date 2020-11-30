@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AIkailo.Messaging;
-using AIkailo.Common;
-using AIkailo.Model.Internal;
+using AIkailo.External.Model;
 using MassTransit;
+using AIkailo.Messaging.Messages;
 
 namespace AIkailo.Core
 {
@@ -39,7 +39,7 @@ namespace AIkailo.Core
             // Send the message to an external target
             string target = "Interaction.Output";
 
-            DataPackage data = new DataPackage
+            FeatureVector data = new FeatureVector
             {
                 { "output", "bar" }
             };

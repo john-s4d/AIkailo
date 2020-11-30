@@ -1,10 +1,9 @@
 ﻿using AIkailo.Messaging;
-using AIkailo.Model.Internal;
-using AIkailo.Common;
 using MassTransit;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AIkailo.Messaging.Messages;
 
 namespace AIkailo.External
 {    

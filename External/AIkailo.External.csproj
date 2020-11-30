@@ -8,11 +8,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AIkailo.External</RootNamespace>
     <AssemblyName>AIkailo.External</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,17 +33,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Automatonymous, Version=5.0.1.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
-      <HintPath>..\packages\Automatonymous.5.0.1\lib\netstandard2.0\Automatonymous.dll</HintPath>
+    <Reference Include="Automatonymous, Version=5.0.2.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Automatonymous.5.0.2\lib\netstandard2.0\Automatonymous.dll</HintPath>
     </Reference>
     <Reference Include="GreenPipes, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
       <HintPath>..\packages\GreenPipes.4.0.0\lib\netstandard2.0\GreenPipes.dll</HintPath>
     </Reference>
-    <Reference Include="MassTransit, Version=7.0.3.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
-      <HintPath>..\packages\MassTransit.7.0.3\lib\netstandard2.0\MassTransit.dll</HintPath>
+    <Reference Include="MassTransit, Version=7.0.6.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\MassTransit.7.0.6\lib\netstandard2.0\MassTransit.dll</HintPath>
     </Reference>
-    <Reference Include="MassTransit.RabbitMqTransport, Version=7.0.3.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
-      <HintPath>..\packages\MassTransit.RabbitMQ.7.0.3\lib\netstandard2.0\MassTransit.RabbitMqTransport.dll</HintPath>
+    <Reference Include="MassTransit.RabbitMqTransport, Version=7.0.6.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\MassTransit.RabbitMQ.7.0.6\lib\netstandard2.0\MassTransit.RabbitMqTransport.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.1\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -53,14 +54,14 @@
     <Reference Include="NewId, Version=3.0.2.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
       <HintPath>..\packages\NewId.3.0.2\lib\net452\NewId.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json.Bson, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.Bson.1.0.1\lib\net45\Newtonsoft.Json.Bson.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=6.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
-      <HintPath>..\packages\RabbitMQ.Client.6.1.0\lib\net461\RabbitMQ.Client.dll</HintPath>
+      <HintPath>..\packages\RabbitMQ.Client.6.2.1\lib\net461\RabbitMQ.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -115,7 +116,7 @@
   <ItemGroup>
     <Compile Include="ExternalMessageConsumer.cs" />
     <Compile Include="Output.cs" />
-    <Compile Include="Service.cs" />
+    <Compile Include="ExternalService.cs" />
     <Compile Include="Adapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Input.cs" />
@@ -125,17 +126,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\AIkailo.Common.csproj">
+    <ProjectReference Include="..\Core.Messages\AIkailo.Messaging.Messages.csproj">
+      <Project>{65ADB900-F6EE-4A3D-8467-A955B747B34D}</Project>
+      <Name>AIkailo.Messaging.Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\External.Model\AIkailo.External.Model.csproj">
       <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
-      <Name>AIkailo.Common</Name>
+      <Name>AIkailo.External.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Messaging\AIkailo.Messaging.csproj">
       <Project>{270a6b16-4b0f-4816-838d-87001ee50feb}</Project>
       <Name>AIkailo.Messaging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Model\AIkailo.Model.Internal.csproj">
-      <Project>{085fc83f-08d4-4ffe-b178-0f3b84dffda5}</Project>
-      <Name>AIkailo.Model.Internal</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

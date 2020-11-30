@@ -1,8 +1,9 @@
-﻿using AIkailo.Model.Internal;
-using AIkailo.Messaging;
+﻿using AIkailo.Messaging;
 using System;
 using System.Threading.Tasks;
 using MassTransit;
+using AIkailo.Core.Model;
+using AIkailo.Messaging.Messages;
 
 namespace AIkailo.Core
 {
