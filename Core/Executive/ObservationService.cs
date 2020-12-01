@@ -12,9 +12,9 @@ namespace AIkailo.Executive
 
         public string Name { get; } = "AIkailo.ObservationService";
 
-        public IAkailoServiceState State => throw new NotImplementedException();
+        public AkailoServiceState State => throw new NotImplementedException();
 
-        public void Merge(IScene scene)
+        public void Merge(Scene scene)
         {
             // Merge this scene into the current context
             throw new NotImplementedException();

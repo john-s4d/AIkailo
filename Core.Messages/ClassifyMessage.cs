@@ -4,6 +4,6 @@ namespace AIkailo.Messaging.Messages
 {
     public class ClassifyMessage : IMessage
     {
-        public IScene Scene { get; set; }
+        public Scene Scene { get; set; }
     }
 }

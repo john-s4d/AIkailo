@@ -54,9 +54,9 @@
     <Compile Include="TrainingMessage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Model\AIkailo.Core.Interface.csproj">
+    <ProjectReference Include="..\Core.Model\AIkailo.Core.Model.csproj">
       <Project>{085FC83F-08D4-4FFE-B178-0F3B84DFFDA5}</Project>
-      <Name>AIkailo.Core.Interface</Name>
+      <Name>AIkailo.Core.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\External.Model\AIkailo.External.Model.csproj">
       <Project>{67961BE6-A4DB-4A4C-94B7-8F80946D9F93}</Project>

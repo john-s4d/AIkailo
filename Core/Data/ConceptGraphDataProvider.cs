@@ -16,7 +16,7 @@ namespace AIkailo.Data
             _neo4j = connection;
         }
 
-        public async Task<IConcept> GetOrCreate(Property definition, uint depth = 0)
+        public async Task<Concept> GetOrCreate(Property definition, uint depth = 0)
         {   
             if (depth != 0) throw new NotImplementedException(); // TODO
 
@@ -50,7 +50,7 @@ namespace AIkailo.Data
         }
 
         // Get an exact definition
-        public async Task<IScene> GetOrCreate(Property[] childDefinitions, uint depth = 0)
+        public async Task<Scene> GetOrCreate(Property[] childDefinitions, uint depth = 0)
         {       
             if (depth != 0) throw new NotImplementedException(); // TODO
 

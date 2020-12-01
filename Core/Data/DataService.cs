@@ -10,7 +10,7 @@ namespace AIkailo.Data
     {
         public string Name { get; } = "AIkailo.DataService";
 
-        public IAkailoServiceState State => throw new NotImplementedException();
+        public AkailoServiceState State => throw new NotImplementedException();
 
         //private AssociationDataProvider _associationData;
         private ConceptGraphProvider _conceptGraphProvider;
@@ -32,12 +32,12 @@ namespace AIkailo.Data
 
         // Exact Matching
 
-        public async Task<IConcept> GetOrCreate(Property property)
+        public async Task<Concept> GetOrCreate(Property property)
         {
             return await _conceptGraphProvider.GetOrCreate(property);
         }
 
-        public async Task<IScene> GetOrCreate(params Property[] properties)
+        public async Task<Scene> GetOrCreate(params Property[] properties)
         {
             //if (definitions.Length == 1) { return new Scene(await GetOrCreate(definitions[0])); }
             return await _conceptGraphProvider.GetOrCreate(properties);

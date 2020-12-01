@@ -8,10 +8,23 @@ using System.Threading.Tasks;
 
 namespace AIkailo.Data
 {
-    class SceneFactory
+    internal class SceneFactory
     {
-        internal static Scene New(params FeatureVector[] v)
+        internal static Concept New(Property p)
         {
+            return new Concept(p);
+        }
+
+        internal static Scene New(params Property[] properties)
+        {
+            /*Scene result = new Scene();
+            result.Target = new Concept();
+            foreach (Property p in properties)
+            {
+                ConceptEdge ce = new ConceptEdge();
+                ce.Source = p;
+                ce.
+            }*/
             throw new NotImplementedException();
         }
 
@@ -20,12 +33,7 @@ namespace AIkailo.Data
             throw new NotImplementedException();
         }
 
-        internal static Scene New(params Property[] p)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal static Scene New(params ConceptEdge[] d)
+        internal static Scene New(params FeatureVector[] v)
         {
             throw new NotImplementedException();
         }
@@ -34,8 +42,15 @@ namespace AIkailo.Data
             throw new NotImplementedException();
         }
 
+        internal static Scene New(params ConceptEdge[] d)
+        {
+            throw new NotImplementedException();
+        }        
+
         internal static Scene New(params Scene[] s)
         {
+            
+            
             throw new NotImplementedException();
         }
 

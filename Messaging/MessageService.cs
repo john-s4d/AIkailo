@@ -14,7 +14,7 @@ namespace AIkailo.Messaging
 
         public string Name { get; } = "AIkailo.MessageService";
 
-        public IAkailoServiceState State { get; private set; } = IAkailoServiceState.STOPPED;
+        public AkailoServiceState State { get; private set; } = AkailoServiceState.STOPPED;
 
         private Dictionary<string, Type> _consumers = new Dictionary<string, Type>();
         private Dictionary<string, object> _instances = new Dictionary<string, object>();
@@ -28,7 +28,7 @@ namespace AIkailo.Messaging
 
         public void Start()
         {
-            if (State == IAkailoServiceState.STARTED)
+            if (State == AkailoServiceState.STARTED)
             {
                 throw new InvalidOperationException("MessageService is already started.");
             }
@@ -56,7 +56,7 @@ namespace AIkailo.Messaging
                 }
             });
             _bus.Start();
-            State = IAkailoServiceState.STARTED;
+            State = AkailoServiceState.STARTED;
         }
 
         public async void Send<TMessage>(string target, TMessage message)
@@ -70,7 +70,7 @@ namespace AIkailo.Messaging
         {
             _bus.Stop();
             _bus = null;
-            State = IAkailoServiceState.STOPPED;
+            State = AkailoServiceState.STOPPED;
         }
 
         public Task Publish<TMessage>(TMessage message)

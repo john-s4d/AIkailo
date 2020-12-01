@@ -210,9 +210,6 @@
     <Compile Include="Data\Neo4jConnection.cs" />
     <Compile Include="Data\SceneFactory.cs" />
     <Compile Include="Executive\ObservationService.cs" />
-    <Compile Include="Model\ConceptEdge.cs" />
-    <Compile Include="Model\Concept.cs" />
-    <Compile Include="Model\Scene.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
@@ -249,9 +246,9 @@
       <Project>{65ADB900-F6EE-4A3D-8467-A955B747B34D}</Project>
       <Name>AIkailo.Messaging.Messages</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core.Model\AIkailo.Core.Interface.csproj">
+    <ProjectReference Include="..\Core.Model\AIkailo.Core.Model.csproj">
       <Project>{085FC83F-08D4-4FFE-B178-0F3B84DFFDA5}</Project>
-      <Name>AIkailo.Core.Interface</Name>
+      <Name>AIkailo.Core.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\External.Model\AIkailo.External.Model.csproj">
       <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>

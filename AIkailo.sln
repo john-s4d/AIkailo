@@ -45,7 +45,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Messaging.Messages"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.External.Model", "External.Model\AIkailo.External.Model.csproj", "{67961BE6-A4DB-4A4C-94B7-8F80946D9F93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Core.Interface", "Core.Model\AIkailo.Core.Interface.csproj", "{085FC83F-08D4-4FFE-B178-0F3B84DFFDA5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Core.Model", "Core.Model\AIkailo.Core.Model.csproj", "{085FC83F-08D4-4FFE-B178-0F3B84DFFDA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

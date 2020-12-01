@@ -4,9 +4,9 @@ namespace AIkailo.Messaging.Messages
 {
     public class NormalizeMessage : IMessage
     {
-        public IScene Scene { get; }
+        public Scene Scene { get; }
 
-        public NormalizeMessage(IScene scene)
+        public NormalizeMessage(Scene scene)
         {
             Scene = scene;
         }

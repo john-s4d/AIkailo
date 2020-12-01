@@ -4,9 +4,9 @@ namespace AIkailo.Messaging.Messages
 {
     public class ReduceMessage : IMessage
     {
-        public IScene Scene { get; set; }
+        public Scene Scene { get; set; }
 
-        public ReduceMessage(IScene scene)
+        public ReduceMessage(Scene scene)
         {
             Scene = scene;
         }

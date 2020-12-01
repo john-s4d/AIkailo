@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AIkailo.External.Model
 {
-    interface IFeatureVector : IList<IFeature>
+    interface IFeatureVector : IList<Feature>
     {
     }
 }

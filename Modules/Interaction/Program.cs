@@ -23,7 +23,7 @@ namespace AIkailo.Modules.Interaction
 
         private static void OnOutputEvent(FeatureVector data)
         {
-            Console.WriteLine("output:> " + data[0][0] + " : " + data[0][1]);
+            Console.WriteLine("output:> " + data[0].Item1 + " : " + data[0].Item2);
             //Console.Write("input:> ");
         }
 
@@ -51,7 +51,7 @@ namespace AIkailo.Modules.Interaction
 
                 //await _input.CreateInputEvent(data);
 
-                Console.WriteLine("sent:> " + data[0][0] + " : " + data[0][1]);
+                Console.WriteLine("sent:> " + data[0].Item1 + " : " + data[0].Item2);
             }
             while (true);
 
