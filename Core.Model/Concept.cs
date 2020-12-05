@@ -3,13 +3,20 @@ using System;
 
 namespace AIkailo.Core.Model
 {
-    public class Concept : Property //, IConcept
+    public class Concept : Property
     {
-        public Concept(Property p) 
-            : base(p)
+        public IConvertible Definition { get; set; }
+        public string Id { get; set; }
+
+        public Concept() : 
+            base() 
         { }
 
-        public Concept() : base() { }
-
+        public Concept(Property definition, string id = null)
+            : base(definition)
+        {
+            Definition = definition;
+            Id = id;
+        }
     }
 }

@@ -7,11 +7,13 @@ using AIkailo.Core.Model;
 using AIkailo.External.Model;
 using AIkailo.Data;
 
+
 namespace AIkailo.Core
 {
     // Assemble a Scene from the given data    
     internal class InputMessageConsumer : IMessageConsumer<InputMessage>
     {
+        private ISceneProvider _sceneProvider = AIkailo.SceneProvider;
         public Task Consume(ConsumeContext<InputMessage> context)
         {
 
@@ -73,9 +75,9 @@ namespace AIkailo.Core
             */
 
 
-            Scene s1 = SceneFactory.New(
-                SceneFactory.New("target", "Interaction.Output"),
-                SceneFactory.New("output", "bar")
+            Scene s1 = _sceneProvider.New(
+                _sceneProvider.New("target", "Interaction.Output"),
+                _sceneProvider.New("output", "bar")
             );
             return context.Publish(s1);
         }

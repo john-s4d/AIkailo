@@ -5,15 +5,27 @@ using System.Collections.Generic;
 
 namespace AIkailo.Core.Model
 {
-    public class ConceptEdge : IEdge<Concept>, ITagged<Dictionary<Property, Property>>
-    //: IConceptEdge
+    public class ConceptEdge : TaggedEdge<Concept, Dictionary<Property, Property>>
     {
-        public Dictionary<Property, Property> Tag { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ConceptEdge(Concept source, Concept target, Dictionary<Property, Property> tags = null) 
+            : base(source, target, tags) 
+        { }
 
-        public Concept Source => throw new NotImplementedException();
+        public ConceptEdge(Concept source, Concept target, IReadOnlyDictionary<string, object> properties) 
+            : base(source, target, null)
+        {
+            Tag = new Dictionary<Property, Property>();
+            foreach (string key in properties.Keys)
+            {
+                Tag.Add(key, (string)properties[key]);
+            }
+        }
 
-        public Concept Target => throw new NotImplementedException();
-
-        public event EventHandler TagChanged;
+        public ConceptEdge(Concept source, Concept target, Property tag, Property value) 
+            : base(source, target, null)
+        {
+            Tag = new Dictionary<Property, Property>();
+            Tag.Add(tag, value);
+        }
     }
 }

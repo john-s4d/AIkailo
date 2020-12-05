@@ -72,9 +72,6 @@
       <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.3.1.7\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Neo4j.Driver, Version=4.2.37.0, Culture=neutral, PublicKeyToken=b646bc66d277ac07, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neo4j.Driver.Signed.4.2.0\lib\netstandard2.0\Neo4j.Driver.dll</HintPath>
-    </Reference>
     <Reference Include="NewId, Version=3.0.2.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
       <HintPath>..\packages\NewId.3.0.2\lib\net452\NewId.dll</HintPath>
     </Reference>
@@ -205,10 +202,6 @@
     <Compile Include="Consumers\OutputMessageConsumer.cs" />
     <Compile Include="Consumers\NormalizeMessageConsumer.cs" />
     <Compile Include="Consumers\ReduceMessageConsumer.cs" />
-    <Compile Include="Data\ConceptGraphDataProvider.cs" />
-    <Compile Include="Data\DataService.cs" />
-    <Compile Include="Data\Neo4jConnection.cs" />
-    <Compile Include="Data\SceneFactory.cs" />
     <Compile Include="Executive\ObservationService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
@@ -249,6 +242,10 @@
     <ProjectReference Include="..\Core.Model\AIkailo.Core.Model.csproj">
       <Project>{085FC83F-08D4-4FFE-B178-0F3B84DFFDA5}</Project>
       <Name>AIkailo.Core.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data\AIkailo.Data.csproj">
+      <Project>{bcdbc13c-29eb-4565-96d4-29aa13959b4b}</Project>
+      <Name>AIkailo.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\External.Model\AIkailo.External.Model.csproj">
       <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>

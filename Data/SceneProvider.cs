@@ -1,4 +1,5 @@
 ﻿using AIkailo.Core.Model;
+using AIkailo.Data;
 using AIkailo.External.Model;
 using System;
 using System.Collections.Generic;
@@ -8,51 +9,46 @@ using System.Threading.Tasks;
 
 namespace AIkailo.Data
 {
-    internal class SceneFactory
+    public class SceneProvider : ISceneProvider
     {
-        internal static Concept New(Property p)
+
+        IDataProvider _dataProvider;
+        public SceneProvider(IDataProvider dataProvider)
         {
-            return new Concept(p);
+            _dataProvider = dataProvider;
         }
 
-        internal static Scene New(params Property[] properties)
+        public Concept New(Property property)
         {
-            /*Scene result = new Scene();
-            result.Target = new Concept();
-            foreach (Property p in properties)
-            {
-                ConceptEdge ce = new ConceptEdge();
-                ce.Source = p;
-                ce.
-            }*/
-            throw new NotImplementedException();
+            return _dataProvider.GetOrCreate(property);
         }
 
-        internal static Scene New(params Feature[] f)
+        public Scene New(Concept concept)
         {
             throw new NotImplementedException();
         }
 
-        internal static Scene New(params FeatureVector[] v)
+        public Scene New(Property property1, Property property2)
         {
-            throw new NotImplementedException();
+            Concept c1 = _dataProvider.GetOrCreate(property1);
+            Concept c2 = _dataProvider.GetOrCreate(property2);
+            return _dataProvider.GetOrCreate(c1, c2);
         }
-        internal static Scene New(params Concept[] c)
+
+        public Scene New(params Scene[] scenes)
+        {
+            return _dataProvider.GetOrCreate(scenes);
+        }
+
+        public Scene New(params Concept[] concepts)
         {
             throw new NotImplementedException();
         }
 
-        internal static Scene New(params ConceptEdge[] d)
-        {
-            throw new NotImplementedException();
-        }        
+        
 
-        internal static Scene New(params Scene[] s)
-        {
-            
-            
-            throw new NotImplementedException();
-        }
+
+
 
         /*
         // Find and rank similar Scenes
@@ -90,5 +86,7 @@ namespace AIkailo.Data
             throw new NotImplementedException();
         }
 */
+
+
     }
 }

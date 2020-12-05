@@ -54,6 +54,8 @@
     <Compile Include="Concept.cs" />
     <Compile Include="ConceptEdge.cs" />
     <Compile Include="IAIkailoService.cs" />
+    <Compile Include="ISceneProvider.cs" />
+    <Compile Include="IDataProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene.cs" />
   </ItemGroup>

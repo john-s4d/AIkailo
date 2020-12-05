@@ -22,7 +22,7 @@ namespace AIkailo.Core
         private const string DATA_DIRECTORY = @"G:\AIkailo\Data\";
         private const string MQ_HOST = @"rabbitmq://localhost";
         public static MessageService MessageService { get; } = new MessageService(MQ_HOST);
-        public static DataService DataService { get; } = new DataService(DATA_DIRECTORY);
+        public static ISceneProvider SceneProvider { get; } = new DataService(DATA_DIRECTORY).SceneProvider;
         public static ObservationService ObservationService { get; } = new ObservationService();
         //public static ExternalService ExternalService { get; } = new ExternalService();        
 

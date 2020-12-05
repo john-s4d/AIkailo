@@ -49,14 +49,14 @@ namespace AIkailo.External.Model
 
         // TODO: Serialize more efficiently. Binary or Base64 for transport.
         [JsonConstructor]
-        public Property(byte[] Bytes, TypeCode TypeCode)
+        public Property(byte[] Bytes, TypeCode? typeCode = TypeCode.Empty)
         {
             this.Bytes = Bytes;
-            this.TypeCode = TypeCode;
+            this.TypeCode = typeCode ?? TypeCode.Empty;
         }
 
         public Property(IConvertible value)
-            : this(GetBytes(value), value.GetTypeCode())
+            : this(GetBytes(value), value?.GetTypeCode())
         { }
 
         public Property() { }
@@ -71,9 +71,10 @@ namespace AIkailo.External.Model
 
         private static byte[] GetBytes(IConvertible value, IFormatProvider provider = null)
         {
-            switch (value.GetTypeCode())
+            switch (value?.GetTypeCode())
             {
                 // 0 Bytes
+                case null:
                 case TypeCode.Empty:
                 case TypeCode.DBNull:
                 case TypeCode.Object:
