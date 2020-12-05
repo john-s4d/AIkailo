@@ -132,6 +132,7 @@ namespace AIkailo.Data
                     );
 
                 IRecord record = await result.SingleAsync();
+
                 await tx.CommitAsync(); // TODO: only if created  
 
                 INode n1 = (INode)record["c1"];
