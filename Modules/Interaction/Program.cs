@@ -9,14 +9,14 @@ namespace AIkailo.Modules.Interaction
     {
         private const string HOST = @"rabbitmq://localhost";
 
-        private static Adapter _aikailo = new Adapter(HOST);
-        private static Input _input;
+        private static AIkailoAdapter _adapter = new AIkailoAdapter(HOST);
+        private static AIkailoInput _input;
 
         internal static void Main(string[] args)
         {
 
-            _input = _aikailo.RegisterInput("Interaction.Input");
-            _aikailo.RegisterOutput("Interaction.Output", OnOutputEvent);
+            _input = _adapter.RegisterInput("Interaction.Input");
+            _adapter.RegisterOutput("Interaction.Output", OnOutputEvent);
 
             Run().Wait();
         }
@@ -29,7 +29,7 @@ namespace AIkailo.Modules.Interaction
 
         private async static Task Run()
         {
-            _aikailo.Start();
+            _adapter.Start();
 
             //Console.WriteLine("output:> Enter message (or quit to exit)");
             Console.WriteLine("input:>");
@@ -55,7 +55,7 @@ namespace AIkailo.Modules.Interaction
             }
             while (true);
 
-            _aikailo.Stop();
+            _adapter.Stop();
         }
     }
 }

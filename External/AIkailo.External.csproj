@@ -115,28 +115,36 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExternalMessageConsumer.cs" />
-    <Compile Include="Output.cs" />
+    <Compile Include="AIkailoOutput.cs" />
     <Compile Include="ExternalService.cs" />
-    <Compile Include="Adapter.cs" />
+    <Compile Include="AIkailoAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Input.cs" />
+    <Compile Include="AIkailoInput.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Messages\AIkailo.Messaging.Messages.csproj">
-      <Project>{65ADB900-F6EE-4A3D-8467-A955B747B34D}</Project>
-      <Name>AIkailo.Messaging.Messages</Name>
-    </ProjectReference>
     <ProjectReference Include="..\External.Model\AIkailo.External.Model.csproj">
       <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
       <Name>AIkailo.External.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Logging\AIkailo.Logging.csproj">
+      <Project>{3fcc8004-3929-4ac1-af86-522eecf45976}</Project>
+      <Name>AIkailo.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Messaging.Messages\AIkailo.Messaging.Messages.csproj">
+      <Project>{65adb900-f6ee-4a3d-8467-a955b747b34d}</Project>
+      <Name>AIkailo.Messaging.Messages</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Messaging\AIkailo.Messaging.csproj">
       <Project>{270a6b16-4b0f-4816-838d-87001ee50feb}</Project>
       <Name>AIkailo.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Performance\AIkailo.Performance.csproj">
+      <Project>{ab786fe9-dbc8-46b1-9951-a94a8388bb5c}</Project>
+      <Name>AIkailo.Performance</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

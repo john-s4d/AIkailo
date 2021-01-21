@@ -17,15 +17,6 @@ namespace AIkailo.Core
 
             //IScene scene = context.Message.Scene;
 
-            /*
-            foreach (Association a in scene)
-            {
-                Concept c = a.
-            }
-
-            AIkailo.DataService.
-            */
-
             // Send to the Observation Service
             //AIkailo.MessageService.Publish(new ObservationMessage(scene));
             return null;

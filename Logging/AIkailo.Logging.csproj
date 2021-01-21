@@ -4,15 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{65ADB900-F6EE-4A3D-8467-A955B747B34D}</ProjectGuid>
+    <ProjectGuid>{3FCC8004-3929-4AC1-AF86-522EECF45976}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AIkailo.Messaging.Messages</RootNamespace>
-    <AssemblyName>AIkailo.Messaging.Messages</AssemblyName>
+    <RootNamespace>AIkailo.Logging</RootNamespace>
+    <AssemblyName>AIkailo.Logging</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,26 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassifyMessage.cs" />
-    <Compile Include="ExternalMessage.cs" />
-    <Compile Include="IMessage.cs" />
-    <Compile Include="InputMessage.cs" />
-    <Compile Include="NormalizeMessage.cs" />
-    <Compile Include="ObservationMessage.cs" />
-    <Compile Include="OutputMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReduceMessage.cs" />
-    <Compile Include="TrainingMessage.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Core.Model\AIkailo.Core.Model.csproj">
-      <Project>{085FC83F-08D4-4FFE-B178-0F3B84DFFDA5}</Project>
-      <Name>AIkailo.Core.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\External.Model\AIkailo.External.Model.csproj">
-      <Project>{67961BE6-A4DB-4A4C-94B7-8F80946D9F93}</Project>
-      <Name>AIkailo.External.Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

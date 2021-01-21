@@ -14,7 +14,7 @@ namespace AIkailo.External
 
         public Task Consume(ConsumeContext<ExternalMessage> context)
         {
-            ConsumeEvent?.Invoke(context.Message);
+            ConsumeEvent.Invoke(context.Message);
             return null;
         }
     }

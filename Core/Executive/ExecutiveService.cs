@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace AIkailo.Executive
 {
-    public sealed class ObservationService : IAIkailoService
+    public sealed class ExecutiveService : IAIkailoService
     {
 
         public string Name { get; } = "AIkailo.ObservationService";
 
         public AkailoServiceState State => throw new NotImplementedException();
 
-        public void Merge(Scene scene)
+        public Task Merge(Scene scene)
         {
             // Merge this scene into the current context
             throw new NotImplementedException();

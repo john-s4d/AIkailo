@@ -18,6 +18,11 @@ namespace AIkailo.Data
             _dataProvider = dataProvider;
         }
 
+        public void Dispose()
+        {
+            _dataProvider.Dispose();
+        }
+
         public Concept New(Property property)
         {
             return _dataProvider.GetOrCreate(property);

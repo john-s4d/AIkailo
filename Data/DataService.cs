@@ -3,6 +3,7 @@ using AIkailo.External.Model;
 using System.Linq;
 using System.Threading.Tasks;
 using AIkailo.Core.Model;
+using System.Collections.Generic;
 
 namespace AIkailo.Data
 {
@@ -10,26 +11,33 @@ namespace AIkailo.Data
     {
         public string Name { get; } = "AIkailo.DataService";
 
-        public AkailoServiceState State => throw new NotImplementedException();
+        public AkailoServiceState State { get; private set; }
+        public SceneProvider SceneProvider { get; private set; }
 
-        private ConceptGraphProvider DataProvider { get; }
-        public SceneProvider SceneProvider { get; }
+        private readonly string _directory;
+        private readonly string _host;
+        private readonly string _username;
+        private readonly string _password;
 
-        public DataService(string host)
-        {   
-            //DataProvider = new ConceptGraphProvider(new Neo4jConnection("http://localhost:7474"));
-            DataProvider = new ConceptGraphProvider(new Neo4jConnection("bolt://localhost:7687", "neo4j", "password"));
-            SceneProvider = new SceneProvider(DataProvider);            
+        public DataService(string directory, string host, string username, string password)
+        {
+            _directory = directory;
+            _host = host;
+            _username = username;
+            _password = password;
         }
 
         public void Start()
         {
-            throw new NotImplementedException();
+            SceneProvider = new SceneProvider(new ConceptGraphProvider(new Neo4jConnection(_host, _username, _password)));            
+            State = AkailoServiceState.STARTED;
         }
 
         public void Stop()
         {
-            throw new NotImplementedException();
+            SceneProvider.Dispose();
+            SceneProvider = null;
+            State = AkailoServiceState.STOPPED;
         }        
     }
 }

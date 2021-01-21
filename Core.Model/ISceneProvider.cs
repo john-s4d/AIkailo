@@ -1,9 +1,10 @@
 ﻿using AIkailo.Core.Model;
 using AIkailo.External.Model;
+using System;
 
 namespace AIkailo.Data
 {
-    public interface ISceneProvider
+    public interface ISceneProvider : IDisposable
     {
         Concept New(Property property);
 

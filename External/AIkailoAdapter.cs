@@ -5,13 +5,13 @@ using AIkailo.Messaging.Messages;
 
 namespace AIkailo.External
 {
-    public class Adapter
+    public class AIkailoAdapter
     {
         private MessageService _messageService;
 
-        private Adapter() { }
+        private AIkailoAdapter() { }
 
-        public Adapter(string host)
+        public AIkailoAdapter(string host)
         {
             _messageService = new MessageService(host);
         }
@@ -26,16 +26,16 @@ namespace AIkailo.External
             _messageService.Stop();
         }
 
-        public Input RegisterInput(string name)
+        public AIkailoInput RegisterInput(string name)
         {
-            Input result = new Input(name);
+            AIkailoInput result = new AIkailoInput(name);
             result.InputEvent += OnInputEvent;
             return result;
         }
 
         public void RegisterOutput(string name, Action<FeatureVector> callback)
         {
-            Output result = new Output(name);
+            AIkailoOutput result = new AIkailoOutput(name);
             _messageService.RegisterConsumer(result.Name, result.Consumer);
             result.OutputEvent += callback;
         }

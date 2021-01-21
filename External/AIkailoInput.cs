@@ -3,13 +3,13 @@ using AIkailo.External.Model;
 
 namespace AIkailo.External
 {
-    public class Input
+    public class AIkailoInput
     {
         public string Name { get; }
 
         internal Action<string, FeatureVector> InputEvent { get; set; }
 
-        public Input(string name)
+        public AIkailoInput(string name)
         {
             Name = name;
         }

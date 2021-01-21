@@ -124,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConceptGraphProvider.cs" />
+    <Compile Include="ConceptGraphQuery.cs" />
     <Compile Include="DataService.cs" />
     <Compile Include="Neo4jConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

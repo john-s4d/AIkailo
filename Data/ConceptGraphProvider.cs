@@ -22,9 +22,9 @@ namespace AIkailo.Data
             return GetOrCreateAsync(property).Result;
         }
 
-        public async Task<Concept> GetOrCreateAsync(Property property)
+        public async Task<Concept> GetOrCreateAsync(Property definition)
         {
-            if (property == null) { throw new ArgumentNullException("property"); }
+            if (definition == null) { throw new ArgumentNullException("definition"); }
 
             IAsyncSession session = _neo4j.NewAsyncSession();
             IAsyncTransaction tx = await session.BeginTransactionAsync();
@@ -32,10 +32,8 @@ namespace AIkailo.Data
             try
             {
                 IResultCursor result = await tx.RunAsync(
-                        "MERGE (c:Concept {definition: $property}) " +
-                        "ON CREATE SET c.definition = $property, c.id = apoc.create.uuid() " +                        
-                        "RETURN c.id, c.definition", 
-                        new { property = property.ToString() }
+                        ConceptGraphQuery.MERGE_CONCEPT_FROM_DEF, 
+                        new { definition = definition.ToString() }
                     );
                 
                 IRecord record = await result.SingleAsync();
@@ -77,21 +75,18 @@ namespace AIkailo.Data
             try
             {   // TODO: index on Concept.id
                 IResultCursor result = await tx.RunAsync(
-                    "MATCH (c1:Concept {id:$concept1}),(c2:Concept {id:$concept2}) " +
-                    "MERGE (c1)-[a1:Tags]->(p:Concept)<-[a2:Tags]-(c2) " +
-                    "ON CREATE SET p.id = apoc.create.uuid() " +
-                    "RETURN c1, c2, a1, a2, p ",
-                        new { concept1 = concept1.Id, concept2 = concept2.Id }
+                    ConceptGraphQuery.MERGE_COMMON_PARENT_REL_FROM_2_ID,
+                        new { id1 = concept1.Id, id2 = concept2.Id }
                     );
 
                 IRecord record = await result.SingleAsync();
                 await tx.CommitAsync(); // TODO: only if created  
 
-                INode n1 = (INode)record["c1"];
-                Concept c1 = new Concept(n1.Properties["definition"].ToString(), n1.Properties["id"].ToString());
+                //INode n1 = (INode)record["c1"];
+                //Concept c1 = new Concept(n1.Properties["definition"].ToString(), n1.Properties["id"].ToString());
 
-                INode n2 = (INode)record["c2"];
-                Concept c2 = new Concept(n2.Properties["definition"].ToString(), n2.Properties["id"].ToString());
+                //INode n2 = (INode)record["c2"];
+                //Concept c2 = new Concept(n2.Properties["definition"].ToString(), n2.Properties["id"].ToString());
 
                 IRelationship a1 = (IRelationship)record["a1"];
                 IRelationship a2 = (IRelationship)record["a2"];
@@ -100,8 +95,8 @@ namespace AIkailo.Data
                 Concept p = new Concept(n5.Properties.ContainsKey("definition") ? n5.Properties["definition"].ToString() : null, n5.Properties["id"].ToString());
 
                 Scene s = new Scene(p);
-                s.AddVerticesAndEdge(new ConceptEdge(c1, p, a1.Properties));
-                s.AddVerticesAndEdge(new ConceptEdge(c2, p, a2.Properties));
+                s.AddVerticesAndEdge(new ConceptEdge(concept1, p, a1.Properties));
+                s.AddVerticesAndEdge(new ConceptEdge(concept2, p, a2.Properties));
                 return s;
             }
             catch (Exception e)
@@ -117,40 +112,53 @@ namespace AIkailo.Data
 
         public async Task<Scene> GetOrCreateASync(Scene[] scenes)
         {
-
             IAsyncSession session = _neo4j.NewAsyncSession();
             IAsyncTransaction tx = await session.BeginTransactionAsync();
 
             try
-            {   // TODO: index on Concept.id
-                IResultCursor result = await tx.RunAsync(
-                    "MATCH (c:Concept) WHERE c.id IN $ids " +
-                    "MERGE (c)-[a:Tags]->(p:Concept) " +
-                    "ON CREATE SET p.id = apoc.create.uuid() " +
-                    "RETURN c, a, p",
-                        new { ids = scenes.Select(x => x.Id).ToArray() }
-                    );
+            {
+                string[] ids = scenes.Select(x => x.Id).ToArray();
 
-                IRecord record = await result.SingleAsync();
+                IResultCursor resultCursor = await tx.RunAsync(
+                    ConceptGraphQuery.GET_PARENT_FROM_IDS,
+                        new { ids }
+                    );
+                
+                List<IRecord> records = await resultCursor.ToListAsync();
+                
+                // If the parent doesn't exist, create it now and link it
+                if (records.Count == 0)
+                {
+                    resultCursor = await tx.RunAsync(
+                    ConceptGraphQuery.CREATE_PARENT_FROM_IDS,
+                        new { ids }
+                    );
+                    records = await resultCursor.ToListAsync();
+                }  
 
                 await tx.CommitAsync(); // TODO: only if created  
 
-                INode n1 = (INode)record["c1"];
-                Concept c1 = new Concept(n1.Properties["definition"].ToString(), n1.Properties["id"].ToString());
+                INode np = (INode)records[0]["p"];
+                Concept p = new Concept(np.Properties.ContainsKey("definition") ? np.Properties["definition"].ToString() : null, np.Properties["id"].ToString());
 
-                INode n2 = (INode)record["c2"];
-                Concept c2 = new Concept(n2.Properties["definition"].ToString(), n2.Properties["id"].ToString());
+                Scene result = new Scene(p);
 
-                IRelationship a1 = (IRelationship)record["a1"];
-                IRelationship a2 = (IRelationship)record["a2"];
+                foreach (Scene s in scenes)
+                {
+                    result.AddVerticesAndEdgeRange(s.Edges);
+                }
 
-                INode n5 = (INode)record["p"];
-                Concept p = new Concept(n5.Properties.ContainsKey("definition") ? n5.Properties["definition"].ToString() : null, n5.Properties["id"].ToString());
+                foreach(IRecord record in records)
+                {
+                    INode n = (INode)record["c"];
+                    Concept c = new Concept(n.Properties.ContainsKey("definition") ? n.Properties["definition"].ToString() : null, n.Properties["id"].ToString());
 
-                Scene s = new Scene(p);
-                s.AddVerticesAndEdge(new ConceptEdge(c1, p, a1.Properties));
-                s.AddVerticesAndEdge(new ConceptEdge(c2, p, a2.Properties));
-                return s;
+                    IRelationship a = (IRelationship)record["a"];
+
+                    result.AddVerticesAndEdge(new ConceptEdge(c, p, a.Properties));
+                }
+               
+                return result;
             }
             catch (Exception e)
             {
@@ -166,6 +174,11 @@ namespace AIkailo.Data
         public Scene GetOrCreate(params Scene[] scenes)
         {
             return GetOrCreateASync(scenes).Result;
+        }
+
+        public void Dispose()
+        {
+            ((IDisposable)_neo4j).Dispose();
         }
     }
 }

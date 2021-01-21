@@ -19,11 +19,17 @@ namespace AIkailo.Core
         //private const string DISASSEMBLE_QUEUE_NAME = "disassemble_queue";
         //private const string CLASSIFY_QUEUE_NAME = "classify_queue"; 
 
-        private const string DATA_DIRECTORY = @"G:\AIkailo\Data\";
         private const string MQ_HOST = @"rabbitmq://localhost";
+
+        private const string DATA_DIRECTORY = @"G:\AIkailo\Data\";
+        private const string DATA_HOST = @"bolt://localhost:7687";
+        private const string DATA_UN = @"neo4j";
+        private const string DATA_PW = @"password";
+        
         public static MessageService MessageService { get; } = new MessageService(MQ_HOST);
-        public static ISceneProvider SceneProvider { get; } = new DataService(DATA_DIRECTORY).SceneProvider;
-        public static ObservationService ObservationService { get; } = new ObservationService();
+        public static DataService DataService { get; } = new DataService(DATA_DIRECTORY, DATA_HOST, DATA_UN, DATA_PW);
+        public static ExecutiveService ExecutiveService { get; } = new ExecutiveService();
+
         //public static ExternalService ExternalService { get; } = new ExternalService();        
 
         internal AIkailo() : base()
@@ -35,7 +41,6 @@ namespace AIkailo.Core
         private void InitializeConsumers()
         {   
             MessageService.RegisterConsumer<InputMessage, InputMessageConsumer>("Core.Input");
-            //MessageService.RegisterConsumer<ClassifyMessage, ClassifyMessageConsumer>("Core.Classify");            
             MessageService.RegisterConsumer<OutputMessage, OutputMessageConsumer>("Core.Output");
         }
 
@@ -45,16 +50,16 @@ namespace AIkailo.Core
             // Thread.Sleep(20000); 
 
             MessageService.Start();
-            //DataService.Start();
-            //ObservationService.Start();
+            DataService.Start();
+            //ExecutiveService.Start();
             //ExternalService.Start();
         }
 
         protected override void OnStop()
         {
             MessageService.Stop();
-            //DataService.Stop();
-            //ObservationService.Start();
+            DataService.Stop();
+            //ExecutiveService.Stop();
             //ExternalService.Stop();
         }
 

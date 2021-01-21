@@ -4,13 +4,13 @@ using AIkailo.Messaging.Messages;
 
 namespace AIkailo.External
 {
-    public class Output
+    public class AIkailoOutput
     {
         public string Name { get; }
         public Action<FeatureVector> OutputEvent { get; set; }
         internal ExternalMessageConsumer Consumer { get; }
 
-        public Output(string name)
+        public AIkailoOutput(string name)
         {
             Name = name;
             Consumer = new ExternalMessageConsumer();
