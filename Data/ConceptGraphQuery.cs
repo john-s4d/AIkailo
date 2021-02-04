@@ -54,5 +54,11 @@ namespace AIkailo.Data
             CREATE(c:Concept {definition:$definition, id:apoc.create.uuid()})
             RETURN c
         ";
+
+        internal const string MERGE_INPUT_NODE = @"
+            MERGE(n:InputNode { source:$source, parameter: @parameter })
+            ON CREATE SET n.source = $source, n.parameter = $parameter, n.id = apoc.create.uuid()
+            RETURN n.id, n.source, n.parameter
+        ";
     }
 }

@@ -35,19 +35,14 @@ namespace AIkailo.Core
                 }
             }
             */
-            
+
             // Send the message to an external target
-            string target = "Interaction.Output";
+            var message = new ExternalMessage("Interaction.Output", new FeatureArray { { "output", "bar" } });
 
-            FeatureVector data = new FeatureVector
-            {
-                { "output", "bar" }
-            };
+            ISendEndpoint endpoint = await context.GetSendEndpoint(new Uri($"rabbitmq://localhost/{message.Target}"));
 
-            ISendEndpoint endpoint = await context.GetSendEndpoint(new Uri($"rabbitmq://localhost/{target}"));
-            await endpoint.Send(new ExternalMessage(data));
+            await endpoint.Send(message);
 
-            //context.Send<ExternalMessage>()            
         }
     }
 }

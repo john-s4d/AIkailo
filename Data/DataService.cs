@@ -12,7 +12,7 @@ namespace AIkailo.Data
         public string Name { get; } = "AIkailo.DataService";
 
         public AkailoServiceState State { get; private set; }
-        public SceneProvider SceneProvider { get; private set; }
+        public IDataProvider DataProvider { get; private set; }
 
         private readonly string _directory;
         private readonly string _host;
@@ -29,14 +29,14 @@ namespace AIkailo.Data
 
         public void Start()
         {
-            SceneProvider = new SceneProvider(new ConceptGraphProvider(new Neo4jConnection(_host, _username, _password)));            
+            DataProvider = new NodeGraphProvider(new Neo4jConnection(_host, _username, _password));            
             State = AkailoServiceState.STARTED;
         }
 
         public void Stop()
         {
-            SceneProvider.Dispose();
-            SceneProvider = null;
+            DataProvider.Dispose();
+            DataProvider = null;
             State = AkailoServiceState.STOPPED;
         }        
     }

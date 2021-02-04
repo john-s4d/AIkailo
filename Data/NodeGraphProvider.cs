@@ -8,24 +8,27 @@ using Neo4j.Driver;
 
 namespace AIkailo.Data
 {
-    public class ConceptGraphProvider //: IDataProvider
+    public class NodeGraphProvider : IDataProvider
     {
-        /*
         private Neo4jConnection _neo4j { get; set; }
 
-        public ConceptGraphProvider(Neo4jConnection connection)
+        public NodeGraphProvider(Neo4jConnection connection)
         {
             _neo4j = connection;
         }
 
-        public Concept GetOrCreate(Property property)
-        {
-            return GetOrCreateAsync(property).Result;
+        public void Load(ref Node node)
+        {   
+            if (node.Label == null) { throw new ArgumentNullException("node.Label"); }
+
+            IRecord record = GetOrCreateAsync(node.NodeType, node.Label).Result;
+            node.Id = record["n.id"].ToString();
+            //node.Features = (FeatureArray)record["n.Features"];
         }
 
-        public async Task<Concept> GetOrCreateAsync(Property definition)
+        public async Task<IRecord> GetOrCreateAsync(NodeType type, Property label)
         {
-            if (definition == null) { throw new ArgumentNullException("definition"); }
+            if (label == null) { throw new ArgumentNullException("label"); }
 
             IAsyncSession session = _neo4j.NewAsyncSession();
             IAsyncTransaction tx = await session.BeginTransactionAsync();
@@ -33,21 +36,16 @@ namespace AIkailo.Data
             try
             {
                 IResultCursor result = await tx.RunAsync(
-                        ConceptGraphQuery.MERGE_CONCEPT_FROM_DEF, 
-                        new { definition = definition.ToString() }
-                    );
+                        NodeGraphQuery.MERGE_NODE_FROM_LABEL,
+                        new { type = type.ToString(), label = label.ToString() }
+                    ); ;
                 
                 IRecord record = await result.SingleAsync();
                 IResultSummary summary = result.ConsumeAsync().Result;
                 
                 await tx.CommitAsync(); // TODO: only if created
-
-                Property pResult = record["c.definition"].ToString();
-                string id = record["c.id"].ToString();
-
-                Concept c = new Concept() { Label = pResult, Id = id };
-                return c;
                 
+                return record;                
             }
             catch (Exception e)
             {
@@ -60,6 +58,60 @@ namespace AIkailo.Data
             }
         }
 
+        public IEnumerable<Connection> GetEdges(IEnumerable<Node> activeNodes)
+        {
+            Dictionary<string, Node> nodesById = new Dictionary<string, Node>();
+            foreach(Node n in activeNodes)
+            {
+                nodesById.Add(n.Id, n);
+            }
+            List<Connection> result = new List<Connection>();
+
+            foreach (IRecord record in GetEdgesAsync(activeNodes).Result)
+            {
+                Connection c = new Connection();
+                c.Id = (string)record["c.id"];
+                c.Features = (FeatureArray)record["c.features"];
+                c.Source = nodesById[(string)record["n1.id"]];                
+                c.Target = nodesById.ContainsKey((string)record["n2.id"]) ? nodesById[(string)record["n2.id"]] : new Node() { Id = (string)record["n2.id"] };
+                result.Add(c);
+            }
+            return result;
+        }
+
+        public async Task<IEnumerable<IRecord>> GetEdgesAsync(IEnumerable<Node> activeNodes)
+        {
+            if (activeNodes == null) { throw new ArgumentNullException(nameof(activeNodes)); }
+
+            IAsyncSession session = _neo4j.NewAsyncSession();
+            IAsyncTransaction tx = await session.BeginTransactionAsync();
+
+            try
+            {
+                IResultCursor result = await tx.RunAsync(
+                        NodeGraphQuery.GET_EDGES_FROM_NODE_IDS,
+                        new { ids = activeNodes.Select(x => x.Id).ToArray() }
+                    );
+
+                return await result.ToListAsync();                
+            }
+            catch (Exception e)
+            {
+                await tx.RollbackAsync();
+                throw e;
+            }
+            finally
+            {
+                await session.CloseAsync();
+            }
+        }
+
+        public void Dispose()
+        {
+            ((IDisposable)_neo4j).Dispose();
+        }
+
+        /*
         public Scene GetOrCreate(Concept concept1, Concept concept2)
         {
             return GetOrCreateASync(concept1, concept2).Result;
@@ -185,21 +237,8 @@ namespace AIkailo.Data
         public Scene GetOrCreate(params Scene[] scenes)
         {
             return GetOrCreateASync(scenes).Result;
-        }
-
-        public void Dispose()
-        {
-            ((IDisposable)_neo4j).Dispose();
-        }
-
-        public Node Load(Property property)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Load(ref Node node)
-        {
-            throw new NotImplementedException();
         }*/
+
+
     }
 }

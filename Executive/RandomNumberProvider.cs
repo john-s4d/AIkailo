@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AIkailo.External.Model
+namespace AIkailo.Executive
 {
-    interface IFeatureVector : IList<Feature>
+    public class RandomNumberProvider
     {
+        
     }
 }

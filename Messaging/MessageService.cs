@@ -16,10 +16,10 @@ namespace AIkailo.Messaging
 
         public AkailoServiceState State { get; private set; } = AkailoServiceState.STOPPED;
 
-        private Dictionary<string, Type> _consumers = new Dictionary<string, Type>();
-        private Dictionary<string, object> _instances = new Dictionary<string, object>();
+        private readonly Dictionary<string, Type> _consumers = new Dictionary<string, Type>();
+        private readonly Dictionary<string, object> _instances = new Dictionary<string, object>();
         private IBusControl _bus;
-        private string _host;
+        private readonly string _host;
 
         public MessageService(string host)
         {

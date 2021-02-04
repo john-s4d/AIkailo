@@ -2,10 +2,17 @@
 
 namespace AIkailo.Messaging.Messages
 {
-    public interface ITrainingMessage : IMessage
+    public class TrainingMessage : IMessage
     {
-        //SensorMessage SensorMessage { get; set; }
-        //ActionMessage ActionMessage { get; set; }
-        // Hints / Process Model?
+        public InputMessage Input { get; set; }
+        public ExternalMessage Output { get; set; }
+        
+        // TODO: hints / process model
+
+        public TrainingMessage(InputMessage input, ExternalMessage output)
+        {
+            Input = input;
+            Output = output;
+        }
     }
 }

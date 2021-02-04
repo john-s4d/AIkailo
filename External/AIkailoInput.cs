@@ -7,14 +7,14 @@ namespace AIkailo.External
     {
         public string Name { get; }
 
-        internal Action<string, FeatureVector> InputEvent { get; set; }
+        internal Action<string, FeatureArray> InputEvent { get; set; }
 
         public AIkailoInput(string name)
         {
             Name = name;
         }
 
-        public void OnInputEvent(FeatureVector data)
+        public void OnInputEvent(FeatureArray data)
         {
             InputEvent?.Invoke(Name, data);
         }

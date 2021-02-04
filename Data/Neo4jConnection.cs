@@ -6,18 +6,18 @@ namespace AIkailo.Data
 {
     public class Neo4jConnection : IDisposable
     {
-        private IDriver _driver { get; }
+        private IDriver Driver { get; }
 
         private bool disposedValue;
 
         public Neo4jConnection(string uri, string username = null, string password = null)
         {
-            _driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
+            Driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
         }
 
         public IAsyncSession NewAsyncSession()
         {
-            return _driver.AsyncSession();
+            return Driver.AsyncSession();
         }
 
         protected virtual void Dispose(bool disposing)
@@ -27,7 +27,7 @@ namespace AIkailo.Data
                 if (disposing)
                 {
                     // TODO: dispose managed state (managed objects)
-                    _driver?.Dispose();
+                    Driver?.Dispose();
                 }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override finalizer

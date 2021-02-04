@@ -53,6 +53,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Messaging.Messages"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Performance", "Performance\AIkailo.Performance.csproj", "{AB786FE9-DBC8-46B1-9951-A94A8388BB5C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Executive", "Executive\AIkailo.Executive.csproj", "{09FF5836-596E-41F9-8DA2-4492207FDE02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -221,6 +223,14 @@ Global
 		{AB786FE9-DBC8-46B1-9951-A94A8388BB5C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AB786FE9-DBC8-46B1-9951-A94A8388BB5C}.Release|x64.ActiveCfg = Release|Any CPU
 		{AB786FE9-DBC8-46B1-9951-A94A8388BB5C}.Release|x64.Build.0 = Release|Any CPU
+		{09FF5836-596E-41F9-8DA2-4492207FDE02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09FF5836-596E-41F9-8DA2-4492207FDE02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09FF5836-596E-41F9-8DA2-4492207FDE02}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{09FF5836-596E-41F9-8DA2-4492207FDE02}.Debug|x64.Build.0 = Debug|Any CPU
+		{09FF5836-596E-41F9-8DA2-4492207FDE02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09FF5836-596E-41F9-8DA2-4492207FDE02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09FF5836-596E-41F9-8DA2-4492207FDE02}.Release|x64.ActiveCfg = Release|Any CPU
+		{09FF5836-596E-41F9-8DA2-4492207FDE02}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

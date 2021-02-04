@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AIkailo.External.Model
 {
-    public class FeatureVector : List<Feature>, IFeatureVector
+    public class FeatureArray : List<Feature>
     {            
         public void Add(Property item1, Property item2)            
         {   

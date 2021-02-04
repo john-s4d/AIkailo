@@ -12,7 +12,8 @@ namespace AIkailo.Core
         {
             Console.WriteLine("ObservationMessageConsumer.Consume(ObservationMessage)");
 
-            return AIkailo.ExecutiveService.Merge(context.Message.Scene);            
+            //return AIkailo.ExecutiveService.Merge(context.Message.Scene);            
+            throw new NotImplementedException();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace AIkailo.External
     public class AIkailoOutput
     {
         public string Name { get; }
-        public Action<FeatureVector> OutputEvent { get; set; }
+        public Action<FeatureArray> OutputEvent { get; set; }
         internal ExternalMessageConsumer Consumer { get; }
 
         public AIkailoOutput(string name)
@@ -19,7 +19,6 @@ namespace AIkailo.External
 
         internal void Consume(ExternalMessage message)
         {
-            //throw new NotImplementedException();
             OutputEvent?.Invoke(message.Data);
         }
     }

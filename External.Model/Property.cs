@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 namespace AIkailo.External.Model
 {
     [JsonObject, Serializable]
-    public class Property : IProperty
+    public class Property : IConvertible, ISerializable, IComparable<Property>
     {
         public static implicit operator Property(byte[] value) => throw new InvalidCastException(); // TypeCode not available. TODO: treat as serialized?
         public static implicit operator Property(string value) => new Property(value);
@@ -60,7 +60,6 @@ namespace AIkailo.External.Model
         { }
 
         public Property() { }
-
 
         public Property(SerializationInfo info, StreamingContext context)
             : this(
@@ -221,7 +220,38 @@ namespace AIkailo.External.Model
 
         public TypeCode GetTypeCode()
         {
-            return this.TypeCode;
+            return TypeCode;
+        }
+
+        public bool IsNumericType()
+        {
+            switch(TypeCode)
+            {
+                case TypeCode.Boolean:
+                case TypeCode.Int16:
+                case TypeCode.UInt16:
+                case TypeCode.Single:
+                case TypeCode.Int32:
+                case TypeCode.UInt32:
+                case TypeCode.Double:
+                case TypeCode.Int64:
+                case TypeCode.UInt64:
+                case TypeCode.Decimal:
+                    return true;
+
+                case TypeCode.Object:
+                case TypeCode.Byte:
+                case TypeCode.SByte:
+                case TypeCode.Char:
+                case TypeCode.String:
+                case TypeCode.DateTime:
+                case TypeCode.Empty:
+                case TypeCode.DBNull:
+                    return false;
+
+                default:
+                    return false;
+            }
         }
 
         public bool Equals(Property obj)

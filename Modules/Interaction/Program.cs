@@ -12,24 +12,48 @@ namespace AIkailo.Modules.Interaction
         private static AIkailoAdapter _adapter = new AIkailoAdapter(HOST);
         private static AIkailoInput _input;
 
+        private const string INPUT_NAME = "Interaction.Input";
+        private const string OUTPUT_NAME = "Interaction.Output";
+
         internal static void Main(string[] args)
         {
 
-            _input = _adapter.RegisterInput("Interaction.Input");
-            _adapter.RegisterOutput("Interaction.Output", OnOutputEvent);
+            _input = _adapter.RegisterInput(INPUT_NAME);
+            _adapter.RegisterOutput(OUTPUT_NAME, OnOutputEvent);
+
+            _adapter.Start();
+            //TrainAdapter();
+            
 
             Run().Wait();
+            
         }
 
-        private static void OnOutputEvent(FeatureVector data)
+        private static void OnOutputEvent(FeatureArray data)
         {
             Console.WriteLine("output:> " + data[0].Item1 + " : " + data[0].Item2);
             //Console.Write("input:> ");
         }
 
+        private static void TrainAdapter()
+        {
+            var flow = new DataFlow()
+            {
+                Source = INPUT_NAME,
+                Input = new FeatureArray { { "input", "foo" } },
+                
+                Target = OUTPUT_NAME,
+                Output = new FeatureArray { { "output", "bar" } }
+            };
+
+            _adapter.Train(flow);
+
+        }
+
         private async static Task Run()
         {
-            _adapter.Start();
+
+            
 
             //Console.WriteLine("output:> Enter message (or quit to exit)");
             Console.WriteLine("input:>");
@@ -42,7 +66,7 @@ namespace AIkailo.Modules.Interaction
 
                 if (value.Equals("quit", StringComparison.OrdinalIgnoreCase)) { break; }
 
-                FeatureVector data = new FeatureVector
+                FeatureArray data = new FeatureArray
                 {
                     { "input", value }
                 };
@@ -56,6 +80,7 @@ namespace AIkailo.Modules.Interaction
             while (true);
 
             _adapter.Stop();
+
         }
     }
 }

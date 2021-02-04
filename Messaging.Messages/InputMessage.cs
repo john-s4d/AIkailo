@@ -3,12 +3,11 @@
 namespace AIkailo.Messaging.Messages
 {
     public class InputMessage : IMessage
-    {   
+    {
+        public string Source { get; set; }
+        public FeatureArray Data { get; set; }
 
-        public FeatureVector Data { get; }
-        public string Source { get; }
-
-        public InputMessage(string source, FeatureVector data)
+        public InputMessage(string source, FeatureArray data)
         {
             Data = data;
             Source = source;
