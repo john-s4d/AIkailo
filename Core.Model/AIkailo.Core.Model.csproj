@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IExternalProvider.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="IAIkailoService.cs" />
@@ -65,6 +66,10 @@
     <ProjectReference Include="..\External.Model\AIkailo.External.Model.csproj">
       <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
       <Name>AIkailo.External.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Messaging.Messages\AIkailo.Messaging.Messages.csproj">
+      <Project>{65adb900-f6ee-4a3d-8467-a955b747b34d}</Project>
+      <Name>AIkailo.Messaging.Messages</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

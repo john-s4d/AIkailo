@@ -12,13 +12,16 @@ namespace AIkailo.Executive
         public string Name { get; } = "AIkailo.ExecutiveService";        
         public AkailoServiceState State { get; private set; }
         
-        internal IDataProvider NodeProvider { get; private set; }
+        internal IDataProvider DataProvider { get; private set; }
+
+        internal IExternalProvider ExternalProvider { get; private set; }
 
         internal Context DefaultContext { get; private set; }
 
-        public ExecutiveService(IDataProvider nodeProvider)        
+        public ExecutiveService(IDataProvider dataProvider, IExternalProvider externalProvider)        
         {
-            NodeProvider = nodeProvider;            
+            DataProvider = dataProvider;
+            ExternalProvider = externalProvider;
         }
 
         public Task Merge(Node node)
@@ -28,7 +31,7 @@ namespace AIkailo.Executive
 
         public void Start() 
         {
-            DefaultContext = new Context(NodeProvider);
+            DefaultContext = new Context(DataProvider, ExternalProvider, null);
             DefaultContext.Start();
             State = AkailoServiceState.STARTED;
         }

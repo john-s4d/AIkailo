@@ -13,29 +13,6 @@ namespace AIkailo.Core
         {
             Console.WriteLine("OutputMessageConsumer.Consume(OutputMessage)");
 
-            /*
-            // Disassemble a Scene into its structured data and extract the target if possible
-            string target = string.Empty;
-            DataPackage data = new DataPackage();
-
-            foreach (Association a in context.Message.Scene)
-            {
-                AIkailo.DataService.
-                Scene s = (Scene)a.ChildId;
-                Concept cParamName = s[0].Child;
-                Concept cParamValue = s[1].Child;
-
-                if (cParamName.Equals(Constants.TARGET_GUID))
-                {
-                    target = cParamValue.Definition.ToString();
-                }
-                else
-                {
-                    data.Add(new PrimPair(cParamName.Definition, cParamValue.Definition));
-                }
-            }
-            */
-
             // Send the message to an external target
             var message = new ExternalMessage("Interaction.Output", new FeatureArray { { "output", "bar" } });
 

@@ -23,8 +23,7 @@ namespace AIkailo.Core
         public static MessageService MessageService { get; private set; } 
         public static DataService DataService { get; private set; } 
         public static ExecutiveService ExecutiveService { get; private set; }
-
-        //public static ExternalService ExternalService { get; } = new ExternalService();        
+        public static ExternalService ExternalService { get; private set;  }  
 
         internal AIkailo() : base()
         {
@@ -50,11 +49,14 @@ namespace AIkailo.Core
 
             DataService = new DataService(DATA_DIRECTORY, DATA_HOST, DATA_UN, DATA_PW);
             DataService.Start();
-            
-            ExecutiveService = new ExecutiveService(DataService.DataProvider);
+
+            ExternalService = new ExternalService();
+            ExternalService.Start();
+
+            ExecutiveService = new ExecutiveService(DataService.DataProvider, ExternalService);
             ExecutiveService.Start();
 
-            //ExternalService.Start();
+            
         }
 
         protected override void OnStop()

@@ -47,17 +47,11 @@
     <Compile Include="ExternalMessage.cs" />
     <Compile Include="IMessage.cs" />
     <Compile Include="InputMessage.cs" />
-    <Compile Include="ObservationMessage.cs" />
     <Compile Include="OutputMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReduceMessage.cs" />
     <Compile Include="TrainingMessage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Model\AIkailo.Core.Model.csproj">
-      <Project>{085FC83F-08D4-4FFE-B178-0F3B84DFFDA5}</Project>
-      <Name>AIkailo.Core.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\External.Model\AIkailo.External.Model.csproj">
       <Project>{67961BE6-A4DB-4A4C-94B7-8F80946D9F93}</Project>
       <Name>AIkailo.External.Model</Name>
