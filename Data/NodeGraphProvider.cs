@@ -17,6 +17,11 @@ namespace AIkailo.Data
             _neo4j = connection;
         }
 
+        public void VerifyConnection()
+        {
+            _neo4j.VerifyConnection();
+        }
+
         public void Load(ref Node node)
         {   
             if (node.Label == null) { throw new ArgumentNullException("node.Label"); }
@@ -26,13 +31,15 @@ namespace AIkailo.Data
             //node.Features = (FeatureArray)record["n.Features"];
         }
 
+
         public async Task<IRecord> GetOrCreateAsync(NodeType type, Property label)
         {
             if (label == null) { throw new ArgumentNullException("label"); }
+            
 
             IAsyncSession session = _neo4j.NewAsyncSession();
             IAsyncTransaction tx = await session.BeginTransactionAsync();
-           
+
             try
             {
                 IResultCursor result = await tx.RunAsync(
@@ -110,6 +117,7 @@ namespace AIkailo.Data
         {
             ((IDisposable)_neo4j).Dispose();
         }
+
 
         /*
         public Scene GetOrCreate(Concept concept1, Concept concept2)

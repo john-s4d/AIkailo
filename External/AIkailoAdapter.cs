@@ -45,7 +45,7 @@ namespace AIkailo.External
             _messageService.Publish(new InputMessage(source, data));
         }
 
-        public void Train(DataFlow flow)
+        public void Train(TrainingStep flow)
         {
             InputMessage input = new InputMessage(flow.Source, flow.Input);
             ExternalMessage output = new ExternalMessage(flow.Target, flow.Output);
@@ -55,7 +55,7 @@ namespace AIkailo.External
 
         public void Train(TrainingModel model)
         {
-            foreach(DataFlow flow in model)
+            foreach(TrainingStep flow in model)
             {
                 Train(flow);
             }

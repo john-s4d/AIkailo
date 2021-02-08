@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace AIkailo.External.Model
 {
-    public class TrainingModel : List<DataFlow>
+    public class TrainingModel : List<TrainingStep>
     {
         public void Add(FeatureArray input, FeatureArray output)
         {
-            Add(new DataFlow(input, output));
+            Add(new TrainingStep(input, output));
         }
         public void Add(FeatureArray input, FeatureArray output, string source, string target)
         {
-            Add(new DataFlow()
+            Add(new TrainingStep()
             {
                 Input = input,
                 Output = output,

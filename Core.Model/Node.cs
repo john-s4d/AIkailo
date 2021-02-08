@@ -20,4 +20,14 @@ namespace AIkailo.Core.Model
         SUBNET,
         OUTPUT
     }
+
+    public enum NodeStatus
+    {
+        ACTIVATED,
+        INPUT,
+        HIDDEN,
+        PROCESS,
+        SUBNET,
+        OUTPUT
+    }
 }

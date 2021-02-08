@@ -83,6 +83,8 @@ namespace AIkailo.Messaging
             where TMessage : class, IMessage
             where TConsumer : class, IMessageConsumer<TMessage>
         {
+            if (State == AkailoServiceState.STARTED) { throw new InvalidOperationException("Cannot add consumers while service is started."); }
+
             _consumers.Add(name, typeof(TConsumer));
            // _consumers.Add(name + "_error", typeof(FaultConsumer<TMessage>));
         }
@@ -90,6 +92,8 @@ namespace AIkailo.Messaging
         public void RegisterConsumer<TMessage>(string name, IMessageConsumer<TMessage> instance)
             where TMessage : class, IMessage
         {
+            if(State == AkailoServiceState.STARTED) { throw new InvalidOperationException("Cannot add consumers while service is started."); }
+
             _instances.Add(name, instance);
             //_consumers.Add(name + "_error", typeof(FaultConsumer<TMessage>));
         }

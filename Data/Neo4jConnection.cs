@@ -15,6 +15,11 @@ namespace AIkailo.Data
             Driver = GraphDatabase.Driver(uri, AuthTokens.Basic(username, password));
         }
 
+        public void VerifyConnection()
+        {
+            Driver.VerifyConnectivityAsync().Wait();
+        }
+
         public IAsyncSession NewAsyncSession()
         {
             return Driver.AsyncSession();

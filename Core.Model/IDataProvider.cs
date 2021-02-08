@@ -2,6 +2,7 @@
 using AIkailo.External.Model;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AIkailo.Core.Model
 {
@@ -9,6 +10,10 @@ namespace AIkailo.Core.Model
     {
         void Load(ref Node node);
         IEnumerable<Connection> GetEdges(IEnumerable<Node> activeNodes);
+        // TODO: Create Process Node
+
+        void VerifyConnection();
+        
 
         //List<Node> LoadNeighbors(Property property);
 

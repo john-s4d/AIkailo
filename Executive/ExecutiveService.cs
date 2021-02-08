@@ -18,20 +18,30 @@ namespace AIkailo.Executive
 
         internal Context DefaultContext { get; private set; }
 
+        internal Trainer Trainer { get; private set; }
+
         public ExecutiveService(IDataProvider dataProvider, IExternalProvider externalProvider)        
         {
             DataProvider = dataProvider;
             ExternalProvider = externalProvider;
+
+            DefaultContext = new Context(DataProvider, ExternalProvider, null);
+            Trainer = new Trainer(DataProvider);
         }
 
-        public Task Merge(Node node)
+        public Task Incoming(Node node)
         {
-            return DefaultContext.Merge(node);
+            return DefaultContext.Incoming(node);
+        }
+
+        public Task Train(List<Node> input, List<Node> output)
+        {
+            return Trainer.Train(input, output);
         }
 
         public void Start() 
         {
-            DefaultContext = new Context(DataProvider, ExternalProvider, null);
+            
             DefaultContext.Start();
             State = AkailoServiceState.STARTED;
         }
@@ -41,5 +51,7 @@ namespace AIkailo.Executive
             DefaultContext.Stop();
             State = AkailoServiceState.STOPPED;
         }
+
+        
     }
 }

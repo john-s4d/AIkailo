@@ -20,13 +20,13 @@ namespace AIkailo.Modules.Interaction
 
             _input = _adapter.RegisterInput(INPUT_NAME);
             _adapter.RegisterOutput(OUTPUT_NAME, OnOutputEvent);
-
             _adapter.Start();
-            //TrainAdapter();
-            
+
+            TrainAdapter();
 
             Run().Wait();
-            
+
+            _adapter.Stop();            
         }
 
         private static void OnOutputEvent(FeatureArray data)
@@ -37,7 +37,7 @@ namespace AIkailo.Modules.Interaction
 
         private static void TrainAdapter()
         {
-            var flow = new DataFlow()
+            var flow = new TrainingStep()
             {
                 Source = INPUT_NAME,
                 Input = new FeatureArray { { "input", "foo" } },
@@ -47,13 +47,10 @@ namespace AIkailo.Modules.Interaction
             };
 
             _adapter.Train(flow);
-
         }
 
         private async static Task Run()
-        {
-
-            
+        {   
 
             //Console.WriteLine("output:> Enter message (or quit to exit)");
             Console.WriteLine("input:>");
@@ -78,8 +75,6 @@ namespace AIkailo.Modules.Interaction
                 Console.WriteLine("sent:> " + data[0].Item1 + " : " + data[0].Item2);
             }
             while (true);
-
-            _adapter.Stop();
 
         }
     }

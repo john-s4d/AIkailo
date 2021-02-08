@@ -24,6 +24,7 @@ namespace AIkailo.Executive
             _dataProvider = dataProvider;
             _externalProvider = externalProvider;
             _parent = parent;
+            _layer.Add(new AdjacencyGraph<Node, Connection>());
         }
 
         internal override void Next()
@@ -35,25 +36,28 @@ namespace AIkailo.Executive
                 _layer[_current].AddVertex(_incoming.Dequeue());
             }
 
-            if (_layer[_current].VertexCount == 0) { return; }
+            if (_layer.Count == 0 || _layer[_current].VertexCount == 0) { return; }
 
             // Load the forward edges of the current layer            
             _layer[_current].AddEdgeRange(_dataProvider.GetEdges(_layer[_current].Vertices)); // TODO: Deduplicate, filter via weight thresholds?
 
-            // Get the forward nodes with attention. Create clusters. Spawn new contexts, largest cluster one stays in this one.
+            // Calculate attention. Get the forward nodes.
 
-            // Get required subnet nodes for process models. 
+            // Get required subnet nodes for process models. Mark nodes as missing.
 
-            // Start new contexts to find suitable values for missing nodes.
+            // Create clusters and spawn new contexts for the smaller clusters.
+
             // - Mine previous layers for neighbors of the missing nodes. Bayes comparison. "most likely"
             // - Check if other contexts have activated neighbors, join contexts
             // - FeedBackwards to figure out what inputs are needed. 
 
-            // FeedForward each cluster into new independent contexts
+            // FeedForward
 
             // Handle outbound nodes.
 
             // Advance to the next layer
+
+            _layer.Add(new AdjacencyGraph<Node, Connection>());
 
             _current++;
 
@@ -69,10 +73,9 @@ namespace AIkailo.Executive
            */
         }
 
-        internal Task Merge(Node node)
+        internal Task Incoming(Node node)
         {
-            _incoming.Enqueue(node);
-            //_current.AddVertex(node);            
+            _incoming.Enqueue(node);                   
             return Task.CompletedTask;
         }
     }
