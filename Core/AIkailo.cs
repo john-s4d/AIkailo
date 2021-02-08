@@ -27,14 +27,7 @@ namespace AIkailo.Core
 
         internal AIkailo() : base()
         {
-            ServiceName = "AIkailo";      
-        }
-
-        private void InitializeConsumers()
-        {   
-            MessageService.RegisterConsumer<InputMessage, InputMessageConsumer>("Core.Input");
-            MessageService.RegisterConsumer<OutputMessage, OutputMessageConsumer>("Core.Output");
-            //MessageService.RegisterConsumer<TrainingMessage, TrainingMessageConsumer>("Core.Trainer");
+            ServiceName = "AIkailo";
         }
 
         protected override void OnStart(string[] args)
@@ -43,9 +36,9 @@ namespace AIkailo.Core
             // Thread.Sleep(20000); 
 
             MessageService = new MessageService(MQ_HOST);
+            MessageService.RegisterConsumer<InputMessage, InputMessageConsumer>("Core.Input");
+            MessageService.RegisterConsumer<TrainingMessage, TrainingMessageConsumer>("Core.Training");
             MessageService.Start();
-
-            InitializeConsumers();
 
             DataService = new DataService(DATA_DIRECTORY, DATA_HOST, DATA_UN, DATA_PW);
             DataService.Start();
@@ -54,9 +47,7 @@ namespace AIkailo.Core
             ExternalService.Start();
 
             ExecutiveService = new ExecutiveService(DataService.DataProvider, ExternalService);
-            ExecutiveService.Start();
-
-            
+            ExecutiveService.Start();            
         }
 
         protected override void OnStop()

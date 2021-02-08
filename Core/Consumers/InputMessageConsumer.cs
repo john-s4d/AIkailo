@@ -5,7 +5,7 @@ using MassTransit;
 using AIkailo.Messaging.Messages;
 using AIkailo.Core.Model;
 using AIkailo.External.Model;
-
+using System.Collections.Generic;
 
 namespace AIkailo.Core
 {
@@ -18,30 +18,41 @@ namespace AIkailo.Core
         {
             Console.WriteLine("InputMessageConsumer.Consume(InputMessage)");
 
+            List<Node> nodes = new List<Node>();
+
             foreach (Feature data in context.Message.Data)
             {
-
-                Node node = new Node() { NodeType = NodeType.INPUT };
-
-                // If this is a float between 0-1, apply the value directly to the node.
-
-                if (data.Item2.TypeCode == TypeCode.Single && data.Item2 >=0 && data.Item2 <= 1)
-                {
-                    node.Label = $"{context.Message.Source}.{data.Item1}"; // TODO: Sanitize,Escape
-                    node.Value = data.Item2;
-                }
-                else
-                {
-                    node.Label = $"{context.Message.Source}.{data.Item1}.{data.Item2}"; // TODO: Sanitize,Escape
-                    node.Value = 1;
-                }
-                
+                Node node = CreateInputNode(context.Message.Source, data);                
                 _dataProvider.Load(ref node);
+                nodes.Add(node);
 
-                AIkailo.ExecutiveService.Merge(node);
+                // TODO: Batch so it can be returned as one task
+                AIkailo.ExecutiveService.Incoming(node);
+            }
+            
+            return Task.CompletedTask;
+        }
+
+        public static Node CreateInputNode(string source, Feature data)
+        {
+            var node = new Node() { NodeType = NodeType.INPUT };
+            var label = data.Item1;
+            var value = data.Item2;
+
+            // If this is a float between 0-1, apply the value directly to the node.
+
+            if (value.TypeCode == TypeCode.Single && value >= 0 && value <= 1)
+            {
+                node.Label = $"{source}.{label}"; // TODO: Sanitize,Escape
+                node.Value = value;
+            }
+            else
+            {
+                node.Label = $"{source}.{label}.{value}"; // TODO: Sanitize,Escape
+                node.Value = 1;
             }
 
-            return Task.CompletedTask;
+            return node;
         }
     }
 }

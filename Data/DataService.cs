@@ -29,7 +29,8 @@ namespace AIkailo.Data
 
         public void Start()
         {
-            DataProvider = new NodeGraphProvider(new Neo4jConnection(_host, _username, _password));            
+            DataProvider = new NodeGraphProvider(new Neo4jConnection(_host, _username, _password));
+            DataProvider.VerifyConnection();
             State = AkailoServiceState.STARTED;
         }
 

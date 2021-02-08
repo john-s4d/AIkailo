@@ -1,5 +1,4 @@
-﻿using AIkailo.Core.Model;
-
+﻿
 namespace AIkailo.Messaging.Messages
 {
     public class OutputMessage : IMessage
