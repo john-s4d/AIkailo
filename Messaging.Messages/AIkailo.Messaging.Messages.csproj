@@ -52,13 +52,13 @@
     <Compile Include="TrainingMessage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\External.Model\AIkailo.External.Model.csproj">
-      <Project>{67961BE6-A4DB-4A4C-94B7-8F80946D9F93}</Project>
-      <Name>AIkailo.External.Model</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\External.Model\AIkailo.External.Common.csproj">
+      <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
+      <Name>AIkailo.External.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />

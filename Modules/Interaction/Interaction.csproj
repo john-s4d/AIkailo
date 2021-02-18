@@ -10,7 +10,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-	<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -59,9 +59,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\External.Model\AIkailo.External.Model.csproj">
+    <ProjectReference Include="..\..\External.Model\AIkailo.External.Common.csproj">
       <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
-      <Name>AIkailo.External.Model</Name>
+      <Name>AIkailo.External.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\External\AIkailo.External.csproj">
       <Project>{42EE0B5A-1D05-47EC-9A30-6C86BA507BA3}</Project>

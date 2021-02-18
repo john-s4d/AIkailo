@@ -1,15 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AIkailo.Data
+﻿namespace AIkailo.Data
 {
-    public class ConceptGraphQuery
+    internal class GraphQuery
     {
+        internal const string MERGE_NODE_FROM_LABEL = @"
+            MERGE(n:Node { type:$type, label:$label })
+            ON CREATE SET n.type = $type, n.label = $label, n.id = apoc.create.uuid()
+            RETURN n.id, n.Features
+        ";
 
-        internal const string MERGE_CONCEPT_FROM_DEF = @"
+        internal const string GET_EDGES_FROM_NODE_IDS = @"
+            MATCH (n1:Node)-[e:Edge]->(n2:Node)
+            WHERE n1.id IN $ids
+            RETURN n1.id, e.id, n2.id, n2.type
+        ";
+
+        internal const string MERGE_NODE_BETWEEN_MULTIPLE_NODES = @"
+            MATCH (n1:Node) WHERE n1.id IN $startIds
+            MATCH (n2:Node) WHERE n2.id IN $finishIds
+            MERGE (n1)-[e1:Edge]->(n:Node)-[e2:Edge]->(n2)
+            ON CREATE SET n.type = $type, n.id = apoc.create.uuid(), e1.id = apoc.create.uuid(), e2.id = apoc.create.uuid()
+            RETURN n.id
+        ";
+
+        /*
+         internal const string MERGE_CONCEPT_FROM_DEF = @"
             MERGE(c:Concept { definition: $definition})
             ON CREATE SET c.definition = $definition, c.id = apoc.create.uuid()
             RETURN c.id, c.definition
@@ -60,5 +74,9 @@ namespace AIkailo.Data
             ON CREATE SET n.source = $source, n.parameter = $parameter, n.id = apoc.create.uuid()
             RETURN n.id, n.source, n.parameter
         ";
+         
+         
+         
+         */
     }
 }

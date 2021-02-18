@@ -1,4 +1,4 @@
-﻿using AIkailo.Core.Model;
+﻿using AIkailo.Core.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;

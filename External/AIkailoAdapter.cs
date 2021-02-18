@@ -1,6 +1,6 @@
 ﻿using System;
 using AIkailo.Messaging;
-using AIkailo.External.Model;
+using AIkailo.External.Common;
 using AIkailo.Messaging.Messages;
 
 namespace AIkailo.External
@@ -51,14 +51,6 @@ namespace AIkailo.External
             ExternalMessage output = new ExternalMessage(flow.Target, flow.Output);
 
             _messageService.Publish(new TrainingMessage(input, output));
-        }
-
-        public void Train(TrainingModel model)
-        {
-            foreach(TrainingStep flow in model)
-            {
-                Train(flow);
-            }
         }
     }
 }

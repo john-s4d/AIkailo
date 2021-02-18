@@ -1,4 +1,4 @@
-﻿using AIkailo.Core.Model;
+﻿using AIkailo.Core.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,26 +7,19 @@ using System.Threading.Tasks;
 
 namespace AIkailo.Executive
 {
-    internal class Trainer
+    public class Trainer
     {
-        private IDataProvider _dataProvider;
+        private INodeProvider _nodeProvider;
 
-        public Trainer(IDataProvider dataProvider)
+        public Trainer(INodeProvider nodeProvider)
         {
-            _dataProvider = dataProvider;
+            _nodeProvider = nodeProvider;
         }
 
-        internal Task Train(List<Node> input, List<Node> output)
+        public void MergeHint(List<Node> inputNodes, List<Node> outputNodes)
         {
-            // Fit a process model
-
-            // One-To-One
-            if (input.Count == 1 && output.Count == 1)
-            {
-                // TODO: Merge a one-to-one process node                
-            }
-
-            throw new NotImplementedException();
+            // Get/create a hint node with neutral weight connections.
+            _ = _nodeProvider.MergeHintNode(inputNodes, outputNodes);
         }
     }
 }

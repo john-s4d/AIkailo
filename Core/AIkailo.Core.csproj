@@ -32,7 +32,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -251,9 +251,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Model\AIkailo.Core.Model.csproj">
+    <ProjectReference Include="..\AIkailo.NeuralNetwork\AIkailo.NeuralNetwork.csproj">
+      <Project>{c15edd61-2f62-4915-bb8a-56c6f4a87e66}</Project>
+      <Name>AIkailo.NeuralNetwork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Model\AIkailo.Core.Common.csproj">
       <Project>{085FC83F-08D4-4FFE-B178-0F3B84DFFDA5}</Project>
-      <Name>AIkailo.Core.Model</Name>
+      <Name>AIkailo.Core.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Data\AIkailo.Data.csproj">
       <Project>{bcdbc13c-29eb-4565-96d4-29aa13959b4b}</Project>
@@ -263,9 +267,9 @@
       <Project>{09ff5836-596e-41f9-8da2-4492207fde02}</Project>
       <Name>AIkailo.Executive</Name>
     </ProjectReference>
-    <ProjectReference Include="..\External.Model\AIkailo.External.Model.csproj">
+    <ProjectReference Include="..\External.Model\AIkailo.External.Common.csproj">
       <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
-      <Name>AIkailo.External.Model</Name>
+      <Name>AIkailo.External.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\External\AIkailo.External.csproj">
       <Project>{42ee0b5a-1d05-47ec-9a30-6c86ba507ba3}</Project>
@@ -274,10 +278,6 @@
     <ProjectReference Include="..\Logging\AIkailo.Logging.csproj">
       <Project>{3fcc8004-3929-4ac1-af86-522eecf45976}</Project>
       <Name>AIkailo.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Messaging.Messages\AIkailo.Messaging.Messages.csproj">
-      <Project>{65adb900-f6ee-4a3d-8467-a955b747b34d}</Project>
-      <Name>AIkailo.Messaging.Messages</Name>
     </ProjectReference>
     <ProjectReference Include="..\Messaging\AIkailo.Messaging.csproj">
       <Project>{270a6b16-4b0f-4816-838d-87001ee50feb}</Project>

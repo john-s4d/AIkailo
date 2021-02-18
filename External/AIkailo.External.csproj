@@ -140,21 +140,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Model\AIkailo.Core.Model.csproj">
+    <ProjectReference Include="..\Core.Model\AIkailo.Core.Common.csproj">
       <Project>{085fc83f-08d4-4ffe-b178-0f3b84dffda5}</Project>
-      <Name>AIkailo.Core.Model</Name>
+      <Name>AIkailo.Core.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\External.Model\AIkailo.External.Model.csproj">
+    <ProjectReference Include="..\External.Model\AIkailo.External.Common.csproj">
       <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
-      <Name>AIkailo.External.Model</Name>
+      <Name>AIkailo.External.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Logging\AIkailo.Logging.csproj">
       <Project>{3fcc8004-3929-4ac1-af86-522eecf45976}</Project>
       <Name>AIkailo.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Messaging.Messages\AIkailo.Messaging.Messages.csproj">
-      <Project>{65adb900-f6ee-4a3d-8467-a955b747b34d}</Project>
-      <Name>AIkailo.Messaging.Messages</Name>
     </ProjectReference>
     <ProjectReference Include="..\Messaging\AIkailo.Messaging.csproj">
       <Project>{270a6b16-4b0f-4816-838d-87001ee50feb}</Project>

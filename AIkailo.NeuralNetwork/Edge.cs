@@ -1,9 +1,9 @@
-﻿using AIkailo.External.Model;
+﻿using AIkailo.External.Common;
 using QuikGraph;
 
-namespace AIkailo.Core.Model
+namespace AIkailo.Core.Common
 {
-    public class Connection : IEdge<Node>
+    public class Edge : IEdge<Node>
     {
         public string Id { get; set; }
         public Node Source { get; set; }

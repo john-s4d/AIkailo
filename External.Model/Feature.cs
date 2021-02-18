@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 
-namespace AIkailo.External.Model
+namespace AIkailo.External.Common
 {
     public class Feature : Tuple<Property, Property>
     {   

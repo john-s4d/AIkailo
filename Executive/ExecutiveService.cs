@@ -1,4 +1,4 @@
-﻿using AIkailo.Core.Model;
+﻿using AIkailo.Core.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,38 +10,28 @@ namespace AIkailo.Executive
     public sealed class ExecutiveService : IAIkailoService
     {
         public string Name { get; } = "AIkailo.ExecutiveService";        
-        public AkailoServiceState State { get; private set; }
-        
-        internal IDataProvider DataProvider { get; private set; }
-
+        public AkailoServiceState State { get; private set; }        
+        internal INodeProvider NodeFactory { get; private set; }
         internal IExternalProvider ExternalProvider { get; private set; }
+        public Context DefaultContext { get; private set; }
+        public Trainer Trainer { get; private set; }
 
-        internal Context DefaultContext { get; private set; }
-
-        internal Trainer Trainer { get; private set; }
-
-        public ExecutiveService(IDataProvider dataProvider, IExternalProvider externalProvider)        
+        public ExecutiveService(INodeProvider nodeFactory, IExternalProvider externalProvider)        
         {
-            DataProvider = dataProvider;
+            NodeFactory = nodeFactory;
             ExternalProvider = externalProvider;
 
-            DefaultContext = new Context(DataProvider, ExternalProvider, null);
-            Trainer = new Trainer(DataProvider);
+            DefaultContext = new Context(NodeFactory, ExternalProvider, null);
+            Trainer = new Trainer(NodeFactory);
         }
 
-        public Task Incoming(Node node)
+        public void Incoming(Node node)
         {
-            return DefaultContext.Incoming(node);
-        }
-
-        public Task Train(List<Node> input, List<Node> output)
-        {
-            return Trainer.Train(input, output);
+            DefaultContext.Incoming(node);
         }
 
         public void Start() 
-        {
-            
+        {   
             DefaultContext.Start();
             State = AkailoServiceState.STARTED;
         }
@@ -51,7 +41,5 @@ namespace AIkailo.Executive
             DefaultContext.Stop();
             State = AkailoServiceState.STOPPED;
         }
-
-        
     }
 }

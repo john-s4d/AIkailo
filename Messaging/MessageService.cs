@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AIkailo.Messaging.Messages;
-using AIkailo.Core.Model;
+using AIkailo.Core.Common;
 using MassTransit;
 
 namespace AIkailo.Messaging

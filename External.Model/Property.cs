@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace AIkailo.External.Model
+namespace AIkailo.External.Common
 {
     [JsonObject, Serializable]
     public class Property : IConvertible, ISerializable, IComparable<Property>

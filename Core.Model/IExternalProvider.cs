@@ -1,11 +1,10 @@
-﻿using AIkailo.Core.Model;
-using AIkailo.External.Model;
-using AIkailo.Messaging.Messages;
+﻿using AIkailo.Core.Common;
+using AIkailo.External.Common;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AIkailo.Core.Model
+namespace AIkailo.Core.Common
 {
     public interface IExternalProvider
     {

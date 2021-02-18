@@ -1,8 +1,8 @@
 ﻿using System;
-using AIkailo.External.Model;
+using AIkailo.External.Common;
 using System.Linq;
 using System.Threading.Tasks;
-using AIkailo.Core.Model;
+using AIkailo.Core.Common;
 using System.Collections.Generic;
 
 namespace AIkailo.Data
@@ -10,9 +10,10 @@ namespace AIkailo.Data
     public sealed class DataService : IAIkailoService
     {
         public string Name { get; } = "AIkailo.DataService";
-
         public AkailoServiceState State { get; private set; }
-        public IDataProvider DataProvider { get; private set; }
+        public INodeProvider NodeProvider { get; private set; }
+
+        private GraphProvider _dataProvider;
 
         private readonly string _directory;
         private readonly string _host;
@@ -29,15 +30,19 @@ namespace AIkailo.Data
 
         public void Start()
         {
-            DataProvider = new NodeGraphProvider(new Neo4jConnection(_host, _username, _password));
-            DataProvider.VerifyConnection();
+            _dataProvider = new GraphProvider(new Neo4jConnection(_host, _username, _password));
+            _dataProvider.VerifyConnection();
+
+            NodeProvider = new NodeProvider(_dataProvider);
+
             State = AkailoServiceState.STARTED;
         }
 
         public void Stop()
         {
-            DataProvider.Dispose();
-            DataProvider = null;
+            _dataProvider.Dispose();
+            _dataProvider = null;
+
             State = AkailoServiceState.STOPPED;
         }        
     }

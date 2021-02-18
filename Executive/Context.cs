@@ -1,5 +1,5 @@
 ﻿
-using AIkailo.Core.Model;
+using AIkailo.Core.Common;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,41 +7,58 @@ using QuikGraph;
 
 namespace AIkailo.Executive
 {
-    internal class Context : ContextBase
+    public class Context : ContextBase
     {
         private readonly Context _parent;
-        private readonly IDataProvider _dataProvider;
+        private readonly INodeProvider _nodeFactory;
         private readonly IExternalProvider _externalProvider;
+
         private readonly Queue<Node> _incoming = new Queue<Node>();
-        
-        private readonly List<AdjacencyGraph<Node, Connection>> _layer = new List<AdjacencyGraph<Node, Connection>>();                
+        //private readonly List<AdjacencyGraph<Node, Edge>> _layers = new List<AdjacencyGraph<Node, Edge>>();
+        private readonly List<Node> _currentLayer;
+        private readonly List<Node> _forwardLayer;
+
         private int _current = 0;
 
         private readonly List<Context> _subContexts = new List<Context>();
 
-        internal Context(IDataProvider dataProvider, IExternalProvider externalProvider, Context parent)
+        internal Context(INodeProvider nodeFactory, IExternalProvider externalProvider, Context parent)
         {
-            _dataProvider = dataProvider;
+            _nodeFactory = nodeFactory;
             _externalProvider = externalProvider;
             _parent = parent;
-            _layer.Add(new AdjacencyGraph<Node, Connection>());
+            _currentLayer = new List<Node>();
+
         }
 
         internal override void Next()
         {
             // Add new Nodes            
-            while (_incoming.Count > 0) // TODO: better handling for high volume. batch or throttle.
-            {
-                // TODO: Deduplicate
-                _layer[_current].AddVertex(_incoming.Dequeue());
+            while (_incoming.Count > 0) // TODO: better handling for high volume. batch or throttle?
+            {         
+                _currentLayer.Add(_incoming.Dequeue());
             }
 
-            if (_layer.Count == 0 || _layer[_current].VertexCount == 0) { return; }
+            if (_currentLayer.Count == 0) { return; }
+                        
+            
+            // Load the forward edges and nodes of the current layer
+            // TODO: Deduplicate, filter via weight thresholds?  Can we omit the forward nodes?
+            _nodeFactory.FillForwardEdges(_currentLayer);
 
-            // Load the forward edges of the current layer            
-            _layer[_current].AddEdgeRange(_dataProvider.GetEdges(_layer[_current].Vertices)); // TODO: Deduplicate, filter via weight thresholds?
+            // TODO: Calculate attention. Drop un-needed edges and nodes.
 
-            // Calculate attention. Get the forward nodes.
+            
+
+            foreach (Node node in _currentLayer)
+            {
+                foreach (Edge e in node.ForwardEdges) {
+                    _forwardLayer.Add(e.Target);
+                }
+            }
+
+            // Evaluate models
+
 
             // Get required subnet nodes for process models. Mark nodes as missing.
 
@@ -53,11 +70,13 @@ namespace AIkailo.Executive
 
             // FeedForward
 
+            // Carry forward or split unused nodes
+
             // Handle outbound nodes.
 
             // Advance to the next layer
 
-            _layer.Add(new AdjacencyGraph<Node, Connection>());
+            //_layers.Add(new AdjacencyGraph<Node, Edge>());
 
             _current++;
 
@@ -73,10 +92,9 @@ namespace AIkailo.Executive
            */
         }
 
-        internal Task Incoming(Node node)
+        internal void Incoming(Node node)
         {
-            _incoming.Enqueue(node);                   
-            return Task.CompletedTask;
+            _incoming.Enqueue(node);
         }
     }
 }

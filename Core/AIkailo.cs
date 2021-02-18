@@ -3,7 +3,7 @@ using System.ServiceProcess;
 using System.Collections.Generic;
 using AIkailo.External;
 using AIkailo.Data;
-using AIkailo.Core.Model;
+using AIkailo.Core.Common;
 using AIkailo.Messaging;
 using AIkailo.Executive;
 using System.Threading.Tasks;
@@ -35,18 +35,18 @@ namespace AIkailo.Core
             // If needed to attach debugger to Service
             // Thread.Sleep(20000); 
 
+            DataService = new DataService(DATA_DIRECTORY, DATA_HOST, DATA_UN, DATA_PW);
+            DataService.Start();
+
             MessageService = new MessageService(MQ_HOST);
             MessageService.RegisterConsumer<InputMessage, InputMessageConsumer>("Core.Input");
             MessageService.RegisterConsumer<TrainingMessage, TrainingMessageConsumer>("Core.Training");
             MessageService.Start();
 
-            DataService = new DataService(DATA_DIRECTORY, DATA_HOST, DATA_UN, DATA_PW);
-            DataService.Start();
-
             ExternalService = new ExternalService();
             ExternalService.Start();
 
-            ExecutiveService = new ExecutiveService(DataService.DataProvider, ExternalService);
+            ExecutiveService = new ExecutiveService(DataService.NodeProvider, ExternalService);
             ExecutiveService.Start();            
         }
 

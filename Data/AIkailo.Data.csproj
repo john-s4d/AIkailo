@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +33,24 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
@@ -79,6 +98,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
       <Private>True</Private>
@@ -126,22 +146,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NodeGraphProvider.cs" />
-    <Compile Include="ConceptGraphProvider.cs" />
-    <Compile Include="ConceptGraphQuery.cs" />
+    <Compile Include="NodeCache.cs" />
+    <Compile Include="NodeProvider.cs" />
+    <Compile Include="GraphProvider.cs" />
     <Compile Include="DataService.cs" />
     <Compile Include="Neo4jConnection.cs" />
-    <Compile Include="NodeGraphQuery.cs" />
+    <Compile Include="GraphQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Model\AIkailo.Core.Model.csproj">
-      <Project>{085FC83F-08D4-4FFE-B178-0F3B84DFFDA5}</Project>
-      <Name>AIkailo.Core.Model</Name>
+    <ProjectReference Include="..\AIkailo.NeuralNetwork\AIkailo.NeuralNetwork.csproj">
+      <Project>{c15edd61-2f62-4915-bb8a-56c6f4a87e66}</Project>
+      <Name>AIkailo.NeuralNetwork</Name>
     </ProjectReference>
-    <ProjectReference Include="..\External.Model\AIkailo.External.Model.csproj">
-      <Project>{67961BE6-A4DB-4A4C-94B7-8F80946D9F93}</Project>
-      <Name>AIkailo.External.Model</Name>
+    <ProjectReference Include="..\Core.Model\AIkailo.Core.Common.csproj">
+      <Project>{085FC83F-08D4-4FFE-B178-0F3B84DFFDA5}</Project>
+      <Name>AIkailo.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\External.Model\AIkailo.External.Common.csproj">
+      <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
+      <Name>AIkailo.External.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

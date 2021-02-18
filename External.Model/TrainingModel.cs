@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AIkailo.External.Model
+namespace AIkailo.External.Common
 {
     public class TrainingModel : List<TrainingStep>
     {

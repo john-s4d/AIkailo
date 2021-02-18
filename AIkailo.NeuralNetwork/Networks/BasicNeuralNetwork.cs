@@ -5,12 +5,13 @@ using System.Security.Cryptography;
 
 namespace AIkailo.Executive
 {
-    // ** Source: https://towardsdatascience.com/building-a-neural-network-framework-in-c-16ef56ce1fef ** //
+    // Source: https://towardsdatascience.com/building-a-neural-network-framework-in-c-16ef56ce1fef
 
-    public class NeuralNetwork
+    internal class BasicNeuralNetwork : ProcessModel
     {
 
         private Random _random = new Random(); // TODO: Use better Random Generator
+
         //fundamental 
         private int[] _layers;//layers
         private float[][] _neurons;//neurons
@@ -22,14 +23,22 @@ namespace AIkailo.Executive
         public float Fitness = 0;//fitness
 
         //backprop
-        public float LearningRate = 0.01f;//learning rate
+        public float LearningRate = 0.01f; //learning rate
         public float Cost = 0;
 
-        private float[][] _deltaBiases;//biasses
-        private float[][][] _deltaWeights;//weights
+        private float[][] _deltaBiases; //biasses
+        private float[][][] _deltaWeights; //weights
         private int _deltaCount;
 
-        public NeuralNetwork(int[] layers, string[] layerActivations)
+        public override bool CanBackPropagate { get => throw new NotImplementedException(); protected set => throw new NotImplementedException(); }
+        public override bool CanMutate { get => throw new NotImplementedException(); protected set => throw new NotImplementedException(); }
+
+        public BasicNeuralNetwork()
+        {
+
+        }
+
+        public BasicNeuralNetwork(int[] layers, string[] layerActivations)
         {
             _layers = new int[layers.Length];
             for (int i = 0; i < layers.Length; i++)
@@ -65,7 +74,8 @@ namespace AIkailo.Executive
         }
 
 
-        private void InitNeurons() //create empty storage array for the neurons in the network.
+        //create empty storage array for the neurons in the network.
+        private void InitNeurons() 
         {
             List<float[]> neuronsList = new List<float[]>();
             for (int i = 0; i < _layers.Length; i++)
@@ -75,7 +85,8 @@ namespace AIkailo.Executive
             _neurons = neuronsList.ToArray();
         }
 
-        private void InitBiases()//initializes random array for the biases being held within the network.
+        //initializes random array for the biases being held within the network.
+        private void InitBiases() 
         {
             List<float[]> biasList = new List<float[]>();
             for (int i = 0; i < _layers.Length; i++)
@@ -90,7 +101,8 @@ namespace AIkailo.Executive
             _biases = biasList.ToArray();
         }
 
-        private void InitWeights()//initializes random array for the weights being held in the network.
+        //initializes random array for the weights being held in the network.
+        private void InitWeights()
         {
             List<float[][]> weightsList = new List<float[][]>();
             for (int i = 1; i < _layers.Length; i++)
@@ -111,7 +123,8 @@ namespace AIkailo.Executive
             _weights = weightsList.ToArray();
         }
 
-        public float[] FeedForward(float[] inputs) //feed forward, inputs >==> outputs.
+        //feed forward, inputs >==> outputs.
+        public float[] FeedForward(float[] inputs) 
         {
             for (int i = 0; i < inputs.Length; i++)
             {
@@ -133,8 +146,10 @@ namespace AIkailo.Executive
             return _neurons[_neurons.Length - 1];
         }
 
-        //Backpropagation implemtation down until mutation.
-        private float activate(float value, int layer)//all activation functions
+        /** Backpropagation **/
+
+        //all activation functions
+        private float activate(float value, int layer)
         {
             switch (_activations[layer])
             {
@@ -151,7 +166,8 @@ namespace AIkailo.Executive
             }
         }
 
-        public float activateDer(float value, int layer)//all activation function derivatives
+        //all activation function derivatives
+        public float activateDer(float value, int layer)
         {
             switch (_activations[layer])
             {
@@ -168,7 +184,8 @@ namespace AIkailo.Executive
             }
         }
 
-        public float sigmoid(float x)//activation functions and their corrosponding derivatives
+        //activation functions and their corrosponding derivatives
+        public float sigmoid(float x)
         {
             float k = (float)Math.Exp(x);
             return k / (1.0f + k);
@@ -202,13 +219,15 @@ namespace AIkailo.Executive
             return (0 >= x) ? 0.01f : 1;
         }
 
-        public void BackPropagate(float[] inputs, float[] expected)//backpropogation;
+        public void BackPropagate(float[] inputs, float[] expected)
         {
-            float[] output = FeedForward(inputs);//runs feed forward to ensure neurons are populated correctly
+            //runs feed forward to ensure neurons are populated correctly
+            float[] output = FeedForward(inputs);
 
             Cost = 0;
-            for (int i = 0; i < output.Length; i++) Cost += (float)Math.Pow(output[i] - expected[i], 2);//calculated cost of network
-            Cost = Cost / 2;//this value is not used in calculions, rather used to identify the performance of the network
+
+            for (int i = 0; i < output.Length; i++) Cost += (float)Math.Pow(output[i] - expected[i], 2); //calculated cost of network
+            Cost = Cost / 2; //this value is not used in calculions, rather used to identify the performance of the network
 
             float[][] gamma;
 
@@ -255,7 +274,7 @@ namespace AIkailo.Executive
             }
         }
 
-        //Genetic implementations down onwards until save.
+        /* Genetic implementation */
 
         public void Mutate(int high, float val)//used as a simple mutation function for any genetic implementations.
         {
@@ -279,7 +298,7 @@ namespace AIkailo.Executive
             }
         }
 
-        public int CompareTo(NeuralNetwork other) //Comparing For Genetic implementations. Used for sorting based on the fitness of the network
+        public int CompareTo(BasicNeuralNetwork other) //Comparing For Genetic implementations. Used for sorting based on the fitness of the network
         {
             if (other == null) return 1;
 
@@ -291,7 +310,7 @@ namespace AIkailo.Executive
                 return 0;
         }
 
-        public NeuralNetwork copy(NeuralNetwork nn) //For creatinga deep copy, to ensure arrays are serialzed.
+        public BasicNeuralNetwork copy(BasicNeuralNetwork nn) //For creating a deep copy, to ensure arrays are serialzed.
         {
             for (int i = 0; i < _biases.Length; i++)
             {
@@ -349,7 +368,7 @@ namespace AIkailo.Executive
                 }
             }
         }
-        public void Save(string path)//this is used for saving the biases and weights within the network to a file.
+        public void Save(string path) //this is used for saving the biases and weights within the network to a file.
         {
             File.Create(path).Close();
             StreamWriter writer = new StreamWriter(path, true);
@@ -377,10 +396,27 @@ namespace AIkailo.Executive
 
         private float RandomRange(float min, float max)
         {
-            if (_random == null) { _random = new Random(); }
-
             return (float)_random.NextDouble() * (max - min) + min;
         }
-    }
 
+        internal override void Initialize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void FeedForward()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal override void BackPropagate()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal override void Mutate()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

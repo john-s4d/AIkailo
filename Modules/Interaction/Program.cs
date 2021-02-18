@@ -1,5 +1,5 @@
 ﻿using AIkailo.External;
-using AIkailo.External.Model;
+using AIkailo.External.Common;
 using System;
 using System.Threading.Tasks;
 
@@ -22,7 +22,7 @@ namespace AIkailo.Modules.Interaction
             _adapter.RegisterOutput(OUTPUT_NAME, OnOutputEvent);
             _adapter.Start();
 
-            TrainAdapter();
+            Train();
 
             Run().Wait();
 
@@ -35,7 +35,7 @@ namespace AIkailo.Modules.Interaction
             //Console.Write("input:> ");
         }
 
-        private static void TrainAdapter()
+        private static void Train()
         {
             var flow = new TrainingStep()
             {

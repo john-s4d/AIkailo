@@ -1,11 +1,10 @@
-﻿using AIkailo.Core.Model;
+﻿using AIkailo.Core.Common;
 using System.Threading;
 
 namespace AIkailo.Executive
 {
-    internal class ContextBase
+    public class ContextBase
     {
-
         private Thread _thread;
 
         private volatile bool _isRunning;

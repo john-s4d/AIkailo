@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AIkailo.Core.Model
+namespace AIkailo.Core.Common
 {
     public class Constants
     {

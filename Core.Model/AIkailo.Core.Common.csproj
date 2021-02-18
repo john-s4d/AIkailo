@@ -6,8 +6,8 @@
     <ProjectGuid>{085FC83F-08D4-4FFE-B178-0F3B84DFFDA5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AIkailo.Core.Model</RootNamespace>
-    <AssemblyName>AIkailo.Core.Model</AssemblyName>
+    <RootNamespace>AIkailo.Core.Common</RootNamespace>
+    <AssemblyName>AIkailo.Core.Common</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -52,10 +53,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IExternalProvider.cs" />
-    <Compile Include="Node.cs" />
-    <Compile Include="Connection.cs" />
     <Compile Include="IAIkailoService.cs" />
-    <Compile Include="IDataProvider.cs" />
+    <Compile Include="INodeProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,13 +62,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\External.Model\AIkailo.External.Model.csproj">
-      <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
-      <Name>AIkailo.External.Model</Name>
+    <ProjectReference Include="..\AIkailo.NeuralNetwork\AIkailo.NeuralNetwork.csproj">
+      <Project>{c15edd61-2f62-4915-bb8a-56c6f4a87e66}</Project>
+      <Name>AIkailo.NeuralNetwork</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Messaging.Messages\AIkailo.Messaging.Messages.csproj">
-      <Project>{65adb900-f6ee-4a3d-8467-a955b747b34d}</Project>
-      <Name>AIkailo.Messaging.Messages</Name>
+    <ProjectReference Include="..\External.Model\AIkailo.External.Common.csproj">
+      <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
+      <Name>AIkailo.External.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
