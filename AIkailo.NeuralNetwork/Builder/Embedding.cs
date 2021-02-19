@@ -1,16 +1,4 @@
 ﻿//////////////////////////////////////////////////////////////////////////////////////////
-// ANNdotNET - Deep Learning Tool on .NET Platform                                       //
-// Copyright 2017-2018 Bahrudin Hrnjica                                                 //
-//                                                                                      //
-// This code is free software under the MIT License                                     //
-// See license section of  https://github.com/bhrnjica/anndotnet/blob/master/LICENSE.md  //
-//                                                                                      //
-// Bahrudin Hrnjica                                                                     //
-// bhrnjica@hotmail.com                                                                 //
-// Bihac, Bosnia and Herzegovina                                                         //
-// http://bhrnjica.net                                                                  //
-//////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////
 // ANNdotNET - Deep Learning Tool                                                       //
 // Copyright 2017-2018 Bahrudin Hrnjica                                                 //
 //                                                                                      //
@@ -23,12 +11,13 @@
 // http://bhrnjica.net                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////
 using CNTK;
+
 namespace NNetwork.Core.Network.Modules
 {
     /// <summary>
     /// Implementation of Embedding layer. 
     /// </summary>
-    public class Embedding : NetworkFoundation
+    public class Embedding : NeuralNetwork
     {
         /// <summary>
         /// Create embedding layer
@@ -39,7 +28,7 @@ namespace NNetwork.Core.Network.Modules
         /// <returns></returns>
         public static Function Create(Variable x, int embeddingDim, DataType dataType, DeviceDescriptor device, uint seed, string name)
         {
-            var f = new NetworkFoundation();
+            var f = new NeuralNetwork();
             //weights
             var W = f.Weights(embeddingDim, dataType, device, seed, "e");
 

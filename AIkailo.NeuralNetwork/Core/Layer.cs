@@ -36,7 +36,7 @@ namespace NNetwork.Core.Common
     /// <summary>
     /// Generic ANN Layer class for holding information about ANN Layer (Dense, Embedding, LSTM, Pooling, Convolution, etc...) 
     /// </summary>
-    public class NNLayer
+    public class Layer
     {
         public int Id { get; set; }
 

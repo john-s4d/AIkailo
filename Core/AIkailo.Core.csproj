@@ -279,10 +279,6 @@
       <Project>{3fcc8004-3929-4ac1-af86-522eecf45976}</Project>
       <Name>AIkailo.Logging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Messaging\AIkailo.Messaging.csproj">
-      <Project>{270a6b16-4b0f-4816-838d-87001ee50feb}</Project>
-      <Name>AIkailo.Messaging</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Performance\AIkailo.Performance.csproj">
       <Project>{ab786fe9-dbc8-46b1-9951-a94a8388bb5c}</Project>
       <Name>AIkailo.Performance</Name>

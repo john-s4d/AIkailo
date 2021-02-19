@@ -7,30 +7,30 @@ using System.Threading.Tasks;
 
 namespace AIkailo.Executive
 {
-    internal class OneToOnePassThrough : ProcessModel
+    internal class OneToOnePassThrough //: ProcessModel
     {
-        public override bool CanBackPropagate { get; protected set; } = false;
-        public override bool CanMutate { get; protected set; } = false;
-
+        //public override bool CanBackPropagate { get; protected set; } = false;
+        public bool CanMutate { get; protected set; } = false;
+        /*
         public override void FeedForward()
         {
             for (int i = 0; i < Input.Count; i++)
             {
                 Output[i].Value = Input[i].Value;
             }
-        }
+        }*/
 
-        internal override void Initialize()
+        internal void Initialize()
         {
             throw new NotImplementedException();
         }
 
-        internal override void BackPropagate()
+        internal void BackPropagate()
         {
             throw new NotImplementedException();
         }
 
-        internal override void Mutate()
+        internal void Mutate()
         {
             throw new NotImplementedException();
         }

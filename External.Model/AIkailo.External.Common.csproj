@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TrainingModel.cs" />
-    <Compile Include="DataFlow.cs" />
+    <Compile Include="TrainingStep.cs" />
     <Compile Include="FeatureArray.cs" />
     <Compile Include="Property.cs" />
     <Compile Include="Feature.cs" />

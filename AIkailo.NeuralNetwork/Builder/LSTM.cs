@@ -20,7 +20,7 @@ namespace NNetwork.Core.Network.Modules
     /// http://www.bioinf.jku.at/publications/older/2604.pdf.
     /// Details of LSTM network can be found here: http://colah.github.io/posts/2015-08-Understanding-LSTMs/
     /// </summary>
-    public class LSTM : NetworkFoundation
+    public class LSTM : NeuralNetwork 
     {
         /// <summary>
         /// LSTM Cell Input 

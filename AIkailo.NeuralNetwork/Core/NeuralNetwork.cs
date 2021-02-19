@@ -18,7 +18,7 @@ namespace NNetwork.Core.Network
     /// <summary>
     /// Class implementation of the basic Neural Network components: Weights, Bias, Layer,etc.
     /// </summary>
-    public class NetworkFoundation
+    public class NeuralNetwork
     {
         /// <summary>
         /// Implementation of the Layer with arbitrary number of neurons. The layer consists of contribution from input(s), hidden, and bias.

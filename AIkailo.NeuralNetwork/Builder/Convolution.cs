@@ -11,7 +11,6 @@
 // http://bhrnjica.net                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////
 using CNTK;
-using NNetwork.Core.Common;
 using System;
 
 namespace NNetwork.Core.Network.Modules
@@ -19,7 +18,7 @@ namespace NNetwork.Core.Network.Modules
     /// <summary>
     /// Implementation of Convolution network. 
     /// </summary>
-    public class Convolution : NetworkFoundation
+    public class Convolution : NeuralNetwork
     {
 
         public Function Conv1D(Variable input, int numChannels, int filter, DataType dType, DeviceDescriptor device, bool usePadding, bool useBias, string name = "", uint seed = 1)
@@ -98,10 +97,10 @@ namespace NNetwork.Core.Network.Modules
 
                 var b = Bias(bShape, dType, device);
 
-                result = CNTK.CNTKLib.Plus(result, b);
+                result = CNTKLib.Plus(result, b);
             }
 
-            result = CNTK.CNTKLib.ReLU(result, name);
+            result = CNTKLib.ReLU(result, name);
 
             return result;
         }

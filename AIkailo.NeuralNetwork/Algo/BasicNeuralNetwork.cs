@@ -7,7 +7,7 @@ namespace AIkailo.Executive
 {
     // Source: https://towardsdatascience.com/building-a-neural-network-framework-in-c-16ef56ce1fef
 
-    internal class BasicNeuralNetwork : ProcessModel
+    internal class BasicNeuralNetwork //: ProcessModel
     {
 
         private Random _random = new Random(); // TODO: Use better Random Generator
@@ -30,8 +30,8 @@ namespace AIkailo.Executive
         private float[][][] _deltaWeights; //weights
         private int _deltaCount;
 
-        public override bool CanBackPropagate { get => throw new NotImplementedException(); protected set => throw new NotImplementedException(); }
-        public override bool CanMutate { get => throw new NotImplementedException(); protected set => throw new NotImplementedException(); }
+        public bool CanBackPropagate { get => throw new NotImplementedException(); protected set => throw new NotImplementedException(); }
+        public bool CanMutate { get => throw new NotImplementedException(); protected set => throw new NotImplementedException(); }
 
         public BasicNeuralNetwork()
         {
@@ -399,24 +399,6 @@ namespace AIkailo.Executive
             return (float)_random.NextDouble() * (max - min) + min;
         }
 
-        internal override void Initialize()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void FeedForward()
-        {
-            throw new NotImplementedException();
-        }
-
-        internal override void BackPropagate()
-        {
-            throw new NotImplementedException();
-        }
-
-        internal override void Mutate()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

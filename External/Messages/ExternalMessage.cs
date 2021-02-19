@@ -1,0 +1,16 @@
+﻿using AIkailo.External.Common;
+
+namespace AIkailo.Messaging.Messages
+{
+    public class ExternalMessage : IMessage
+    {   
+        public string Target { get; set; }
+        public FeatureArray Data { get; set; }
+
+        public ExternalMessage(string target, FeatureArray data) 
+        {
+            Target = target;
+            Data = data;
+        }
+    }
+}

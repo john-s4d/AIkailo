@@ -3,28 +3,27 @@ using AIkailo.Core.Common;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using QuikGraph;
 
 namespace AIkailo.Executive
 {
     public class Context : ContextBase
     {
         private readonly Context _parent;
-        private readonly INodeProvider _nodeFactory;
+        private readonly INodeProvider _nodeProvider;
         private readonly IExternalProvider _externalProvider;
 
         private readonly Queue<Node> _incoming = new Queue<Node>();
-        //private readonly List<AdjacencyGraph<Node, Edge>> _layers = new List<AdjacencyGraph<Node, Edge>>();
+        
         private readonly List<Node> _currentLayer;
         private readonly List<Node> _forwardLayer;
 
         private int _current = 0;
 
-        private readonly List<Context> _subContexts = new List<Context>();
+        //private readonly List<Context> _subContexts = new List<Context>();
 
-        internal Context(INodeProvider nodeFactory, IExternalProvider externalProvider, Context parent)
+        internal Context(INodeProvider nodeProvider, IExternalProvider externalProvider, Context parent = null)
         {
-            _nodeFactory = nodeFactory;
+            _nodeProvider = nodeProvider;
             _externalProvider = externalProvider;
             _parent = parent;
             _currentLayer = new List<Node>();
@@ -40,11 +39,11 @@ namespace AIkailo.Executive
             }
 
             if (_currentLayer.Count == 0) { return; }
-                        
-            
+
+
             // Load the forward edges and nodes of the current layer
             // TODO: Deduplicate, filter via weight thresholds?  Can we omit the forward nodes?
-            _nodeFactory.FillForwardEdges(_currentLayer);
+            _nodeProvider.FillForwardEdges(_currentLayer);
 
             // TODO: Calculate attention. Drop un-needed edges and nodes.
 

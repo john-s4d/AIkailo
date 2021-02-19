@@ -11,34 +11,34 @@ namespace AIkailo.Executive
     {
         public string Name { get; } = "AIkailo.ExecutiveService";        
         public AkailoServiceState State { get; private set; }        
-        internal INodeProvider NodeFactory { get; private set; }
+        internal INodeProvider NodeProvider { get; private set; }
         internal IExternalProvider ExternalProvider { get; private set; }
-        public Context DefaultContext { get; private set; }
+        public Context Context { get; private set; }
         public Trainer Trainer { get; private set; }
 
-        public ExecutiveService(INodeProvider nodeFactory, IExternalProvider externalProvider)        
+        public ExecutiveService(INodeProvider nodeProvider, IExternalProvider externalProvider)        
         {
-            NodeFactory = nodeFactory;
+            NodeProvider = nodeProvider;
             ExternalProvider = externalProvider;
 
-            DefaultContext = new Context(NodeFactory, ExternalProvider, null);
-            Trainer = new Trainer(NodeFactory);
+            Context = new Context(NodeProvider, ExternalProvider);
+            Trainer = new Trainer(NodeProvider);
         }
 
         public void Incoming(Node node)
         {
-            DefaultContext.Incoming(node);
+            Context.Incoming(node);
         }
 
         public void Start() 
-        {   
-            DefaultContext.Start();
+        {
+            Context.Start();
             State = AkailoServiceState.STARTED;
         }
 
         public void Stop()
         {
-            DefaultContext.Stop();
+            Context.Stop();
             State = AkailoServiceState.STOPPED;
         }
     }

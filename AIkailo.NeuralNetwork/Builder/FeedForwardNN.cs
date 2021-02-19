@@ -20,7 +20,7 @@ namespace NNetwork.Core.Network
     /// <summary>
     /// Implementation of the basic Neural Network layers and activation function
     /// </summary>
-    public class FeedForwaredNN : NetworkFoundation
+    public class FeedForwaredNN : NeuralNetwork
     {
         #region Ctor and Private Members
         protected DeviceDescriptor m_device;

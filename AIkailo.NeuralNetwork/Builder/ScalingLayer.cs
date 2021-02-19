@@ -19,7 +19,7 @@ namespace NNetwork.Core.Network.Modules
     /// <summary>
     /// Implementation of Embedding layer. 
     /// </summary>
-    public class ScalingLayer// : NetworkFoundation
+    public class ScalingLayer : NeuralNetwork
     {
         /// <summary>
         /// Create scaling layer

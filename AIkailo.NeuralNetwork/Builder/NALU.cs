@@ -19,7 +19,7 @@ namespace NNetwork.Core.Network.Modules
     /// language into real-valued scalars, execute computer code, and count objects in 
     /// images https://arxiv.org/abs/1808.00508 
     /// </summary>
-    public class NALU : NetworkFoundation
+    public class NALU : NeuralNetwork
     {
         /// <summary>
         /// Input Variable 
