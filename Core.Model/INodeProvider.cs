@@ -1,8 +1,8 @@
 ﻿using AIkailo.External.Common;
-using System;
+using AIkailo.Neural.Core;
 using System.Collections.Generic;
 
-namespace AIkailo.Core.Common
+namespace AIkailo.Common
 {
     public interface INodeProvider
     {           
@@ -14,11 +14,14 @@ namespace AIkailo.Core.Common
         Node GetInputNode(string source, Feature data);
         Node GetOutputNode(string target, Feature data);
         IEnumerable<Node> GetHintNodes(IEnumerable<Node> input, IEnumerable<Node> output);
+
         //IEnumerable<Edge> GetEdgesFrom(IEnumerable<Node> startNodes);
         IEnumerable<Edge> GetEdgesBetween(Node startNode, IEnumerable<Node> finishNodes);
         IEnumerable<Edge> GetEdgesBetween(IEnumerable<Node> startNodes, Node finishNode);
         IEnumerable<Edge> GetEdgesBetween(IEnumerable<Node> startNodes, IEnumerable<Node> finishNodes);
         IEnumerable<Edge> GetEdgesTo(IEnumerable<Node> finishNodes);
         void FillForwardEdges(IEnumerable<Node> currentLayer);
+        List<Node> GetForwardNodes(List<Node> incomingLayer);
+        IEnumerable<Node> GetEmbeddedInputNodes(Node node);
     }
 }

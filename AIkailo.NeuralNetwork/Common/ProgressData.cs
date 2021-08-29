@@ -11,7 +11,7 @@
 // http://bhrnjica.net                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////
 
-namespace NNetwork.Core.Common
+namespace AIkailo.Neural.Common
 {
     /// <summary>
     /// Class passed by progress writer callback, which contains information about current iteration of the trainer

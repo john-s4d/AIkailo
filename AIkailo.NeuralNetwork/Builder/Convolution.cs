@@ -11,14 +11,15 @@
 // http://bhrnjica.net                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////
 using CNTK;
+using AIkailo.Neural.Core;
 using System;
 
-namespace NNetwork.Core.Network.Modules
+namespace AIkailo.Neural.Builder
 {
     /// <summary>
     /// Implementation of Convolution network. 
     /// </summary>
-    public class Convolution : NeuralNetwork
+    public class Convolution : Network
     {
 
         public Function Conv1D(Variable input, int numChannels, int filter, DataType dType, DeviceDescriptor device, bool usePadding, bool useBias, string name = "", uint seed = 1)

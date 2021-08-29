@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 
-namespace AIkailo.Executive
+namespace AIkailo.Neural.Algo
 {
     // Source: https://towardsdatascience.com/building-a-neural-network-framework-in-c-16ef56ce1fef
 

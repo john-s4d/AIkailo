@@ -1,5 +1,6 @@
-﻿using AIkailo.Core.Common;
+﻿using AIkailo.Common;
 using AIkailo.External.Common;
+using AIkailo.Neural.Core;
 using Neo4j.Driver;
 using System;
 using System.Collections.Generic;
@@ -154,6 +155,14 @@ namespace AIkailo.Data
             throw new NotImplementedException();
         }
 
- 
+        public List<Node> GetForwardNodes(List<Node> incomingLayer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Node> GetEmbeddedInputNodes(Node node)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

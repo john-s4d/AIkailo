@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NNetwork.Core.network
+namespace AIkailo.Neural.Algo
 {
     public class LSTMClassifier
     {

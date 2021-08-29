@@ -6,8 +6,8 @@
     <ProjectGuid>{085FC83F-08D4-4FFE-B178-0F3B84DFFDA5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AIkailo.Core.Common</RootNamespace>
-    <AssemblyName>AIkailo.Core.Common</AssemblyName>
+    <RootNamespace>AIkailo.Common</RootNamespace>
+    <AssemblyName>AIkailo.Common</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -62,9 +62,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AIkailo.NeuralNetwork\AIkailo.NeuralNetwork.csproj">
+    <ProjectReference Include="..\AIkailo.NeuralNetwork\AIkailo.Neural.csproj">
       <Project>{c15edd61-2f62-4915-bb8a-56c6f4a87e66}</Project>
-      <Name>AIkailo.NeuralNetwork</Name>
+      <Name>AIkailo.Neural</Name>
     </ProjectReference>
     <ProjectReference Include="..\External.Model\AIkailo.External.Common.csproj">
       <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>

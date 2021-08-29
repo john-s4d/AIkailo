@@ -1,11 +1,11 @@
-﻿using AIkailo.Core.Common;
+﻿//using AIkailo.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AIkailo.Executive
+namespace AIkailo.Neural.Algo
 {
     internal class OneToOnePassThrough //: ProcessModel
     {

@@ -2,16 +2,16 @@
 using System;
 using System.Collections.Generic;
 
-namespace AIkailo.Core.Common
+namespace AIkailo.Neural.Core
 {
-    public class Node  
+    public class Node
     {
-        public NodeType NodeType { get; set; } = NodeType.NULL;
-        public string Id { get; set; } 
-        public Property Label { get; set; }                
+        public NodeType NodeType { get; set; } = NodeType.EMPTY;
+        public string Id { get; set; }
+        public Property Label { get; set; }
         public float Value { get; set; }
         public float Bias { get; set; }
-        public List<Edge> ForwardEdges { get; private set; }        
+        public List<Edge> ForwardEdges { get; private set; }
         public FeatureArray Features { get; set; }
 
         public virtual void FeedForward()
@@ -31,22 +31,19 @@ namespace AIkailo.Core.Common
 
     public enum NodeType
     {
-        NULL,
+        EMPTY,        
         INPUT,
         HIDDEN,
-        PROCESS,
-        SUBNET,
         OUTPUT,
+        EMBEDDED,
+        TRANSFORM,
         HINT
     }
 
     public enum NodeStatus
     {
-        ACTIVATED,
-        INPUT,
-        HIDDEN,
-        PROCESS,
-        SUBNET,
-        OUTPUT
+        INACTIVE,
+        ACTIVE,
+        MISSING
     }
 }

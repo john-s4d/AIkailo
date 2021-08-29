@@ -14,7 +14,7 @@ using CNTK;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace NNetwork.Core.Common
+namespace AIkailo.Neural.Common
 {
     public delegate void TrainingProgress(ProgressData progress);
     public delegate Function CreateCustomModel(List<Variable> variables, DeviceDescriptor device);

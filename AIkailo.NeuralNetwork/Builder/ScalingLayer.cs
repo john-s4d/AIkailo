@@ -13,13 +13,14 @@
 using CNTK;
 using System.Linq;
 using System.Collections.Generic;
+using AIkailo.Neural.Core;
 
-namespace NNetwork.Core.Network.Modules
+namespace AIkailo.Neural.Builder
 {
     /// <summary>
     /// Implementation of Embedding layer. 
     /// </summary>
-    public class ScalingLayer : NeuralNetwork
+    public class ScalingLayer : Network
     {
         /// <summary>
         /// Create scaling layer

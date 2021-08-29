@@ -39,19 +39,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.External", "Externa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interaction", "Modules\Interaction\Interaction.csproj", "{C43D7BFF-EE04-4459-8115-5E414F957081}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Core.Common", "Core.Model\AIkailo.Core.Common.csproj", "{085FC83F-08D4-4FFE-B178-0F3B84DFFDA5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Common", "Core.Model\AIkailo.Common.csproj", "{085FC83F-08D4-4FFE-B178-0F3B84DFFDA5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Data", "Data\AIkailo.Data.csproj", "{BCDBC13C-29EB-4565-96D4-29AA13959B4B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Logging", "Logging\AIkailo.Logging.csproj", "{3FCC8004-3929-4AC1-AF86-522EECF45976}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Performance", "Performance\AIkailo.Performance.csproj", "{AB786FE9-DBC8-46B1-9951-A94A8388BB5C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Metrics", "Performance\AIkailo.Metrics.csproj", "{AB786FE9-DBC8-46B1-9951-A94A8388BB5C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Executive", "Executive\AIkailo.Executive.csproj", "{09FF5836-596E-41F9-8DA2-4492207FDE02}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{AAB52350-CD8D-4D0E-A2EC-96A299D10FB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.NeuralNetwork", "AIkailo.NeuralNetwork\AIkailo.NeuralNetwork.csproj", "{C15EDD61-2F62-4915-BB8A-56C6F4A87E66}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.Neural", "AIkailo.NeuralNetwork\AIkailo.Neural.csproj", "{C15EDD61-2F62-4915-BB8A-56C6F4A87E66}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIkailo.External.Common", "External.Model\AIkailo.External.Common.csproj", "{67961BE6-A4DB-4A4C-94B7-8F80946D9F93}"
 EndProject

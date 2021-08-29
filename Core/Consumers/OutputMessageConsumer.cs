@@ -4,7 +4,7 @@ using AIkailo.Messaging;
 using AIkailo.External.Common;
 using MassTransit;
 using AIkailo.Messaging.Messages;
-using AIkailo.Core.Common;
+using AIkailo.Common;
 
 namespace AIkailo.Core
 {

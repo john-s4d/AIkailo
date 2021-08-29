@@ -3,9 +3,10 @@ using System.Threading.Tasks;
 using AIkailo.Messaging;
 using MassTransit;
 using AIkailo.Messaging.Messages;
-using AIkailo.Core.Common;
+using AIkailo.Common;
 using AIkailo.External.Common;
 using System.Collections.Generic;
+using AIkailo.Neural.Core;
 
 namespace AIkailo.Core
 {
@@ -23,14 +24,10 @@ namespace AIkailo.Core
 
             foreach (Feature data in context.Message.Data)
             {
-                Node node = _nodeFactory.MergeInputNode(context.Message.Source, data);
-                //_nodeFactory.Load(ref node);
-                nodes.Add(node);
-
-                // TODO: Implement batching so it can be returned as one task
-                AIkailo.ExecutiveService.Incoming(node);
+                nodes.Add(_nodeFactory.MergeInputNode(context.Message.Source, data));
             }
             
+            AIkailo.ExecutiveService.Incoming(nodes);
             return Task.CompletedTask;
         }
     }

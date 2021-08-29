@@ -7,8 +7,8 @@
     <ProjectGuid>{C15EDD61-2F62-4915-BB8A-56C6F4A87E66}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AIkailo.NeuralNetwork</RootNamespace>
-    <AssemblyName>AIkailo.NeuralNetwork</AssemblyName>
+    <RootNamespace>AIkailo.Neural</RootNamespace>
+    <AssemblyName>AIkailo.Neural</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -77,16 +77,16 @@
     <Compile Include="Algo\LSTMClassifier.cs" />
     <Compile Include="Builder\LSTMRecurrentNN.cs" />
     <Compile Include="Builder\NALU.cs" />
-    <Compile Include="Core\NeuralNetwork.cs" />
+    <Compile Include="Core\Network.cs" />
     <Compile Include="Core\Layer.cs" />
-    <Compile Include="Other\NNParameters.cs" />
+    <Compile Include="Common\NNParameters.cs" />
     <Compile Include="Core\Node.cs" />
     <Compile Include="Algo\OneToOnePassThrough.cs" />
-    <Compile Include="Other\ProgressData.cs" />
+    <Compile Include="Common\ProgressData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Algo\Recurrence.cs" />
     <Compile Include="Builder\ScalingLayer.cs" />
-    <Compile Include="Other\StatMetrics.cs" />
+    <Compile Include="Common\StatMetrics.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

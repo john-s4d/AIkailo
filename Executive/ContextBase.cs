@@ -1,4 +1,4 @@
-﻿using AIkailo.Core.Common;
+﻿using AIkailo.Common;
 using System.Threading;
 
 namespace AIkailo.Executive

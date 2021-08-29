@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CNTK;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 // Source: https://github.com/microsoft/CNTK/blob/release/latest/Examples/TrainingCSharp/Common/LogisticRegression.cs
 
-namespace CNTK.CSTrainingExamples
+namespace AIkailo.Neural.Algo
 {
     /// <summary>
     /// This class shows how the train and evaluate a Logistic Regression classifier.

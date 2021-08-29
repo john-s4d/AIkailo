@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 using AIkailo.Messaging;
 using MassTransit;
 using AIkailo.Messaging.Messages;
-using AIkailo.Core.Common;
+using AIkailo.Common;
 using AIkailo.External.Common;
 using System.Collections.Generic;
 using AIkailo.Executive;
+using AIkailo.Neural.Core;
 
 namespace AIkailo.Core
 {

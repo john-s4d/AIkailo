@@ -251,13 +251,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AIkailo.NeuralNetwork\AIkailo.NeuralNetwork.csproj">
+    <ProjectReference Include="..\AIkailo.NeuralNetwork\AIkailo.Neural.csproj">
       <Project>{c15edd61-2f62-4915-bb8a-56c6f4a87e66}</Project>
-      <Name>AIkailo.NeuralNetwork</Name>
+      <Name>AIkailo.Neural</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core.Model\AIkailo.Core.Common.csproj">
+    <ProjectReference Include="..\Core.Model\AIkailo.Common.csproj">
       <Project>{085FC83F-08D4-4FFE-B178-0F3B84DFFDA5}</Project>
-      <Name>AIkailo.Core.Common</Name>
+      <Name>AIkailo.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Data\AIkailo.Data.csproj">
       <Project>{bcdbc13c-29eb-4565-96d4-29aa13959b4b}</Project>
@@ -279,9 +279,9 @@
       <Project>{3fcc8004-3929-4ac1-af86-522eecf45976}</Project>
       <Name>AIkailo.Logging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Performance\AIkailo.Performance.csproj">
+    <ProjectReference Include="..\Performance\AIkailo.Metrics.csproj">
       <Project>{ab786fe9-dbc8-46b1-9951-a94a8388bb5c}</Project>
-      <Name>AIkailo.Performance</Name>
+      <Name>AIkailo.Metrics</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

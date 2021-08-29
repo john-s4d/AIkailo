@@ -13,7 +13,7 @@
 using CNTK;
 using System.Linq;
 
-namespace NNetwork.Core.Metrics
+namespace AIkailo.Neural.Core
 {
     /// <summary>
     /// Class implement statistic measures based on CNTK Functions. 

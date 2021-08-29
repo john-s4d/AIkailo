@@ -79,13 +79,13 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AIkailo.NeuralNetwork\AIkailo.NeuralNetwork.csproj">
+    <ProjectReference Include="..\AIkailo.NeuralNetwork\AIkailo.Neural.csproj">
       <Project>{c15edd61-2f62-4915-bb8a-56c6f4a87e66}</Project>
-      <Name>AIkailo.NeuralNetwork</Name>
+      <Name>AIkailo.Neural</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core.Model\AIkailo.Core.Common.csproj">
+    <ProjectReference Include="..\Core.Model\AIkailo.Common.csproj">
       <Project>{085fc83f-08d4-4ffe-b178-0f3b84dffda5}</Project>
-      <Name>AIkailo.Core.Common</Name>
+      <Name>AIkailo.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

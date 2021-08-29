@@ -10,7 +10,10 @@
 // Bihac, Bosnia and Herzegovina                                                         //
 // http://bhrnjica.net                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////
-namespace NNetwork.Core.Common
+
+using AIkailo.Neural.Common;
+
+namespace AIkailo.Neural.Core
 {
     //available network layer in the library
     public enum LayerType

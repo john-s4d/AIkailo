@@ -1,7 +1,7 @@
 ﻿//using AIkailo.External.Common;
 //using QuikGraph;
 
-namespace AIkailo.Core.Common
+namespace AIkailo.Neural.Core
 {
     public class Edge //: IEdge<Node>
     {

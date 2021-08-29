@@ -10,8 +10,10 @@
 // Bihac, Bosnia and Herzegovina                                                         //
 // http://bhrnjica.net                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////
+using AIkailo.Neural.Core;
 using CNTK;
-namespace NNetwork.Core.Network.Modules
+
+namespace AIkailo.Neural.Builder
 {
     /// <summary>
     /// Class implementation of Neural Arithmetic Logic Units (NALU) which
@@ -19,7 +21,7 @@ namespace NNetwork.Core.Network.Modules
     /// language into real-valued scalars, execute computer code, and count objects in 
     /// images https://arxiv.org/abs/1808.00508 
     /// </summary>
-    public class NALU : NeuralNetwork
+    public class NALU : Network
     {
         /// <summary>
         /// Input Variable 

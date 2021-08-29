@@ -11,14 +11,13 @@
 // http://bhrnjica.net                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////
 using CNTK;
-using NNetwork.Core.Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NNetwork.Core
+namespace AIkailo.Neural.Builder
 {
     /// <summary>
     /// Implementation of the LSTM Recurrent Neural Networks

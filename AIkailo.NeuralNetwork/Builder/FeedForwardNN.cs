@@ -10,17 +10,18 @@
 // Bihac, Bosnia and Herzegovina                                                         //
 // http://bhrnjica.net                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////
+using AIkailo.Neural.Common;
+using AIkailo.Neural.Core;
 using CNTK;
-using NNetwork.Core.Common;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NNetwork.Core.Network
+namespace AIkailo.Neural.Builder
 {
     /// <summary>
     /// Implementation of the basic Neural Network layers and activation function
     /// </summary>
-    public class FeedForwaredNN : NeuralNetwork
+    public class FeedForwaredNN : Network
     {
         #region Ctor and Private Members
         protected DeviceDescriptor m_device;

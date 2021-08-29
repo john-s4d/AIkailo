@@ -2,7 +2,7 @@
 //using AIkailo.External.Common;
 using System.Linq;
 using System.Threading.Tasks;
-using AIkailo.Core.Common;
+using AIkailo.Common;
 using System.Collections.Generic;
 
 namespace AIkailo.Data

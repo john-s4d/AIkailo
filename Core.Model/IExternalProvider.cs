@@ -1,10 +1,8 @@
-﻿using AIkailo.Core.Common;
-//using AIkailo.External.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AIkailo.Core.Common
+namespace AIkailo.Common
 {
     public interface IExternalProvider
     {

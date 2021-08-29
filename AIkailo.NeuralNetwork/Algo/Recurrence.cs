@@ -12,13 +12,14 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 
 using CNTK;
-using NNetwork.Core.Common;
-using NNetwork.Core.Network.Modules;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using AIkailo.Neural.Common;
+using AIkailo.Neural.Core;
+using AIkailo.Neural.Builder;
 
-namespace NNetwork.Core.Network
+namespace AIkailo.Neural.Algo
 {
     /// <summary>
     /// Implementation of Recurrent Neural Network
@@ -92,7 +93,7 @@ namespace NNetwork.Core.Network
                 throw new NotSupportedException();
             }
             
-            var net = new NeuralNetwork();
+            var net = new Network();
             var weights = net.Weights(input.Shape.Dimensions.First(), DataType.Float, device);
                                  
             var cudaStackedLSTM =  CNTKLib.OptimizedRNNStack(input, weights, (uint)outputDim, (uint)numLayers, isBidirectional, "lstm");
@@ -108,7 +109,7 @@ namespace NNetwork.Core.Network
                 throw new NotSupportedException();
             }
 
-            var net = new NeuralNetwork();
+            var net = new Network();
             var weights = net.Weights(input.Shape.Dimensions.First(), DataType.Float, device);
 
             var cudaStackedLSTM = CNTKLib.OptimizedRNNStack(input, weights, (uint)outputDim, (uint)numLayers, isBidirectional, "gru");
@@ -124,7 +125,7 @@ namespace NNetwork.Core.Network
                 throw new NotSupportedException();
             }
 
-            var net = new NeuralNetwork();
+            var net = new Network();
             var weights = net.Weights(input.Shape.Dimensions.First(), DataType.Float, device);
 
             var cudaStackedLSTM = CNTKLib.OptimizedRNNStack(input, weights, (uint)outputDim, (uint)numLayers, isBidirectional, "rnnTanh");
@@ -140,7 +141,7 @@ namespace NNetwork.Core.Network
                 throw new NotSupportedException();
             }
 
-            var net = new NeuralNetwork();
+            var net = new Network();
             var weights = net.Weights(input.Shape.Dimensions.First(), DataType.Float, device);
 
             var cudaStackedLSTM = CNTKLib.OptimizedRNNStack(input, weights, (uint)outputDim, (uint)numLayers, isBidirectional, "rnnReLU");

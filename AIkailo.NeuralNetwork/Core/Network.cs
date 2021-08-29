@@ -10,15 +10,15 @@
 // Bihac, Bosnia and Herzegovina                                                         //
 // http://bhrnjica.net                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////
+using AIkailo.Neural.Common;
 using CNTK;
-using NNetwork.Core.Common;
 
-namespace NNetwork.Core.Network
+namespace AIkailo.Neural.Core
 {
     /// <summary>
     /// Class implementation of the basic Neural Network components: Weights, Bias, Layer,etc.
     /// </summary>
-    public class NeuralNetwork
+    public class Network
     {
         /// <summary>
         /// Implementation of the Layer with arbitrary number of neurons. The layer consists of contribution from input(s), hidden, and bias.

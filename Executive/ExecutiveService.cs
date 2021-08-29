@@ -1,4 +1,5 @@
-﻿using AIkailo.Core.Common;
+﻿using AIkailo.Common;
+using AIkailo.Neural.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace AIkailo.Executive
         public AkailoServiceState State { get; private set; }        
         internal INodeProvider NodeProvider { get; private set; }
         internal IExternalProvider ExternalProvider { get; private set; }
+
         public Context Context { get; private set; }
         public Trainer Trainer { get; private set; }
 
@@ -25,9 +27,9 @@ namespace AIkailo.Executive
             Trainer = new Trainer(NodeProvider);
         }
 
-        public void Incoming(Node node)
+        public void Incoming(IEnumerable<Node> nodes)
         {
-            Context.Incoming(node);
+            Context.Incoming(nodes);
         }
 
         public void Start() 

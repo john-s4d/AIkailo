@@ -10,14 +10,15 @@
 // Bihac, Bosnia and Herzegovina                                                         //
 // http://bhrnjica.net                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////
+using AIkailo.Neural.Core;
 using CNTK;
 
-namespace NNetwork.Core.Network.Modules
+namespace AIkailo.Neural.Builder
 {
     /// <summary>
     /// Implementation of Embedding layer. 
     /// </summary>
-    public class Embedding : NeuralNetwork
+    public class Embedding : Network
     {
         /// <summary>
         /// Create embedding layer
@@ -28,7 +29,7 @@ namespace NNetwork.Core.Network.Modules
         /// <returns></returns>
         public static Function Create(Variable x, int embeddingDim, DataType dataType, DeviceDescriptor device, uint seed, string name)
         {
-            var f = new NeuralNetwork();
+            var f = new Network();
             //weights
             var W = f.Weights(embeddingDim, dataType, device, seed, "e");
 

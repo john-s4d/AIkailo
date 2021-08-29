@@ -10,17 +10,19 @@
 // Bihac, Bosnia and Herzegovina                                                         //
 // http://bhrnjica.net                                                                  //
 //////////////////////////////////////////////////////////////////////////////////////////
+using AIkailo.Neural.Common;
+using AIkailo.Neural.Core;
 using CNTK;
-using NNetwork.Core.Common;
 
-namespace NNetwork.Core.Network.Modules
+
+namespace AIkailo.Neural.Builder
 {
     /// <summary>
     /// Class implementation of the typical LSTM cell based on Hochreiter & Schmidhuber (1997) paper
     /// http://www.bioinf.jku.at/publications/older/2604.pdf.
     /// Details of LSTM network can be found here: http://colah.github.io/posts/2015-08-Understanding-LSTMs/
     /// </summary>
-    public class LSTM : NeuralNetwork 
+    public class LSTM : Network 
     {
         /// <summary>
         /// LSTM Cell Input 

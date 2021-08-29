@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AIkailo.Core.Common
+namespace AIkailo.Common
 {
     public interface IAIkailoService //: IDisposable
     {
