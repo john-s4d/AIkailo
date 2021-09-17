@@ -19,6 +19,7 @@ namespace AIkailo.Data
 
         internal void VerifyConnection()
         {
+            // TODO: Catch and handle connection error
             _neo4j.VerifyConnection().Wait();
         }
 
@@ -141,7 +142,7 @@ namespace AIkailo.Data
         }
 
         internal async Task<IEnumerable<IRecord>> GetEdgesTo_Async(IEnumerable<string> ids)
-        {
+        {   
             throw new NotImplementedException();
         }
 

@@ -46,7 +46,8 @@ namespace AIkailo.Core
             ExternalService = new ExternalService();
             ExternalService.Start();
 
-            ExecutiveService = new ExecutiveService(DataService.NodeProvider, ExternalService);
+            //ExecutiveService = new ExecutiveService(DataService.NodeProvider, ExternalService);
+            ExecutiveService = new ExecutiveService(DataService.NodeProvider);
             ExecutiveService.Start();            
         }
 

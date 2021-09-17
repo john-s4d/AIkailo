@@ -22,9 +22,9 @@ namespace AIkailo.Data
 
         /*** Merge ***/
 
-        public Node MergeInputNode(string source, Feature data)
+        public INeuron MergeInputNode(string source, Feature data)
         {
-            var node = new Node() { NodeType = NodeType.INPUT };
+            var neuron = new Neuron() { NodeType = NeuronType.INPUT };
 
             var label = data.Item1;
             var value = data.Item2;
@@ -33,134 +33,134 @@ namespace AIkailo.Data
 
             if (value.TypeCode == TypeCode.Single && value >= -1 && value <= 1)
             {
-                node.Label = $"{source}:{label}"; // TODO: Sanitize,Escape
-                node.Value = value;
+                neuron.Label = $"{source}:{label}"; // TODO: Sanitize,Escape
+                //node.Bias = value;
             }
             else
             {
-                node.Label = $"{source}:{label}:{value}"; // TODO: Sanitize,Escape
-                node.Value = 1;
+                neuron.Label = $"{source}:{label}:{value}"; // TODO: Sanitize,Escape
+                //node.Bias = 1;
             }
 
-            IRecord record = _dataProvider.MergeNode(node.NodeType.ToString(), node.Label);
-            node.Id = record["n.id"].ToString();
+            IRecord record = _dataProvider.MergeNode(neuron.NodeType.ToString(), neuron.Label);
+            neuron.Id = record["n.id"].ToString();
 
-            return node;
+            return neuron;
         }
 
-        public Node MergeOutputNode(string target, Feature data)
+        public INeuron MergeOutputNode(string target, Feature data)
         {
-            var node = new Node() { NodeType = NodeType.OUTPUT };
+            var neuron = new Neuron() { NodeType = NeuronType.OUTPUT };
 
             var label = data.Item1;
             var value = data.Item2;
 
-            // If this is a float between 0-1, apply the value directly to the node.
+            // If this is a float betwewn [-1,1], apply the value directly to the node.
 
             if (value.TypeCode == TypeCode.Single && value >= -1 && value <= 1)
             {
-                node.Label = $"{target}:{label}"; // TODO: Sanitize,Escape
-                node.Value = value;
+                neuron.Label = $"{target}:{label}"; // TODO: Sanitize,Escape
+                //node.Bias = value;
             }
             else
             {
-                node.Label = $"{target}:{label}:{value}"; // TODO: Sanitize,Escape
-                node.Value = 1;
+                neuron.Label = $"{target}:{label}:{value}"; // TODO: Sanitize,Escape
+                //node.Bias = 1;
             }
 
-            IRecord record = _dataProvider.MergeNode(node.NodeType.ToString(), node.Label);
-            node.Id = record["n.id"].ToString();
+            IRecord record = _dataProvider.MergeNode(neuron.NodeType.ToString(), neuron.Label);
+            neuron.Id = record["n.id"].ToString();
 
-            return node;
+            return neuron;
         }
 
-        public Node MergeHintNode(IEnumerable<Node> input, IEnumerable<Node> output)
+        public INeuron MergeHintNode(IEnumerable<INeuron> input, IEnumerable<INeuron> output)
         {
-            var node = new Node() { NodeType = NodeType.HINT };
+            var node = new Neuron() { NodeType = NeuronType.HINT };
 
             IRecord record = _dataProvider.MergeNodeBetween(
                 input.Select(x => x.Id).ToArray(),
                 output.Select(x => x.Id).ToArray(),
-                NodeType.HINT.ToString()
+                NeuronType.HINT.ToString()
              );
 
             node.Id = record["n.id"].ToString();
             return node;
         }
 
-        public IEnumerable<Edge> MergeEdgesBetween(Node startNode, IEnumerable<Node> finishNodes)
+        public IEnumerable<ISynapse> MergeEdgesBetween(INeuron startNode, IEnumerable<INeuron> finishNodes)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Edge> MergeEdgesBetween(IEnumerable<Node> startNodes, Node finishNode)
+        public IEnumerable<ISynapse> MergeEdgesBetween(IEnumerable<INeuron> startNodes, INeuron finishNode)
         {
             throw new NotImplementedException();
         }
 
         /*** Get ***/
 
-        public Node GetInputNode(string source, Feature data)
+        public INeuron GetInputNode(string source, Feature data)
         {
             throw new NotImplementedException();
         }
 
-        public Node GetOutputNode(string source, Feature data)
+        public INeuron GetOutputNode(string source, Feature data)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Node> GetHintNodes(IEnumerable<Node> input, IEnumerable<Node> output)
+        public IEnumerable<INeuron> GetHintNodes(IEnumerable<INeuron> input, IEnumerable<INeuron> output)
         {
             throw new NotImplementedException();
         }
 
-        public void FillForwardEdges(IEnumerable<Node> nodes)
+        public void FillForwardEdges(IEnumerable<INeuron> nodes)
         {
-            Dictionary<string, Node> nodesById = new Dictionary<string, Node>();
+            Dictionary<string, Neuron> nodesById = new Dictionary<string, Neuron>();
 
-            foreach (Node n in nodes)
+            foreach (Neuron n in nodes)
             {
                 nodesById.Add(n.Id, n);
             }
 
             foreach (IRecord record in _dataProvider.GetEdgesFrom(nodesById.Keys))
             {
-                Edge e = new Edge();
-                e.Id = (string)record["e.id"];
-                e.Source = nodesById[(string)record["n1.id"]];
-                e.Target = new Node() { Id = (string)record["n2.id"], NodeType = (NodeType)Enum.Parse(typeof(NodeType), (string)record["n2.type"]) };
-                nodesById[e.Source.Id].AddForwardEdge(e);
+                Synapse e = new Synapse();
+                e.Id = record["e.id"].ToString();
+                e.Source = nodesById[record["n1.id"].ToString()];
+                e.Target = new Neuron() { Id = record["n2.id"].ToString(), NodeType = (NeuronType)Enum.Parse(typeof(NeuronType), (string)record["n2.type"]) };
+                nodesById[e.Source.Id].SynapsesOut.Add(e);
             }
             //return result;
         }
 
-        public IEnumerable<Edge> GetEdgesTo(IEnumerable<Node> finishNodes)
+        public IEnumerable<ISynapse> GetEdgesTo(IEnumerable<INeuron> finishNodes)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Edge> GetEdgesBetween(Node startNode, IEnumerable<Node> finishNodes)
+        public IEnumerable<ISynapse> GetEdgesBetween(INeuron startNode, IEnumerable<INeuron> finishNodes)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Edge> GetEdgesBetween(IEnumerable<Node> startNodes, IEnumerable<Node> finishNodes)
+        public IEnumerable<ISynapse> GetEdgesBetween(IEnumerable<INeuron> startNodes, IEnumerable<INeuron> finishNodes)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Edge> GetEdgesBetween(IEnumerable<Node> startNodes, Node finishNode)
+        public IEnumerable<ISynapse> GetEdgesBetween(IEnumerable<INeuron> startNodes, INeuron finishNode)
         {
             throw new NotImplementedException();
         }
 
-        public List<Node> GetForwardNodes(List<Node> incomingLayer)
+        public List<INeuron> GetForwardNodes(List<INeuron> incomingLayer)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Node> GetEmbeddedInputNodes(Node node)
+        public IEnumerable<INeuron> GetEmbeddedInputNodes(INeuron node)
         {
             throw new NotImplementedException();
         }

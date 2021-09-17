@@ -11,36 +11,37 @@ namespace AIkailo.Executive
     public sealed class ExecutiveService : IAIkailoService
     {
         public string Name { get; } = "AIkailo.ExecutiveService";        
-        public AkailoServiceState State { get; private set; }        
-        internal INodeProvider NodeProvider { get; private set; }
-        internal IExternalProvider ExternalProvider { get; private set; }
+        public AkailoServiceState State { get; private set; }
+        //private INodeProvider _nodeProvider;
+        private ITimeProvider _timeProvider;
+        private Agent _primaryAgent;
 
-        public Context Context { get; private set; }
         public Trainer Trainer { get; private set; }
 
-        public ExecutiveService(INodeProvider nodeProvider, IExternalProvider externalProvider)        
+        public ExecutiveService(INodeProvider nodeProvider)        
         {
-            NodeProvider = nodeProvider;
-            ExternalProvider = externalProvider;
-
-            Context = new Context(NodeProvider, ExternalProvider);
-            Trainer = new Trainer(NodeProvider);
+            _timeProvider = new TimeProvider();
+            _primaryAgent = new Agent(nodeProvider, _timeProvider);
         }
 
-        public void Incoming(IEnumerable<Node> nodes)
+        public void Input(IEnumerable<INeuron> neurons)
         {
-            Context.Incoming(nodes);
+            if (State != AkailoServiceState.STARTED)
+            {
+                throw new InvalidOperationException();
+            }
+            _primaryAgent.Input(neurons);
         }
 
         public void Start() 
         {
-            Context.Start();
+             _timeProvider.Start();
             State = AkailoServiceState.STARTED;
         }
 
         public void Stop()
         {
-            Context.Stop();
+            _timeProvider.Stop();
             State = AkailoServiceState.STOPPED;
         }
     }

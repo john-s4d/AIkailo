@@ -13,7 +13,7 @@
 using AIkailo.Neural.Common;
 using CNTK;
 
-namespace AIkailo.Neural.Core
+namespace AIkailo.Neural.Old.Core
 {
     /// <summary>
     /// Class implementation of the basic Neural Network components: Weights, Bias, Layer,etc.

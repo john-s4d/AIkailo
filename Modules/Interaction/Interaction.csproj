@@ -59,7 +59,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\External.Model\AIkailo.External.Common.csproj">
+    <ProjectReference Include="..\..\External.Common\AIkailo.External.Common.csproj">
       <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
       <Name>AIkailo.External.Common</Name>
     </ProjectReference>

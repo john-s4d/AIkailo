@@ -23,7 +23,7 @@ namespace AIkailo.Neural.Builder
     /// </summary>
     public class FeedForwaredNN : Network
     {
-        #region Ctor and Private Members
+
         protected DeviceDescriptor m_device;
         protected DataType m_DataType = DataType.Float;
         public FeedForwaredNN(DeviceDescriptor device, DataType dataType = DataType.Float)
@@ -31,9 +31,7 @@ namespace AIkailo.Neural.Builder
             m_device = device;
             m_DataType = dataType;
         }
-        #endregion
-
-        #region Public Members
+        
         /// <summary>
         /// Create full Dense layer with specific activation function
         /// </summary>
@@ -137,7 +135,6 @@ namespace AIkailo.Neural.Builder
             var z = Dense(inputVar, outputDim, activation, outputName);
 
             return z;
-        }
-        #endregion
+        }        
     }
 }

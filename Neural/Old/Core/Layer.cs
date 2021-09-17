@@ -13,7 +13,7 @@
 
 using AIkailo.Neural.Common;
 
-namespace AIkailo.Neural.Core
+namespace AIkailo.Neural.Old.Core
 {
     //available network layer in the library
     public enum LayerType

@@ -22,8 +22,8 @@ namespace AIkailo.Core
         {
             Console.WriteLine("TrainingMessageConsumer.Consume(TrainingMessage)");
 
-            List<Node> inputNodes = new List<Node>();
-            List<Node> outputNodes = new List<Node>();
+            List<INeuron> inputNodes = new List<INeuron>();
+            List<INeuron> outputNodes = new List<INeuron>();
 
             foreach (Feature data in context.Message.Input.Data)
             {

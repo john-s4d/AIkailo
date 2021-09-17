@@ -145,21 +145,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Model\AIkailo.Core.Common.csproj">
+    <ProjectReference Include="..\Common\AIkailo.Common.csproj">
       <Project>{085fc83f-08d4-4ffe-b178-0f3b84dffda5}</Project>
       <Name>AIkailo.Core.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\External.Model\AIkailo.External.Common.csproj">
+    <ProjectReference Include="..\External.Common\AIkailo.External.Common.csproj">
       <Project>{67961be6-a4db-4a4c-94b7-8f80946d9f93}</Project>
       <Name>AIkailo.External.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Logging\AIkailo.Logging.csproj">
       <Project>{3fcc8004-3929-4ac1-af86-522eecf45976}</Project>
       <Name>AIkailo.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Performance\AIkailo.Performance.csproj">
-      <Project>{ab786fe9-dbc8-46b1-9951-a94a8388bb5c}</Project>
-      <Name>AIkailo.Performance</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

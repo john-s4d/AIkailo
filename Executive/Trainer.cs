@@ -17,7 +17,7 @@ namespace AIkailo.Executive
             _nodeProvider = nodeProvider;
         }
 
-        public void MergeHint(List<Node> inputNodes, List<Node> outputNodes)
+        public void MergeHint(List<INeuron> inputNodes, List<INeuron> outputNodes)
         {
             // Get/create a hint node with neutral weight connections.
             _ = _nodeProvider.MergeHintNode(inputNodes, outputNodes);

@@ -20,14 +20,14 @@ namespace AIkailo.Core
         {
             Console.WriteLine("InputMessageConsumer.Consume(InputMessage)");
 
-            List<Node> nodes = new List<Node>();
+            List<INeuron> nodes = new List<INeuron>();
 
             foreach (Feature data in context.Message.Data)
             {
                 nodes.Add(_nodeFactory.MergeInputNode(context.Message.Source, data));
             }
             
-            AIkailo.ExecutiveService.Incoming(nodes);
+            AIkailo.ExecutiveService.Input(nodes);
             return Task.CompletedTask;
         }
     }
