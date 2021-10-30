@@ -54,8 +54,10 @@
   <ItemGroup>
     <Compile Include="IExternalProvider.cs" />
     <Compile Include="IAIkailoService.cs" />
+    <Compile Include="INeuralNetwork.cs" />
+    <Compile Include="INeuralSynchronizer.cs" />
     <Compile Include="INeuron.cs" />
-    <Compile Include="INodeProvider.cs" />
+    <Compile Include="INeuronProvider.cs" />
     <Compile Include="ISynapse.cs" />
     <Compile Include="ITimeProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

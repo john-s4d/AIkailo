@@ -2,12 +2,15 @@
 using AIkailo.Messaging;
 using AIkailo.External.Common;
 using AIkailo.Messaging.Messages;
+using System.Collections.Generic;
 
 namespace AIkailo.External
 {
     public class AIkailoAdapter
     {
         private MessageService _messageService;
+
+        public delegate void Input(FeatureArray data);
 
         private AIkailoAdapter() { }
 
@@ -26,29 +29,40 @@ namespace AIkailo.External
             _messageService.Stop();
         }
 
-        public AIkailoInput RegisterInput(string name)
+        public void RegisterInput(string name, out AIkailoInputInterface input)
         {
-            AIkailoInput result = new AIkailoInput(name);
-            result.InputEvent += OnInputEvent;
-            return result;
+            input = new AIkailoInputInterface(name);
+            input.InputEvent += OnInputEvent;     
+         
         }
 
-        public void RegisterOutput(string name, Action<FeatureArray> callback)
+        public void RegisterOutput(string name, Action<Dictionary<ulong,float>> callback)
         {
             AIkailoOutput result = new AIkailoOutput(name);
             _messageService.RegisterConsumer(result.Name, result.Consumer);
             result.OutputEvent += callback;
         }
 
-        private void OnInputEvent(string source, FeatureArray data)
+        //private void OnInputEvent(string source, FeatureArray data)
+        private void OnInputEvent(string source, Dictionary<ulong,float> data)
         {
             _messageService.Publish(new InputMessage(source, data));
         }
 
-        public void Train(TrainingStep flow)
+        /*
+         public void Train(TrainingStep flow)
         {
             InputMessage input = new InputMessage(flow.Source, flow.Input);
             ExternalMessage output = new ExternalMessage(flow.Target, flow.Output);
+
+            _messageService.Publish(new TrainingMessage(input, output));
+        }
+        */
+
+        public void Train(TrainingData data)
+        {
+            InputMessage input = new InputMessage(data.Source, data.Input);
+            ExternalMessage output = new ExternalMessage(data.Target, data.Output);
 
             _messageService.Publish(new TrainingMessage(input, output));
         }

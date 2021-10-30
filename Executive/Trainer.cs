@@ -10,17 +10,11 @@ namespace AIkailo.Executive
 {
     public class Trainer
     {
-        private INodeProvider _nodeProvider;
+        private INeuronProvider _nodeProvider;
 
-        public Trainer(INodeProvider nodeProvider)
+        public Trainer(INeuronProvider nodeProvider)
         {
             _nodeProvider = nodeProvider;
-        }
-
-        public void MergeHint(List<INeuron> inputNodes, List<INeuron> outputNodes)
-        {
-            // Get/create a hint node with neutral weight connections.
-            _ = _nodeProvider.MergeHintNode(inputNodes, outputNodes);
-        }
+        }        
     }
 }

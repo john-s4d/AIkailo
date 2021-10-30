@@ -15,7 +15,7 @@ namespace AIkailo.Core
     {
         private const string MQ_HOST = @"rabbitmq://localhost";
 
-        private const string DATA_DIRECTORY = @"G:\AIkailo\Data\";
+        //private const string DATA_DIRECTORY = @"G:\AIkailo\Data\";
         private const string DATA_HOST = @"bolt://localhost:7687";
         private const string DATA_UN = @"neo4j";
         private const string DATA_PW = @"password";
@@ -23,7 +23,7 @@ namespace AIkailo.Core
         public static MessageService MessageService { get; private set; } 
         public static DataService DataService { get; private set; } 
         public static ExecutiveService ExecutiveService { get; private set; }
-        public static ExternalService ExternalService { get; private set;  }  
+        //public static ExternalService ExternalService { get; private set;  }  
 
         internal AIkailo() : base()
         {
@@ -35,7 +35,7 @@ namespace AIkailo.Core
             // If needed to attach debugger to Service
             // Thread.Sleep(20000); 
 
-            DataService = new DataService(DATA_DIRECTORY, DATA_HOST, DATA_UN, DATA_PW);
+            DataService = new DataService(DATA_HOST, DATA_UN, DATA_PW);
             DataService.Start();
 
             MessageService = new MessageService(MQ_HOST);
@@ -43,11 +43,11 @@ namespace AIkailo.Core
             MessageService.RegisterConsumer<TrainingMessage, TrainingMessageConsumer>("Core.Training");
             MessageService.Start();
 
-            ExternalService = new ExternalService();
-            ExternalService.Start();
+            //ExternalService = new ExternalService();
+            //ExternalService.Start();
 
             //ExecutiveService = new ExecutiveService(DataService.NodeProvider, ExternalService);
-            ExecutiveService = new ExecutiveService(DataService.NodeProvider);
+            ExecutiveService = new ExecutiveService(DataService.NeuronProvider);
             ExecutiveService.Start();            
         }
 

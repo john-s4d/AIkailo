@@ -2,8 +2,8 @@
 {
     public interface ISynapse
     {
-        string Id { get; set; }
-        INeuron Source { get; set; }
-        INeuron Target { get; set; }
+        ulong Id { get; set; }
+        //INeuron Source { get; set; }
+        //INeuron Target { get; set; }
     }
 }

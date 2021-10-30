@@ -14,7 +14,7 @@ namespace AIkailo.Neural.Core
     public class Cluster
     {
         public string Id { get; set; }
-        public List<Neuron> Neurons { get; set; }
+        public List<SpikingNeuron> Neurons { get; set; }
         //public float CurrentCharge { get; set; }
     }
 }

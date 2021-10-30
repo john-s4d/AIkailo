@@ -11,18 +11,18 @@ namespace AIkailo.Data
     {
         public string Name { get; } = "AIkailo.DataService";
         public AkailoServiceState State { get; private set; }
-        public INodeProvider NodeProvider { get; private set; }
+        public INeuronProvider NeuronProvider { get; private set; }
 
         private GraphProvider _dataProvider;
 
-        private readonly string _directory;
+        //private readonly string _directory;
         private readonly string _host;
         private readonly string _username;
         private readonly string _password;
 
-        public DataService(string directory, string host, string username, string password)
+        public DataService(string host, string username, string password)
         {
-            _directory = directory;
+            //_directory = directory;
             _host = host;
             _username = username;
             _password = password;
@@ -33,7 +33,7 @@ namespace AIkailo.Data
             _dataProvider = new GraphProvider(new Neo4jConnection(_host, _username, _password));
             _dataProvider.VerifyConnection();
 
-            NodeProvider = new NodeProvider(_dataProvider);
+            NeuronProvider = new NeuronProvider(_dataProvider);
 
             State = AkailoServiceState.STARTED;
         }

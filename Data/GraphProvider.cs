@@ -23,39 +23,40 @@ namespace AIkailo.Data
             _neo4j.VerifyConnection().Wait();
         }
 
-        internal IRecord MergeNode(string type, string label)
+        internal IRecord MergeNode(string label)
         {
-            return MergeNode_Async(type, label).Result;
+            return MergeNode_Async(label).Result;
         }
 
-        internal IRecord MergeNodeBetween(IEnumerable<string> startIds, IEnumerable<string> finishIds, string type)
+        internal IRecord MergeNodeBetween(IEnumerable<ulong> startIds, IEnumerable<ulong> finishIds)//, string type)
         {
-            return MergeNodeBetween_Async(startIds, finishIds, type).Result;
+            //return MergeNodeBetween_Async(startIds, finishIds, type).Result;
+            return MergeNodeBetween_Async(startIds, finishIds).Result;
         }
 
-        internal IEnumerable<IRecord> GetEdgesFrom(IEnumerable<string> ids)
+        internal IEnumerable<IRecord> GetEdgesFrom(IEnumerable<ulong> ids)
         {
             return GetEdgesFrom_Async(ids).Result;
         }
 
-        internal IEnumerable<IRecord> GetEdgesTo(IEnumerable<string> ids)
+        internal IEnumerable<IRecord> GetEdgesTo(IEnumerable<ulong> ids)
         {
             return GetEdgesTo_Async(ids).Result;
         }
 
-        internal IEnumerable<IRecord> GetEdgesBetween(IEnumerable<string> startIds, string finishId)
+        internal IEnumerable<IRecord> GetEdgesBetween(IEnumerable<ulong> startIds, ulong finishId)
         {
             return GetEdgesBetween_Async(startIds, finishId).Result;
         }
 
-        internal IEnumerable<IRecord> GetEdgesBetween(string startId, IEnumerable<string> finishIds)
+        internal IEnumerable<IRecord> GetEdgesBetween(ulong startId, IEnumerable<ulong> finishIds)
         {
             return GetEdgesBetween_Async(startId, finishIds).Result;
         }
 
         /*** Asynchronous ***/
 
-        private async Task<IRecord> MergeNode_Async(string type, string label)
+        private async Task<IRecord> MergeNode_Async(string label)
         {
             IAsyncSession session = _neo4j.NewAsyncSession();
             IAsyncTransaction tx = await session.BeginTransactionAsync();
@@ -64,7 +65,7 @@ namespace AIkailo.Data
             {
                 IResultCursor result = await tx.RunAsync(
                         GraphQuery.MERGE_NODE_FROM_LABEL,
-                        new { type, label }
+                        new { label }
                     ); ;
                 
                 IRecord record = await result.SingleAsync();
@@ -85,7 +86,7 @@ namespace AIkailo.Data
             }
         }
 
-        private async Task<IRecord> MergeNodeBetween_Async(IEnumerable<string> startIds, IEnumerable<string> finishIds, string type)
+        private async Task<IRecord> MergeNodeBetween_Async(IEnumerable<ulong> startIds, IEnumerable<ulong> finishIds)//, string type)
         {
 
             IAsyncSession session = _neo4j.NewAsyncSession();
@@ -95,7 +96,7 @@ namespace AIkailo.Data
             {
                 IResultCursor result = await tx.RunAsync(
                         GraphQuery.MERGE_NODE_BETWEEN_MULTIPLE_NODES,
-                        new { startIds, finishIds, type }
+                        new { startIds, finishIds }//, type }
                     ); ;
 
                 IRecord record = await result.SingleAsync();
@@ -116,7 +117,7 @@ namespace AIkailo.Data
             }
         }
 
-        internal async Task<IEnumerable<IRecord>> GetEdgesFrom_Async(IEnumerable<string> ids)
+        internal async Task<IEnumerable<IRecord>> GetEdgesFrom_Async(IEnumerable<ulong> ids)
         {
             IAsyncSession session = _neo4j.NewAsyncSession();
             IAsyncTransaction tx = await session.BeginTransactionAsync();
@@ -141,17 +142,17 @@ namespace AIkailo.Data
             }
         }
 
-        internal async Task<IEnumerable<IRecord>> GetEdgesTo_Async(IEnumerable<string> ids)
+        internal async Task<IEnumerable<IRecord>> GetEdgesTo_Async(IEnumerable<ulong> ids)
         {   
             throw new NotImplementedException();
         }
 
-        internal async Task<IEnumerable<IRecord>> GetEdgesBetween_Async(string startId, IEnumerable<string> finishIds)
+        internal async Task<IEnumerable<IRecord>> GetEdgesBetween_Async(ulong startId, IEnumerable<ulong> finishIds)
         {
             throw new NotImplementedException();
         }
 
-        internal async Task<IEnumerable<IRecord>> GetEdgesBetween_Async(IEnumerable<string> startIds, string finishId)
+        internal async Task<IEnumerable<IRecord>> GetEdgesBetween_Async(IEnumerable<ulong> startIds, ulong finishId)
         {
             throw new NotImplementedException();
         }

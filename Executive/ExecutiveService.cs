@@ -1,4 +1,5 @@
 ﻿using AIkailo.Common;
+using AIkailo.External.Common;
 using AIkailo.Neural.Core;
 using System;
 using System.Collections.Generic;
@@ -12,36 +13,25 @@ namespace AIkailo.Executive
     {
         public string Name { get; } = "AIkailo.ExecutiveService";        
         public AkailoServiceState State { get; private set; }
-        //private INodeProvider _nodeProvider;
-        private ITimeProvider _timeProvider;
-        private Agent _primaryAgent;
+        public Agent PrimaryAgent { get; private set; }
 
-        public Trainer Trainer { get; private set; }
+        private ITimeProvider _time;        
 
-        public ExecutiveService(INodeProvider nodeProvider)        
+        public ExecutiveService(INeuronProvider nodeProvider)        
         {
-            _timeProvider = new TimeProvider();
-            _primaryAgent = new Agent(nodeProvider, _timeProvider);
-        }
-
-        public void Input(IEnumerable<INeuron> neurons)
-        {
-            if (State != AkailoServiceState.STARTED)
-            {
-                throw new InvalidOperationException();
-            }
-            _primaryAgent.Input(neurons);
-        }
+            _time = new TimeProvider();
+            PrimaryAgent = new Agent(nodeProvider, _time);
+        }        
 
         public void Start() 
         {
-             _timeProvider.Start();
+            _time.Start();
             State = AkailoServiceState.STARTED;
         }
 
         public void Stop()
         {
-            _timeProvider.Stop();
+            _time.Stop();
             State = AkailoServiceState.STOPPED;
         }
     }

@@ -5,6 +5,7 @@ using AIkailo.External.Common;
 using MassTransit;
 using AIkailo.Messaging.Messages;
 using AIkailo.Common;
+using System.Collections.Generic;
 
 namespace AIkailo.Core
 {
@@ -15,11 +16,12 @@ namespace AIkailo.Core
             Console.WriteLine("OutputMessageConsumer.Consume(OutputMessage)");
 
             // Send the message to an external target
-            var message = new ExternalMessage("Interaction.Output", new FeatureArray { { "output", "bar" } });
 
-            ISendEndpoint endpoint = await context.GetSendEndpoint(new Uri($"rabbitmq://localhost/{message.Target}"));
+            //ISendEndpoint endpoint = await context.GetSendEndpoint(new Uri($"rabbitmq://localhost/{message.Target}"));
 
-            await endpoint.Send(message);
+            //await endpoint.Send(message);
+
+            throw new NotImplementedException();
 
         }
     }

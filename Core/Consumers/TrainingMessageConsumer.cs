@@ -7,35 +7,38 @@ using AIkailo.Common;
 using AIkailo.External.Common;
 using System.Collections.Generic;
 using AIkailo.Executive;
-using AIkailo.Neural.Core;
 
 namespace AIkailo.Core
 {
-    // Create a hint between the input and output nodes
-
     internal class TrainingMessageConsumer : IMessageConsumer<TrainingMessage>
     {
-        private INodeProvider _nodeProvider = AIkailo.DataService.NodeProvider;
-        private Trainer _trainer = AIkailo.ExecutiveService.Trainer;
-
         public Task Consume(ConsumeContext<TrainingMessage> context)
         {
             Console.WriteLine("TrainingMessageConsumer.Consume(TrainingMessage)");
 
-            List<INeuron> inputNodes = new List<INeuron>();
-            List<INeuron> outputNodes = new List<INeuron>();
+            string source = context.Message.Input.Source;
+            Dictionary<ulong, float> input = context.Message.Input.Data;
+            Dictionary<string, float> inputData = new Dictionary<string, float>();
 
-            foreach (Feature data in context.Message.Input.Data)
+            // Source is added as prefix to the neuron Id
+            foreach (ulong key in input.Keys)
             {
-                inputNodes.Add(_nodeProvider.MergeInputNode(context.Message.Input.Source, data));
+                if (input[key] == 0) { continue; } // Skip empty values
+                inputData.Add($"{source}:{key}", input[key]);
             }
 
-            foreach (Feature data in context.Message.Output.Data)
+            string target = context.Message.Output.Target;
+            Dictionary<ulong, float> output = context.Message.Output.Data;
+            Dictionary<string, float> outputData = new Dictionary<string, float>();
+
+            // Target is added as prefix to the neuron Id
+            foreach (ulong key in output.Keys)
             {
-                outputNodes.Add(_nodeProvider.MergeOutputNode(context.Message.Output.Target, data));
+                if (output[key] == 0) { continue; } // Skip empty values
+                outputData.Add($"{target}:{key}", output[key]);
             }
 
-            _trainer.MergeHint(inputNodes, outputNodes);
+            AIkailo.ExecutiveService.PrimaryAgent.Train(inputData, outputData);
 
             return Task.CompletedTask;
         }

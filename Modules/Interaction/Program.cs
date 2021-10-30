@@ -10,16 +10,15 @@ namespace AIkailo.Modules.Interaction
         private const string HOST = @"rabbitmq://localhost";
 
         private static AIkailoAdapter _adapter = new AIkailoAdapter(HOST);
-        private static AIkailoInput _input;
+        private static AIkailoInputInterface _inputInterface;
 
         private const string INPUT_NAME = "Interaction.Input";
         private const string OUTPUT_NAME = "Interaction.Output";
 
         internal static void Main(string[] args)
         {
-
-            _input = _adapter.RegisterInput(INPUT_NAME);
-            _adapter.RegisterOutput(OUTPUT_NAME, OnOutputEvent);
+            _adapter.RegisterInput(INPUT_NAME, out _inputInterface);
+            _adapter.RegisterOutput(OUTPUT_NAME, Output);
             _adapter.Start();
 
             Train();
@@ -29,11 +28,17 @@ namespace AIkailo.Modules.Interaction
             _adapter.Stop();            
         }
 
-        private static void OnOutputEvent(FeatureArray data)
+        private static void Output(FeatureArray data)
         {
             Console.WriteLine("output:> " + data[0].Item1 + " : " + data[0].Item2);
             //Console.Write("input:> ");
         }
+
+        private static void Input(FeatureArray data)
+        {
+            _inputInterface.Input(data);
+        }
+      
 
         private static void Train()
         {
@@ -68,7 +73,7 @@ namespace AIkailo.Modules.Interaction
                     { "input", value }
                 };
 
-                _input.OnInputEvent(data);
+                Input(data);
 
                 //await _input.CreateInputEvent(data);
 
@@ -77,5 +82,7 @@ namespace AIkailo.Modules.Interaction
             while (true);
 
         }
+
+       
     }
 }

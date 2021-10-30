@@ -68,9 +68,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Cluster.cs" />
-    <Compile Include="Core\Network.cs" />
-    <Compile Include="Core\Neuron.cs" />
-    <Compile Include="Core\Synapse.cs" />
+    <Compile Include="Core\SpikingNetworkAlgorithms.cs" />
+    <Compile Include="Core\SpikingNeuralNetwork.cs" />
+    <Compile Include="Core\SpkingNeuron.cs" />
+    <Compile Include="Core\SpikingSynapse.cs" />
+    <Compile Include="Core\SpikingNeuralSynchronizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
