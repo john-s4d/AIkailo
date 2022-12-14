@@ -18,6 +18,7 @@ namespace AIkailo.Core
 
             string source = context.Message.Input.Source;
             Dictionary<ulong, float> input = context.Message.Input.Data;
+
             Dictionary<string, float> inputData = new Dictionary<string, float>();
 
             // Source is added as prefix to the neuron Id

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace AIkailo.Data
 {
+    
     public class NeuronProvider : INeuronProvider
     {
         private GraphProvider _dataProvider;
@@ -27,8 +28,9 @@ namespace AIkailo.Data
 
         public INeuron MergeInputNeuron(string source, Feature data)
         {
+            
             var neuron = new SpikingNeuron();// { NodeType = NeuronType.INPUT };
-
+            /*
             var label = data.Item1;
             var value = data.Item2;
 
@@ -37,7 +39,7 @@ namespace AIkailo.Data
             if (value.TypeCode == TypeCode.Single && value >= -1 && value <= 1)
             {
                 neuron.Label = $"{source}:{label}"; // TODO: Sanitize,Escape
-                neuron.Generate(value);
+                neuron.Charge(value);
             }
             else
             {
@@ -46,14 +48,14 @@ namespace AIkailo.Data
 
             IRecord record = _dataProvider.MergeNode(neuron.Label);
             neuron.Id = (ulong)record["n.id"];
-
+            */
             return neuron;
         }
 
         public INeuron MergeOutputNeuron(string target, Feature data)
         {
             var neuron = new SpikingNeuron();
-
+            /*
             var label = data.Item1;
             var value = data.Item2;
 
@@ -71,7 +73,7 @@ namespace AIkailo.Data
 
             IRecord record = _dataProvider.MergeNode(neuron.Label);
             neuron.Id = (ulong)record["n.id"];
-
+            */
             return neuron;
         }
         
@@ -127,7 +129,7 @@ namespace AIkailo.Data
 
             foreach (IRecord record in _dataProvider.GetEdgesFrom(NeuronsById.Keys))
             {
-                Synapse e = new Synapse();
+                SpikingSynapse e = new SpikingSynapse();
                 e.Id = (ulong)record["e.id"];
                 e.Source = NeuronsById[(ulong)record["n1.id"]];
                 e.Target = new SpikingNeuron() { Id = (ulong)record["n2.id"]};

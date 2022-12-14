@@ -16,12 +16,42 @@ namespace AIkailo.Neural.Core
         private Dictionary<ulong, SpikingNeuron> _neuronsById = new Dictionary<ulong, SpikingNeuron>();
         private Dictionary<string, SpikingNeuron> _neuronsByLabel = new Dictionary<string, SpikingNeuron>();
 
+        private Queue<SpikingNeuron> _spikedOutputNeurons = new Queue<SpikingNeuron>();
+        private Queue<Tuple<ulong,float>> _incomingCharges = new Queue<Tuple<ulong, float>>();
+
         public event Action<Dictionary<string, float>> Output;
+        public event Action<Dictionary<ulong, float>> NeuronActivity;
+        public event Action<Dictionary<ulong, float>> ClusterActivity;
 
         public SpikingNeuralNetwork(INeuronProvider neuronProvider, ITimeProvider timeProvider)
         {
             _synchronizer = new SpikingNeuralSynchronizer(timeProvider);
             _neuronProvider = neuronProvider;
+            
+            _synchronizer.Charge += Charge;
+            _synchronizer.PostSpike += PostSpike;
+            
+        }
+
+        private void Charge()
+        {
+            while(_incomingCharges.Count > 0)
+            {
+                Tuple<ulong, float> charge = _incomingCharges.Dequeue();
+                _neuronsById[charge.Item1].Charge(charge.Item2);
+            }
+        }
+
+        private void PostSpike()
+        {
+            Dictionary<string, float> output = new Dictionary<string, float>();
+            
+            while(_spikedOutputNeurons.Count > 0)
+            {
+                SpikingNeuron neuron = _spikedOutputNeurons.Dequeue();
+                output.Add(neuron.Label, neuron.Potential);
+            }
+            Output?.Invoke(output);            
         }
 
         public float AverageThreshold()
@@ -41,27 +71,51 @@ namespace AIkailo.Neural.Core
 
         public void Input(Dictionary<string, float> data)
         {
+            foreach(KeyValuePair<string, float> dataPoint in data)
+            {
+                _incomingCharges.Enqueue(new Tuple<ulong,float>(_neuronsByLabel[dataPoint.Key].Id, dataPoint.Value));
+            }
+        }
+
+        public void ClusterModification(Dictionary<ulong, Tuple<ulong, float>> data)
+        {
             throw new NotImplementedException();
         }
 
-        public void LoadNeurons(IEnumerable<string> labels)
+        public void LoadNeurons(NeuronType type, IEnumerable<string> labels)
         {
             foreach (string label in labels)
             {
                 if (!_neuronsByLabel.ContainsKey(label))
                 {
                     //SpikingNeuron neuron = _neuronProvider.MergeNeuron(label);
-                    SpikingNeuron neuron = new SpikingNeuron(label, _neuronProvider.NextId(), _synchronizer);
+                    SpikingNeuron neuron = new SpikingNeuron(type, label, _neuronProvider.NextId(), _synchronizer);
 
-                    // Set defaults. Using network averages. Arbitrary numbers will probably need to be updated to something more appropriate.
-                    neuron.Threshold = _neuronsById.Count > 0 ? AverageThreshold() : 0.1F;
-                    neuron.Rest = _neuronsById.Count > 0 ? AverageRest() : 0.01F;
-                    neuron.Leak = _neuronsById.Count > 0 ? AverageLeak() : 0.001F;
+                    // Set initial values.
+                    if (type == NeuronType.HIDDEN)
+                    {
+                        if (_neuronsById.Count > 0)
+                        {
+                            neuron.Threshold = AverageThreshold();
+                            neuron.Rest = AverageRest();
+                            neuron.Leak = AverageLeak();
+                        }
+                    }
 
                     _neuronsByLabel.Add(neuron.Label, neuron);
                     _neuronsById.Add(neuron.Id, neuron);
+                    neuron.Spike += Neuron_Spike;
                 }
             }
+        }
+
+        private void Neuron_Spike(SpikingNeuron neuron)
+        {
+            if (neuron.Type == NeuronType.OUTPUT)
+            {
+                _spikedOutputNeurons.Enqueue(neuron);
+            }
+            
         }
 
         /// <summary>
@@ -69,7 +123,7 @@ namespace AIkailo.Neural.Core
         /// </summary>
         /// <param name="input"></param>
         /// <param name="output"></param>
-        public void CreateAndTrainAssociation(Dictionary<string, float> input, Dictionary<string, float> output)
+        public void CreateAndTrainAssociations(Dictionary<string, float> input, Dictionary<string, float> output)
         {            
             
             // It's expected that all the provided neurons already exist in the network
@@ -86,15 +140,16 @@ namespace AIkailo.Neural.Core
 
             if (intersectingNeurons.Count() == 0)
             {
-                newNeuron = new SpikingNeuron(_neuronProvider.NextId(), _synchronizer);
+                newNeuron = new SpikingNeuron(NeuronType.HIDDEN, _neuronProvider.NextId(), _synchronizer);
 
                 foreach(SpikingNeuron inputNeuron in inputNeurons)
                 {
-                    inputNeuron.CreateSynapseTo(newNeuron);
+                    SpikingNeuron.CreateSynapse(inputNeuron, newNeuron);                    
+                    
                 }
                 foreach(SpikingNeuron outputNeuron in outputNeurons)
                 {
-                    outputNeuron.CreateSynapseFrom(newNeuron);
+                    SpikingNeuron.CreateSynapse(newNeuron, outputNeuron);                    
                 }
             }
 
@@ -105,15 +160,27 @@ namespace AIkailo.Neural.Core
                 throw new NotImplementedException();
             }
 
-            Train(input, output, newNeuron);
-
             _neuronsById.Add(newNeuron.Id, newNeuron);
 
+            Train(input, output, newNeuron);
         }
 
         public void Train(Dictionary<string, float> input, Dictionary<string, float> output, SpikingNeuron neuron)
         {
-            // Set weights of the neuron & synapses so the input will generate the output.            
+            // Set weights of the neuron & synapses so the input will generate the outpumt.
+
+            foreach (string label in output.Keys)
+            {
+                //_neuronsByLabel[label].Threshold = output[label];
+            }
+
+
+            foreach (string label in input.Keys)
+            {
+                //_neuronsByLabel[label].Threshold = input[label];
+            }
+
+            
             throw new NotImplementedException();
         }
 

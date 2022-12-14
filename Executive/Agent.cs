@@ -11,11 +11,21 @@ namespace AIkailo.Executive
 {
     public class Agent
     {
+
+        public Action<Dictionary<string, float>> Output;
+
+        // Eventually we will have multiple networks working together.
         private readonly SpikingNeuralNetwork _network;        
 
         internal Agent(INeuronProvider neuronProvider, ITimeProvider timeProvider)
         {
-            _network = new SpikingNeuralNetwork(neuronProvider, timeProvider);            
+            _network = new SpikingNeuralNetwork(neuronProvider, timeProvider);
+            _network.Output += _network_Output;
+        }
+
+        private void _network_Output(Dictionary<string, float> output)
+        {
+            Output?.Invoke(output);
         }
 
         public void Input(Dictionary<string, float> data)
@@ -27,11 +37,11 @@ namespace AIkailo.Executive
         {
 
             // Ensure neurons exist
-            _network.LoadNeurons(input.Keys);
-            _network.LoadNeurons(output.Keys);
+            _network.LoadNeurons(NeuronType.INPUT, input.Keys);
+            _network.LoadNeurons(NeuronType.OUTPUT, output.Keys);
 
             // Connect input <=> output with a single neuron in between and set initial weights of the neuron & synapses
-            _network.CreateAndTrainAssociation(input, output);
+            _network.CreateAndTrainAssociations(input, output);
 
             // Normalize all the neurons and synapses between these two sets
             _network.Normalize(input.Keys, output.Keys);

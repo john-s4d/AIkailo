@@ -31,7 +31,7 @@ namespace AIkailo.Data
         public void Start()
         {
             _dataProvider = new GraphProvider(new Neo4jConnection(_host, _username, _password));
-            _dataProvider.VerifyConnection();
+            //_dataProvider.VerifyConnection();
 
             NeuronProvider = new NeuronProvider(_dataProvider);
 

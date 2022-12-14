@@ -67,7 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Cluster.cs" />
+    <Compile Include="Core\SpikingCluster.cs" />
     <Compile Include="Core\SpikingNetworkAlgorithms.cs" />
     <Compile Include="Core\SpikingNeuralNetwork.cs" />
     <Compile Include="Core\SpkingNeuron.cs" />

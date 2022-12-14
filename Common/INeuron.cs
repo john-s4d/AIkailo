@@ -5,8 +5,10 @@ namespace AIkailo.Common
 {
     public interface INeuron
     {
-        ulong Id { get; set; }
-        Property Label { get; set; }
+        ulong Id { get; }
+        Property Label { get; }
+        NeuronType Type { get; }
+
         //IEnumerable<ISynapse> SynapsesOut { get; }
     }
 }

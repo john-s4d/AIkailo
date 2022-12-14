@@ -60,6 +60,7 @@
     <Compile Include="INeuronProvider.cs" />
     <Compile Include="ISynapse.cs" />
     <Compile Include="ITimeProvider.cs" />
+    <Compile Include="NeuronType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -25,17 +25,18 @@ namespace AIkailo.Neural.Core
 
         public ulong Id { get; set; }
         public Property Label { get; set; }
+        public NeuronType Type { get; private set; }
 
         public List<SpikingSynapse> SynapsesOut { get; } = new List<SpikingSynapse>();
         public List<SpikingSynapse> SynapsesIn { get; } = new List<SpikingSynapse>();
         public SpikingNeuralSynchronizer Synchronizer { get; set; }
 
+        //TODO: Arbitrary default values will probably need to be updated to something more appropriate.
         public float Potential { get; set; } // Current Potential
         public float Threshold { get; set; } // Neuron spikes when [Absolute Potential > Threshold]
-        public float Leak { get; set; } // Rate at which the Potential tends towards Rest
         public float Rest { get; set; } // Potential at Rest. TODO: Variable based on external cluster Potential
-
-
+        public float Leak { get; set; } // Rate at which the Potential tends towards Rest
+        
         private bool _doCharge;
         private bool _doSpike;
         private bool _doLeak;
@@ -44,14 +45,28 @@ namespace AIkailo.Neural.Core
         private float _incomingPotential = 0;
         private bool _isSpiking = false;
 
-        public SpikingNeuron(ulong id, SpikingNeuralSynchronizer synchronizer)
-            : this(null, id, synchronizer) { }
-
-        public SpikingNeuron(string label, ulong id, SpikingNeuralSynchronizer synchronizer)
+        public SpikingNeuron()
         {
+            throw new NotImplementedException();
+        }
+
+        public SpikingNeuron(NeuronType type, ulong id, SpikingNeuralSynchronizer synchronizer)
+            : this(type, null, id, synchronizer) { }
+
+        public SpikingNeuron(NeuronType type, string label, ulong id, SpikingNeuralSynchronizer synchronizer)
+        {
+            Type = type;
             Label = label;
             Id = id;
             Synchronizer = synchronizer;
+
+            if (type == NeuronType.HIDDEN)
+            {
+                Threshold = 0.6F;
+                Rest = 0.06F;
+                Leak = 0.006F;
+            }
+
             //Synchronize();
         }
 
@@ -86,9 +101,8 @@ namespace AIkailo.Neural.Core
             }
         }
 
-        // Neuron generates its own Potential (ie: input)                
-        // TODO: Connect inputs to synapses instead of neurons?        
-        public void Generate(float potential)
+        // Neuron generates its own Potential (ie: input)                        
+        public void Charge(float potential)
         {
             _incomingPotential += potential;
 
@@ -99,18 +113,13 @@ namespace AIkailo.Neural.Core
             }
         }
 
-        internal void CreateSynapseTo(SpikingNeuron targetNeuron)
+        internal static void CreateSynapse(SpikingNeuron source, SpikingNeuron target)
         {
             SpikingSynapse synapse = new SpikingSynapse();
-            synapse.Source = this;
-            synapse.Target = targetNeuron;
-        }
-
-        internal void CreateSynapseFrom(SpikingNeuron sourceNeuron)
-        {
-            SpikingSynapse synapse = new SpikingSynapse();
-            synapse.Source = sourceNeuron;
-            synapse.Target = this;
+            synapse.Source = source;
+            synapse.Target = target;
+            source.SynapsesOut.Add(synapse);
+            target.SynapsesIn.Add(synapse);
         }
 
         private void OnCharge()
